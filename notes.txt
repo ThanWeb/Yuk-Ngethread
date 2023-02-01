@@ -27,10 +27,10 @@ method POST, endpoint /threads
 getAllThreads(): mendapatkan seluruh daftar thread. 
 method GET, endpoint /threads
 
-getDetailThread(): mendapatkan detail dari sebuah thread. 
+getDetailThread(id): mendapatkan detail dari sebuah thread. 
 method GET, endpoint /threads/<threadId>
 
-createCommentThread({content}) : menambahkan komentar pada sebuah thread.
+createCommentThread(content, id) : menambahkan komentar pada sebuah thread.
 method POST, endpoint /threads/<threadId>/comments
 
 giveUpVoteThread() : menambahkan voting naik pada sebuah thread.
