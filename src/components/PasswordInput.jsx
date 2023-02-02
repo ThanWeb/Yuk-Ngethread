@@ -3,12 +3,12 @@ import PropTypes from 'prop-types'
 const PasswordInput = ({ props }) => {
     return (
         <div className='input-field password-field'>
-            <label htmlFor='password'>Kata Sandi</label>
+            <label htmlFor='password'>Password</label>
             <input id='password' type={props.isShowed ? 'text' : 'password'} value={props.password} onChange={props.setPassword} placeholder={props.placeholder} required/>
             {
                 props.isShowed
-                    ? <img src='icons/open-eye.png' onClick={() => props.setShowed(false)} className='icons' alt='Sembunyikan' title='Sembunyikan'/>
-                    : <img src='icons/shut-eye.png' onClick={() => props.setShowed(true)} className='icons' alt='Tampilkan' title='Tampilkan'/>
+                    ? <img src='icons/open-eye.png' onClick={() => props.setShowed(false)} className='icons' alt='Show' title='Show'/>
+                    : <img src='icons/shut-eye.png' onClick={() => props.setShowed(true)} className='icons' alt='Hide' title='Hide'/>
             }
         </div>
     )
