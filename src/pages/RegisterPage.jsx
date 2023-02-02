@@ -62,7 +62,7 @@ const RegisterPage = () => {
                         }}
                     />
                     <div>
-                        <button type='button' onClick={() => onRegisterHandler({ name, email, password })} disabled={!name || !isEmailValid || password.length < 6}>Sign in</button>
+                        <button type='button' onClick={() => onRegisterHandler({ name, email, password })} disabled={!name || !isEmailValid || password.length < 6}>Sign up</button>
                     </div>
                 </form>
             </div>
