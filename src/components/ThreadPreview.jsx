@@ -5,7 +5,7 @@ import useInput from '../hooks/useInput'
 import { getFormattedDateString } from '../utils'
 import TextInput from '../components/TextInput'
 
-const ThreadPreview = ({ thread, users }) => {
+const ThreadPreview = ({ thread, users, authUser }) => {
     const [avatar, setAvatar] = useState('')
     const [name, setName] = useState('')
     const [showCommentSection, setShowCommentSection] = useState(false)
@@ -92,15 +92,25 @@ const ThreadPreview = ({ thread, users }) => {
             {
                 showVoteSection &&
                 <div className='vote-section'>
-                    <button type='button'>Up</button>
-                    <button type='button'>Neutral</button>
-                    <button type='button'>Down</button>
+                    <div className='user-section'>
+                        <img src={authUser.avatar} alt={authUser.name} title={authUser.name} />
+                        <span>{authUser.name}</span>
+                    </div>
+                    <div className='buttons-section'>
+                        <button type='button'>Up</button>
+                        <button type='button'>Neutral</button>
+                        <button type='button'>Down</button>
+                    </div>
                 </div>
             }
             {
                 showCommentSection &&
                 <div className='comment-section'>
-                    <form>
+                    <div className='user-section'>
+                        <img src={authUser.avatar} alt={authUser.name} title={authUser.name} />
+                        <span>{authUser.name}</span>
+                    </div>
+                    <form className='form-section'>
                         <TextInput
                             props={{
                                 value: comment,
@@ -123,7 +133,8 @@ const ThreadPreview = ({ thread, users }) => {
 
 ThreadPreview.propTypes = {
     thread: PropTypes.object,
-    users: PropTypes.array
+    users: PropTypes.array,
+    authUser: PropTypes.object
 }
 
 export default ThreadPreview

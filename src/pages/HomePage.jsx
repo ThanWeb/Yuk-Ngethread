@@ -5,7 +5,7 @@ import { asyncPopulateUsersAndThreads } from '../states/shared/action'
 import ThreadPreview from '../components/ThreadPreview'
 
 const HomePage = () => {
-    const { threads = [], users = [] } = useSelector((states) => states)
+    const { threads = [], users = [], authUser } = useSelector((states) => states)
     const dispatch = useDispatch()
 
     useEffect(() => {
@@ -16,7 +16,7 @@ const HomePage = () => {
         <div className='home-page'>
             {
                 threads.map((thread, index) =>
-                    <ThreadPreview key={index} thread={thread} users={users} />
+                    <ThreadPreview key={index} thread={thread} users={users} authUser={authUser} />
                 )
             }
         </div>
