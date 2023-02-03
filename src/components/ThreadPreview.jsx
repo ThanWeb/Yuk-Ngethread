@@ -2,8 +2,11 @@ import { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
 import useInput from '../hooks/useInput'
-import { getFormattedDateString } from '../utils'
+import parse from 'html-react-parser'
+import { findWhoGiveVote } from '../utils'
 import TextInput from '../components/TextInput'
+import ThreadOwner from '../components/ThreadOwner'
+import ThreadInfo from '../components/ThreadInfo'
 
 const ThreadPreview = ({ thread, users, authUser }) => {
     const [avatar, setAvatar] = useState('')
@@ -36,11 +39,6 @@ const ThreadPreview = ({ thread, users, authUser }) => {
         setName(currentUser.name)
     }
 
-    const findWhoGiveVote = (id) => {
-        const currentUser = users.find((user) => user.id === id)
-        return currentUser.name
-    }
-
     if (!avatar || !name) {
         return (
             <p>Loading</p>
@@ -50,25 +48,19 @@ const ThreadPreview = ({ thread, users, authUser }) => {
     return (
         <div className='thread-preview'>
             <div className='header-section'>
-                <div className='owner-avatar'>
-                    <img src={avatar} alt={name} title={name} />
-                </div>
-                <div className='thread-info'>
-                    <p className='thread-category'>#{thread.category}</p>
-                    <h3 className='owner-info'><Link to={`/threads/${thread.id}`}>{thread.title}</Link></h3>
-                    <p className='thread-created'>{getFormattedDateString(thread.createdAt)}</p>
-                </div>
+                <ThreadOwner avatar={avatar} name={name} />
+                <ThreadInfo category={thread.category} id={thread.id} title={thread.title} createdAt={thread.createdAt} />
             </div>
             <div className='content-section'>
                 <h4 className='thread-title'>{thread.title}</h4>
-                <p className='thread-body'>{thread.body}</p>
+                <p className='thread-body'>{parse(thread.body)}</p>
             </div>
             <div className='responses-section'>
                 <div className='info-response'>
                     {
                         thread.upVotesBy.length + thread.downVotesBy.length > 0
                             ? <p>
-                                <span>{findWhoGiveVote(thread.upVotesBy[thread.upVotesBy.length - 1])}</span>
+                                <span>{findWhoGiveVote(users, thread.upVotesBy[thread.upVotesBy.length - 1])}</span>
                                 {
                                     thread.upVotesBy.length + thread.downVotesBy.length > 1 &&
                                     <span> and {thread.upVotesBy.length + thread.downVotesBy.length - 1} more</span>
