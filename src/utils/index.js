@@ -18,4 +18,9 @@ const getFormattedDateString = (isoDate) => {
     return `${days[date.getDay()]}, ${date.getDate()} ${months[date.getMonth()]} ${date.getFullYear()} at ${hours}:${minutes}:${seconds}`
 }
 
-export { checkEmailIsValid, getFormattedDateString }
+const findWhoGiveVote = (users, id) => {
+    const currentUser = users.find((user) => user.id === id)
+    return currentUser.name
+}
+
+export { checkEmailIsValid, getFormattedDateString, findWhoGiveVote }
