@@ -1,4 +1,4 @@
-// import api from '../../utils/api'
+import api from '../../utils/api'
 
 const ActionType = {
     RECEIVE_THREADS: 'RECEIVE_THREADS',
@@ -18,7 +18,29 @@ const receiveThreadsActionCreator = (threads) => {
     }
 }
 
+const createThreadActionCreator = (thread) => {
+    return {
+        type: ActionType.CREATE_THREAD,
+        payload: {
+            thread
+        }
+    }
+}
+
+const asyncCreateThread = ({ title, body, category }) => {
+    return async (dispatch) => {
+        try {
+            const thread = await api.createThread({ title, body, category })
+            dispatch(createThreadActionCreator(thread))
+        } catch (error) {
+            alert(error.message)
+        }
+    }
+}
+
 export {
     ActionType,
-    receiveThreadsActionCreator
+    receiveThreadsActionCreator,
+    createThreadActionCreator,
+    asyncCreateThread
 }
