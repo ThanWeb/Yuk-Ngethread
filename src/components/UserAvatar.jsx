@@ -1,17 +1,16 @@
 import PropTypes from 'prop-types'
 
-const ThreadOwner = ({ avatar, name }) => {
+const UserAvatar = ({ avatar, name }) => {
     return (
-        <div className='thread-owner'>
+        <div className='user-avatar'>
             <img src={avatar} alt={name} title={name} />
-            <span>{name}</span>
         </div>
     )
 }
 
-ThreadOwner.propTypes = {
+UserAvatar.propTypes = {
     avatar: PropTypes.string,
     name: PropTypes.string
 }
 
-export default ThreadOwner
+export default UserAvatar
