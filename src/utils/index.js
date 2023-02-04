@@ -19,8 +19,10 @@ const getFormattedDateString = (isoDate) => {
 }
 
 const findWhoGiveVote = (users, id) => {
-    const currentUser = users.find((user) => user.id === id)
-    return currentUser.name
+    if (users.length > 0) {
+        const currentUser = users.find((user) => user.id === id)
+        return currentUser.name
+    }
 }
 
 export { checkEmailIsValid, getFormattedDateString, findWhoGiveVote }
