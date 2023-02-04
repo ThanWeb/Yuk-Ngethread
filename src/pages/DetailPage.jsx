@@ -1,7 +1,8 @@
 import { useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
-import { asyncReceiveThreadDetail } from '../states/threadDetail/action'
+import { asyncReceiveThreadDetail, asyncCreateComment } from '../states/threadDetail/action'
+import { asyncPopulateUsersAndThreads } from '../states/shared/action'
 import useInput from '../hooks/useInput'
 import UserAvatar from '../components/UserAvatar'
 import ThreadInfo from '../components/ThreadInfo'
@@ -18,7 +19,13 @@ const DetailPage = () => {
 
     useEffect(() => {
         dispatch(asyncReceiveThreadDetail(id))
+        dispatch(asyncPopulateUsersAndThreads())
     }, [id, dispatch])
+
+    const onAddComment = (comment, id) => {
+        dispatch(asyncCreateComment({ content: comment, id }))
+        setComment('')
+    }
 
     if (threadDetail === null) {
         return (
@@ -34,7 +41,7 @@ const DetailPage = () => {
             </div>
             <ThreadContent title={threadDetail.title} body={threadDetail.body} />
             <div className='vote-section'>
-                <VoteInfo users={users} detail={threadDetail} />
+                {/* <VoteInfo users={users} detail={threadDetail} /> */}
                 <div className='vote-buttons'>
                     <button type='button'>Up</button>
                     <button type='button'>Neutral</button>
@@ -59,7 +66,7 @@ const DetailPage = () => {
                             }}
                         />
                         <div>
-                            <button type='button'>Post Comment</button>
+                            <button type='button' onClick={() => onAddComment(comment, threadDetail.id)} disabled={!comment}>Post Comment</button>
                         </div>
                     </form>
                 </div>

@@ -27,6 +27,15 @@ const receiveThreadDetailActionCreator = (threadDetail) => {
     }
 }
 
+const createCommentActionCreator = (comment) => {
+    return {
+        type: ActionType.CREATE_COMMENT_THREAD_DETAIL,
+        payload: {
+            comment
+        }
+    }
+}
+
 const asyncReceiveThreadDetail = (threadId) => {
     return async (dispatch) => {
         dispatch(clearThreadDetailActionCreator())
@@ -39,9 +48,22 @@ const asyncReceiveThreadDetail = (threadId) => {
     }
 }
 
+const asyncCreateComment = ({ content, id }) => {
+    return async (dispatch) => {
+        try {
+            const comment = await api.createCommentThread({ content, id })
+            dispatch(createCommentActionCreator(comment))
+        } catch (error) {
+            alert(error.message)
+        }
+    }
+}
+
 export {
     ActionType,
     clearThreadDetailActionCreator,
     receiveThreadDetailActionCreator,
-    asyncReceiveThreadDetail
+    createCommentActionCreator,
+    asyncReceiveThreadDetail,
+    asyncCreateComment
 }
