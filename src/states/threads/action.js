@@ -27,6 +27,16 @@ const createThreadActionCreator = (thread) => {
     }
 }
 
+const createCommentActionCreator = (comment, id) => {
+    return {
+        type: ActionType.CREATE_COMMENT_THREAD,
+        payload: {
+            comment,
+            id
+        }
+    }
+}
+
 const asyncCreateThread = ({ title, body, category }) => {
     return async (dispatch) => {
         try {
@@ -38,9 +48,21 @@ const asyncCreateThread = ({ title, body, category }) => {
     }
 }
 
+const asyncCreateComment = ({ content, id }) => {
+    return async (dispatch) => {
+        try {
+            const comment = await api.createCommentThread({ content, id })
+            dispatch(createCommentActionCreator(comment, id))
+        } catch (error) {
+            alert(error.message)
+        }
+    }
+}
+
 export {
     ActionType,
     receiveThreadsActionCreator,
     createThreadActionCreator,
-    asyncCreateThread
+    asyncCreateThread,
+    asyncCreateComment
 }

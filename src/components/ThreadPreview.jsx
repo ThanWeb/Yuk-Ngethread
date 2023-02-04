@@ -8,7 +8,7 @@ import ThreadInfo from '../components/ThreadInfo'
 import ThreadContent from '../components/ThreadContent'
 import VoteInfo from '../components/VoteInfo'
 
-const ThreadPreview = ({ thread, users, authUser }) => {
+const ThreadPreview = ({ thread, users, authUser, onAddComment }) => {
     const [avatar, setAvatar] = useState('')
     const [name, setName] = useState('')
     const [showCommentSection, setShowCommentSection] = useState(false)
@@ -37,6 +37,11 @@ const ThreadPreview = ({ thread, users, authUser }) => {
         const currentUser = users.find((user) => user.id === id)
         setAvatar(currentUser.avatar)
         setName(currentUser.name)
+    }
+
+    const addCommentHandler = (comment, id) => {
+        onAddComment(comment, id)
+        setComment('')
     }
 
     if (!avatar || !name) {
@@ -98,7 +103,7 @@ const ThreadPreview = ({ thread, users, authUser }) => {
                                     }}
                                 />
                                 <div>
-                                    <button type='button'>Post Comment</button>
+                                    <button type='button' onClick={() => addCommentHandler(comment, thread.id)}>Post Comment</button>
                                 </div>
                             </form>
                         </div>
@@ -112,7 +117,8 @@ const ThreadPreview = ({ thread, users, authUser }) => {
 ThreadPreview.propTypes = {
     thread: PropTypes.object,
     users: PropTypes.array,
-    authUser: PropTypes.object
+    authUser: PropTypes.object,
+    onAddComment: PropTypes.func
 }
 
 export default ThreadPreview

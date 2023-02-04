@@ -1,7 +1,7 @@
 
 import { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { asyncCreateThread } from '../states/threads/action'
+import { asyncCreateThread, asyncCreateComment } from '../states/threads/action'
 import useInput from '../hooks/useInput'
 import { asyncPopulateUsersAndThreads } from '../states/shared/action'
 import ThreadPreview from '../components/ThreadPreview'
@@ -23,6 +23,10 @@ const HomePage = () => {
         setTitle('')
         setBody('')
         setCategory('')
+    }
+
+    const onAddComment = (comment, id) => {
+        dispatch(asyncCreateComment({ content: comment, id }))
     }
 
     return (
@@ -60,7 +64,7 @@ const HomePage = () => {
             <div className='thread-list'>
                 {
                     threads.map((thread, index) =>
-                        <ThreadPreview key={index} thread={thread} users={users} authUser={authUser} />
+                        <ThreadPreview key={index} thread={thread} users={users} authUser={authUser} onAddComment={onAddComment} />
                     )
                 }
             </div>
