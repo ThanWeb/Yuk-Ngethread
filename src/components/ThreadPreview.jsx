@@ -103,7 +103,7 @@ const ThreadPreview = ({ thread, users, authUser, onAddComment }) => {
                                     }}
                                 />
                                 <div>
-                                    <button type='button' onClick={() => addCommentHandler(comment, thread.id)}>Post Comment</button>
+                                    <button type='button' onClick={() => addCommentHandler(comment, thread.id)} disabled={!comment}>Post Comment</button>
                                 </div>
                             </form>
                         </div>
