@@ -1,4 +1,5 @@
 import api from '../../utils/api'
+import { showLoading, hideLoading } from '../../utils'
 
 const ActionType = {
     RECEIVE_THREAD_DETAIL: 'RECEIVE_THREAD_DETAIL',
@@ -38,6 +39,7 @@ const createCommentActionCreator = (comment) => {
 
 const asyncReceiveThreadDetail = (threadId) => {
     return async (dispatch) => {
+        showLoading()
         dispatch(clearThreadDetailActionCreator())
         try {
             const threadDetail = await api.getDetailThread(threadId)
@@ -45,17 +47,20 @@ const asyncReceiveThreadDetail = (threadId) => {
         } catch (error) {
             alert(error.message)
         }
+        hideLoading()
     }
 }
 
 const asyncCreateComment = ({ content, id }) => {
     return async (dispatch) => {
+        showLoading()
         try {
             const comment = await api.createCommentThread({ content, id })
             dispatch(createCommentActionCreator(comment))
         } catch (error) {
             alert(error.message)
         }
+        hideLoading()
     }
 }
 

@@ -1,5 +1,6 @@
 import api from '../../utils/api'
 import { setAuthUserActionCreator } from '../authUser/action'
+import { showLoading, hideLoading } from '../../utils'
 
 const ActionType = {
     SET_IS_PRELOAD: 'SET_IS_PRELOAD'
@@ -16,6 +17,7 @@ const setIsPreloadActionCreator = (isPreload) => {
 
 const asyncPreloadProcess = () => {
     return async (dispatch) => {
+        showLoading()
         try {
             const authUser = await api.getOwnProfile()
             dispatch(setAuthUserActionCreator(authUser))
@@ -24,6 +26,7 @@ const asyncPreloadProcess = () => {
         } finally {
             dispatch(setIsPreloadActionCreator(false))
         }
+        hideLoading()
     }
 }
 

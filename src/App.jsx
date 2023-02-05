@@ -8,6 +8,7 @@ import RegisterPage from './pages/RegisterPage'
 import DetailPage from './pages/DetailPage'
 import NotFoundPage from './pages/NotFoundPage'
 import Navigation from './components/Navigation'
+import Loading from './components/Loading'
 import { asyncPreloadProcess } from './states/isPreload/action'
 import { asyncUnsetAuthUser } from './states/authUser/action'
 
@@ -37,6 +38,7 @@ const App = () => {
                         <Route path="*" element={<NotFoundPage />} />
                     </Routes>
                 </main>
+                <Loading />
             </div>
         )
     }
@@ -54,6 +56,7 @@ const App = () => {
                     <Route path="*" element={<NotFoundPage />} />
                 </Routes>
             </main>
+            <Loading />
         </div>
     )
 }

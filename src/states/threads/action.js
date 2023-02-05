@@ -1,4 +1,5 @@
 import api from '../../utils/api'
+import { showLoading, hideLoading } from '../../utils'
 
 const ActionType = {
     RECEIVE_THREADS: 'RECEIVE_THREADS',
@@ -39,23 +40,27 @@ const createCommentActionCreator = (comment, id) => {
 
 const asyncCreateThread = ({ title, body, category }) => {
     return async (dispatch) => {
+        showLoading()
         try {
             const thread = await api.createThread({ title, body, category })
             dispatch(createThreadActionCreator(thread))
         } catch (error) {
             alert(error.message)
         }
+        hideLoading()
     }
 }
 
 const asyncCreateComment = ({ content, id }) => {
     return async (dispatch) => {
+        showLoading()
         try {
             const comment = await api.createCommentThread({ content, id })
             dispatch(createCommentActionCreator(comment, id))
         } catch (error) {
             alert(error.message)
         }
+        hideLoading()
     }
 }
 
