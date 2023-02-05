@@ -17,7 +17,7 @@ const ThreadPreview = ({ thread, users, authUser, onAddComment }) => {
 
     useEffect(() => {
         findOwnerThread(thread.ownerId)
-    }, [])
+    }, [thread])
 
     const toggleShowSection = (voteSection) => {
         if (voteSection) {
