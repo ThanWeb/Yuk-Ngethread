@@ -36,7 +36,9 @@ const HomePage = () => {
         const tempCategoryList = []
         threads.forEach(thread => {
             if (!tempCategoryList.includes(thread.category)) {
-                tempCategoryList.push(thread.category)
+                if (thread.category !== 'general') {
+                    tempCategoryList.push(thread.category)
+                }
             }
         })
         setCategoryList(tempCategoryList)
