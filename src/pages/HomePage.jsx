@@ -27,6 +27,7 @@ const HomePage = () => {
 
     const onAddComment = (comment, id) => {
         dispatch(asyncCreateComment({ content: comment, id }))
+        dispatch(asyncPopulateUsersAndThreads())
     }
 
     return (
