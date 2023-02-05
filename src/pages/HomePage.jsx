@@ -1,7 +1,8 @@
 
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { asyncCreateThread, asyncCreateComment } from '../states/threads/action'
+// eslint-disable-next-line no-unused-vars
+import { asyncCreateThread, asyncCreateComment, receiveThreadsActionCreator } from '../states/threads/action'
 import useInput from '../hooks/useInput'
 import { asyncPopulateUsersAndThreads } from '../states/shared/action'
 import ThreadPreview from '../components/ThreadPreview'
@@ -13,6 +14,12 @@ const HomePage = () => {
     const [title, setTitle] = useInput()
     const [body, setBody] = useInput()
     const [category, setCategory] = useInput()
+    const [filterQuery, setFilterQuery] = useInput()
+    const [categoryList, setCategoryList] = useState([])
+
+    useEffect(() => {
+        collectCategories()
+    }, [threads])
 
     useEffect(() => {
         dispatch(asyncPopulateUsersAndThreads())
@@ -25,8 +32,26 @@ const HomePage = () => {
         setCategory('')
     }
 
+    const collectCategories = () => {
+        const tempCategoryList = []
+        threads.forEach(thread => {
+            if (!tempCategoryList.includes(thread.category)) {
+                tempCategoryList.push(thread.category)
+            }
+        })
+        setCategoryList(tempCategoryList)
+    }
+
     const onAddComment = (comment, id) => {
         dispatch(asyncCreateComment({ content: comment, id }))
+    }
+
+    const changeCategory = (category) => {
+        if (filterQuery === category) {
+            setFilterQuery('')
+        } else {
+            setFilterQuery(category)
+        }
     }
 
     return (
@@ -61,10 +86,17 @@ const HomePage = () => {
                     </form>
                 </div>
             </div>
+            <div className='filter-section'>
+                {
+                    categoryList.map((category, index) =>
+                        <button key={index} onClick={() => changeCategory(category)}>{category}</button>
+                    )
+                }
+            </div>
             <div className='thread-list'>
                 {
                     threads.map((thread, index) =>
-                        <ThreadPreview key={index} thread={thread} users={users} authUser={authUser} onAddComment={onAddComment} />
+                        <ThreadPreview key={index} thread={thread} users={users} authUser={authUser} onAddComment={onAddComment} filterQuery={filterQuery}/>
                     )
                 }
             </div>

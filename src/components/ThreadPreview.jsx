@@ -8,7 +8,7 @@ import ThreadInfo from '../components/ThreadInfo'
 import ThreadContent from '../components/ThreadContent'
 import VoteInfo from '../components/VoteInfo'
 
-const ThreadPreview = ({ thread, users, authUser, onAddComment }) => {
+const ThreadPreview = ({ thread, users, authUser, onAddComment, filterQuery }) => {
     const [avatar, setAvatar] = useState('')
     const [name, setName] = useState('')
     const [showCommentSection, setShowCommentSection] = useState(false)
@@ -51,7 +51,7 @@ const ThreadPreview = ({ thread, users, authUser, onAddComment }) => {
     }
 
     return (
-        <div className='thread-preview'>
+        <div className={!thread.category.toLowerCase().includes(filterQuery.toLowerCase()) ? 'hidden thread-preview' : 'thread-preview'}>
             <div className='header-section'>
                 <UserAvatar avatar={avatar} name={name} />
                 <ThreadInfo category={thread.category} name={name} createdAt={thread.createdAt} />
@@ -118,7 +118,8 @@ ThreadPreview.propTypes = {
     thread: PropTypes.object,
     users: PropTypes.array,
     authUser: PropTypes.object,
-    onAddComment: PropTypes.func
+    onAddComment: PropTypes.func,
+    filterQuery: PropTypes.string
 }
 
 export default ThreadPreview
