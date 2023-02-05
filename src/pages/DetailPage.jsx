@@ -41,10 +41,10 @@ const DetailPage = () => {
             </div>
             <ThreadContent title={threadDetail.title} body={threadDetail.body} />
             <div className='vote-section'>
-                {/* <VoteInfo users={users} detail={threadDetail} /> */}
+                <VoteInfo users={users} detail={threadDetail} />
                 <div className='vote-buttons'>
                     <button type='button'>Up</button>
-                    <button type='button'>Neutral</button>
+                    {/* <button type='button'>Neutral</button> */}
                     <button type='button'>Down</button>
                 </div>
             </div>
@@ -78,7 +78,7 @@ const DetailPage = () => {
                                 <VoteInfo users={users} detail={comment} />
                                 <div className='vote-buttons'>
                                     <button type='button'>Up</button>
-                                    <button type='button'>Neutral</button>
+                                    {/* <button type='button'>Neutral</button> */}
                                     <button type='button'>Down</button>
                                 </div>
                             </div>

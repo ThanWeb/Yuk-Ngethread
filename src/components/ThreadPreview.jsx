@@ -84,7 +84,7 @@ const ThreadPreview = ({ thread, users, authUser, onAddComment }) => {
                         showVoteSection &&
                         <div className='vote-section'>
                             <button type='button'>Up</button>
-                            <button type='button'>Neutral</button>
+                            {/* <button type='button'>Neutral</button> */}
                             <button type='button'>Down</button>
                         </div>
                     }
