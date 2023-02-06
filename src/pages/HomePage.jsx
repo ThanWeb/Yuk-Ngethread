@@ -1,8 +1,7 @@
 
 import { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-// eslint-disable-next-line no-unused-vars
-import { asyncCreateThread, asyncCreateComment, receiveThreadsActionCreator } from '../states/threads/action'
+import { asyncCreateThread, asyncCreateComment } from '../states/threads/action'
 import useInput from '../hooks/useInput'
 import { asyncPopulateUsersAndThreads } from '../states/shared/action'
 import ThreadPreview from '../components/ThreadPreview'

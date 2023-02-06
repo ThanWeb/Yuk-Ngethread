@@ -46,7 +46,7 @@ const App = () => {
     return (
         <div className="container">
             <header>
-                <Navigation authUser={authUser} signOut={onSignOut} />
+                <Navigation signOut={onSignOut} />
             </header>
             <main>
                 <Routes>
