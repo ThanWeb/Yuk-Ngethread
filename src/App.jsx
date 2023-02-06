@@ -9,6 +9,7 @@ import DetailPage from './pages/DetailPage'
 import NotFoundPage from './pages/NotFoundPage'
 import Navigation from './components/Navigation'
 import Loading from './components/Loading'
+import UserAvatar from './components/UserAvatar'
 import { asyncPreloadProcess } from './states/isPreload/action'
 import { asyncUnsetAuthUser } from './states/authUser/action'
 
@@ -47,6 +48,10 @@ const App = () => {
         <div className="container">
             <header>
                 <Navigation signOut={onSignOut} />
+                <div className='profile'>
+                    <UserAvatar avatar={authUser.avatar} name={authUser.name} />
+                    <span>{authUser.name}</span>
+                </div>
             </header>
             <main>
                 <Routes>
