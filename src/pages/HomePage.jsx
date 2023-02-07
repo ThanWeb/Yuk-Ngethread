@@ -1,7 +1,7 @@
 
 import { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { asyncCreateThread, asyncCreateComment, asyncGiveUpVote } from '../states/threads/action'
+import { asyncCreateThread, asyncCreateComment, asyncGiveUpVote, asyncGiveDownVote } from '../states/threads/action'
 import useInput from '../hooks/useInput'
 import { asyncPopulateUsersAndThreads } from '../states/shared/action'
 import ThreadPreview from '../components/ThreadPreview'
@@ -33,6 +33,10 @@ const HomePage = () => {
 
     const onGiveUpVote = (id) => {
         dispatch(asyncGiveUpVote(id))
+    }
+
+    const onGiveDownVote = (id) => {
+        dispatch(asyncGiveDownVote(id))
     }
 
     const collectCategories = () => {
@@ -101,7 +105,7 @@ const HomePage = () => {
             <div className='thread-list'>
                 {
                     threads.map((thread, index) =>
-                        <ThreadPreview key={index} thread={thread} users={users} authUser={authUser} onAddComment={onAddComment} filterQuery={filterQuery} onGiveUpVote={onGiveUpVote} />
+                        <ThreadPreview key={index} thread={thread} users={users} authUser={authUser} onAddComment={onAddComment} filterQuery={filterQuery} onGiveUpVote={onGiveUpVote} onGiveDownVote={onGiveDownVote} />
                     )
                 }
             </div>

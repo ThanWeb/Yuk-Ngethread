@@ -47,6 +47,15 @@ const giveUpVoteActionCreator = (vote) => {
     }
 }
 
+const giveDownVoteActionCreator = (vote) => {
+    return {
+        type: ActionType.GIVE_DOWN_VOTE_THREAD,
+        payload: {
+            vote
+        }
+    }
+}
+
 const asyncCreateThread = ({ title, body, category }) => {
     return async (dispatch) => {
         showLoading()
@@ -86,13 +95,28 @@ const asyncGiveUpVote = (id) => {
     }
 }
 
+const asyncGiveDownVote = (id) => {
+    return async (dispatch) => {
+        showLoading()
+        try {
+            const vote = await api.giveDownVoteThread(id)
+            dispatch(giveDownVoteActionCreator(vote))
+        } catch (error) {
+            alert(error.message)
+        }
+        hideLoading()
+    }
+}
+
 export {
     ActionType,
     receiveThreadsActionCreator,
     createThreadActionCreator,
     createCommentActionCreator,
     giveUpVoteActionCreator,
+    giveDownVoteActionCreator,
     asyncCreateThread,
     asyncCreateComment,
-    asyncGiveUpVote
+    asyncGiveUpVote,
+    asyncGiveDownVote
 }
