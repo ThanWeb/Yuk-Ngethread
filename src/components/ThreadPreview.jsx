@@ -8,7 +8,7 @@ import ThreadInfo from '../components/ThreadInfo'
 import ThreadContent from '../components/ThreadContent'
 import VoteInfo from '../components/VoteInfo'
 
-const ThreadPreview = ({ thread, users, authUser, onAddComment, filterQuery }) => {
+const ThreadPreview = ({ thread, users, authUser, onAddComment, filterQuery, onGiveUpVote }) => {
     const [avatar, setAvatar] = useState('')
     const [name, setName] = useState('')
     const [showCommentSection, setShowCommentSection] = useState(false)
@@ -83,9 +83,8 @@ const ThreadPreview = ({ thread, users, authUser, onAddComment, filterQuery }) =
                     {
                         showVoteSection &&
                         <div className='vote-section'>
-                            <button type='button'>Up</button>
-                            {/* <button type='button'>Neutral</button> */}
-                            <button type='button'>Down</button>
+                            <button type='button' onClick={() => onGiveUpVote(thread.id)} disabled={thread.upVotesBy.includes(authUser.id)}>Up</button>
+                            <button type='button' disabled={thread.downVotesBy.includes(authUser.id)}>Down</button>
                         </div>
                     }
                     {
@@ -119,7 +118,8 @@ ThreadPreview.propTypes = {
     users: PropTypes.array,
     authUser: PropTypes.object,
     onAddComment: PropTypes.func,
-    filterQuery: PropTypes.string
+    filterQuery: PropTypes.string,
+    onGiveUpVote: PropTypes.func
 }
 
 export default ThreadPreview

@@ -17,6 +17,17 @@ const threadsReducer = (threads = [], action = {}) => {
             }
             return thread
         })
+    case ActionType.GIVE_UP_VOTE_THREAD:
+        return threads.map((thread) => {
+            if (thread.id === action.payload.vote.threadId) {
+                const newVotes = [...thread.upVotesBy, action.payload.vote.userId]
+                return {
+                    ...thread,
+                    upVotesBy: newVotes
+                }
+            }
+            return thread
+        })
     default:
         return threads
     }
