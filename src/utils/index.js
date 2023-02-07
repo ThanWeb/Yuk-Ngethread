@@ -29,13 +29,13 @@ const findWhoGiveVote = (users, id) => {
 
 const showLoading = () => {
     if (document.querySelector('.loading')) {
-        document.querySelector('.loading').classList.remove('hidden')
+        document.querySelector('.loading').classList.remove('hide')
     }
 }
 
 const hideLoading = () => {
     if (document.querySelector('.loading')) {
-        document.querySelector('.loading').classList.add('hidden')
+        document.querySelector('.loading').classList.add('hide')
     }
 }
 
