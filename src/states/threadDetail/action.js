@@ -83,7 +83,7 @@ const asyncReceiveThreadDetail = (threadId) => {
             const threadDetail = await api.getDetailThread(threadId)
             dispatch(receiveThreadDetailActionCreator(threadDetail))
         } catch (error) {
-            alert(error.message)
+            console.log(error.message)
         }
         hideLoading()
     }
@@ -96,7 +96,7 @@ const asyncCreateComment = ({ content, id }) => {
             const comment = await api.createCommentThread({ content, id })
             dispatch(createCommentActionCreator(comment))
         } catch (error) {
-            alert(error.message)
+            console.log(error.message)
         }
         hideLoading()
     }
@@ -109,7 +109,7 @@ const asyncGiveUpVoteDetail = (id) => {
             const vote = await api.giveUpVoteThread(id)
             dispatch(giveUpVoteDetailActionCreator(vote))
         } catch (error) {
-            alert(error.message)
+            console.log(error.message)
         }
         hideLoading()
     }
@@ -122,7 +122,7 @@ const asyncGiveDownVoteDetail = (id) => {
             const vote = await api.giveDownVoteThread(id)
             dispatch(giveDownVoteDetailActionCreator(vote))
         } catch (error) {
-            alert(error.message)
+            console.log(error.message)
         }
         hideLoading()
     }
@@ -135,7 +135,7 @@ const asyncGiveUpVoteComment = ({ threadId, commentId }) => {
             const vote = await api.giveUpVoteComment({ threadId, commentId })
             dispatch(giveUpVoteCommentActionCreator({ commentId, vote }))
         } catch (error) {
-            alert(error.message)
+            console.log(error.message)
         }
         hideLoading()
     }
@@ -148,7 +148,7 @@ const asyncGiveDownVoteComment = ({ threadId, commentId }) => {
             const vote = await api.giveDownVoteComment({ threadId, commentId })
             dispatch(giveDownVoteCommentActionCreator({ commentId, vote }))
         } catch (error) {
-            alert(error.message)
+            console.log(error.message)
         }
         hideLoading()
     }

@@ -36,7 +36,7 @@ const api = (() => {
         const { status, message } = responseJson
 
         if (status !== 'success') {
-            throw new Error(message)
+            console.log(message)
         }
 
         const { data: { user } } = responseJson
@@ -59,7 +59,7 @@ const api = (() => {
         const { status, message } = responseJson
 
         if (status !== 'success') {
-            throw new Error(message)
+            console.log(message)
         }
 
         const { data: { token } } = responseJson
@@ -72,7 +72,7 @@ const api = (() => {
         const { status, message } = responseJson
 
         if (status !== 'success') {
-            throw new Error(message)
+            console.log(message)
         }
 
         const { data: { users } } = responseJson
@@ -85,7 +85,7 @@ const api = (() => {
         const { status, message } = responseJson
 
         if (status !== 'success') {
-            throw new Error(message)
+            console.log(message)
         }
 
         const { data: { user } } = responseJson
@@ -109,7 +109,7 @@ const api = (() => {
         const { status, message } = responseJson
 
         if (status !== 'success') {
-            throw new Error(message)
+            console.log(message)
         }
 
         const { data: { thread } } = responseJson
@@ -122,7 +122,7 @@ const api = (() => {
         const { status, message } = responseJson
 
         if (status !== 'success') {
-            throw new Error(message)
+            console.log(message)
         }
 
         const { data: { threads } } = responseJson
@@ -135,7 +135,7 @@ const api = (() => {
         const { status, message } = responseJson
 
         if (status !== 'success') {
-            throw new Error(message)
+            console.log(message)
         }
 
         const { data: { detailThread } } = responseJson
@@ -157,7 +157,7 @@ const api = (() => {
         const { status, message } = responseJson
 
         if (status !== 'success') {
-            throw new Error(message)
+            console.log(message)
         }
 
         const { data: { comment } } = responseJson
@@ -173,7 +173,7 @@ const api = (() => {
         const { status, message } = responseJson
 
         if (status !== 'success') {
-            throw new Error(message)
+            console.log(message)
         }
 
         const { data: { vote } } = responseJson
@@ -189,7 +189,7 @@ const api = (() => {
         const { status, message } = responseJson
 
         if (status !== 'success') {
-            throw new Error(message)
+            console.log(message)
         }
 
         const { data: { vote } } = responseJson
@@ -205,7 +205,7 @@ const api = (() => {
     //     const { status, message } = responseJson
 
     //     if (status !== 'success') {
-    //         throw new Error(message)
+    //         console.log(message)
     //     }
 
     //     const { data: { vote } } = responseJson
@@ -221,7 +221,7 @@ const api = (() => {
         const { status, message } = responseJson
 
         if (status !== 'success') {
-            throw new Error(message)
+            console.log(message)
         }
 
         const { data: { vote } } = responseJson
@@ -237,7 +237,7 @@ const api = (() => {
         const { status, message } = responseJson
 
         if (status !== 'success') {
-            throw new Error(message)
+            console.log(message)
         }
 
         const { data: { vote } } = responseJson
@@ -253,7 +253,7 @@ const api = (() => {
     //     const { status, message } = responseJson
 
     //     if (status !== 'success') {
-    //         throw new Error(message)
+    //         console.log(message)
     //     }
 
     //     const { data: { vote } } = responseJson
@@ -266,7 +266,7 @@ const api = (() => {
         const { status, message } = responseJson
 
         if (status !== 'success') {
-            throw new Error(message)
+            console.log(message)
         }
 
         const { data: { leaderboards } } = responseJson

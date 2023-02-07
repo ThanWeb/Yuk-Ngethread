@@ -33,7 +33,7 @@ const asyncSetAuthUser = ({ email, password }) => {
             const authUser = await api.getOwnProfile()
             dispatch(setAuthUserActionCreator(authUser))
         } catch (error) {
-            alert(error.message)
+            console.log(error.message)
         }
         hideLoading()
     }
