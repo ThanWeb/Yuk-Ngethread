@@ -55,6 +55,26 @@ const giveDownVoteDetailActionCreator = (vote) => {
     }
 }
 
+const giveUpVoteCommentActionCreator = ({ commentId, vote }) => {
+    return {
+        type: ActionType.GIVE_UP_VOTE_COMMENT_THREAD_DETAIL,
+        payload: {
+            commentId,
+            vote
+        }
+    }
+}
+
+const giveDownVoteCommentActionCreator = ({ commentId, vote }) => {
+    return {
+        type: ActionType.GIVE_DOWN_VOTE_COMMENT_THREAD_DETAIL,
+        payload: {
+            commentId,
+            vote
+        }
+    }
+}
+
 const asyncReceiveThreadDetail = (threadId) => {
     return async (dispatch) => {
         showLoading()
@@ -108,6 +128,32 @@ const asyncGiveDownVoteDetail = (id) => {
     }
 }
 
+const asyncGiveUpVoteComment = ({ threadId, commentId }) => {
+    return async (dispatch) => {
+        showLoading()
+        try {
+            const vote = await api.giveUpVoteComment({ threadId, commentId })
+            dispatch(giveUpVoteCommentActionCreator({ commentId, vote }))
+        } catch (error) {
+            alert(error.message)
+        }
+        hideLoading()
+    }
+}
+
+const asyncGiveDownVoteComment = ({ threadId, commentId }) => {
+    return async (dispatch) => {
+        showLoading()
+        try {
+            const vote = await api.giveDownVoteComment({ threadId, commentId })
+            dispatch(giveDownVoteCommentActionCreator({ commentId, vote }))
+        } catch (error) {
+            alert(error.message)
+        }
+        hideLoading()
+    }
+}
+
 export {
     ActionType,
     clearThreadDetailActionCreator,
@@ -118,5 +164,7 @@ export {
     asyncReceiveThreadDetail,
     asyncCreateComment,
     asyncGiveUpVoteDetail,
-    asyncGiveDownVoteDetail
+    asyncGiveDownVoteDetail,
+    asyncGiveUpVoteComment,
+    asyncGiveDownVoteComment
 }

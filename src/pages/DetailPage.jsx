@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
-import { asyncReceiveThreadDetail, asyncCreateComment, asyncGiveUpVoteDetail, asyncGiveDownVoteDetail } from '../states/threadDetail/action'
+import { asyncReceiveThreadDetail, asyncCreateComment, asyncGiveUpVoteDetail, asyncGiveDownVoteDetail, asyncGiveUpVoteComment, asyncGiveDownVoteComment } from '../states/threadDetail/action'
 import { asyncPopulateUsersAndThreads } from '../states/shared/action'
 import useInput from '../hooks/useInput'
 import UserAvatar from '../components/UserAvatar'
@@ -33,6 +33,14 @@ const DetailPage = () => {
 
     const onGiveDownVoteThread = (id) => {
         dispatch(asyncGiveDownVoteDetail(id))
+    }
+
+    const onGiveUpVoteComment = ({ threadId, commentId }) => {
+        dispatch(asyncGiveUpVoteComment({ threadId, commentId }))
+    }
+
+    const onGiveDownVoteComment = ({ threadId, commentId }) => {
+        dispatch(asyncGiveDownVoteComment({ threadId, commentId }))
     }
 
     if (threadDetail === null) {
@@ -85,9 +93,9 @@ const DetailPage = () => {
                             <div className='comment-vote-section'>
                                 <VoteInfo users={users} detail={comment} />
                                 <div className='vote-buttons'>
-                                    <button type='button'>Up</button>
+                                    <button type='button' onClick={() => onGiveUpVoteComment({ threadId: threadDetail.id, commentId: comment.id })} disabled={comment.upVotesBy.includes(authUser.id)}>Up</button>
                                     {/* <button type='button'>Neutral</button> */}
-                                    <button type='button'>Down</button>
+                                    <button type='button' onClick={() => onGiveDownVoteComment({ threadId: threadDetail.id, commentId: comment.id })} disabled={comment.downVotesBy.includes(authUser.id)}>Down</button>
                                 </div>
                             </div>
                         </div>
