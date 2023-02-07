@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useDispatch } from 'react-redux'
 import { Link } from 'react-router-dom'
+import { TbUserCheck } from 'react-icons/tb'
 import useInput from '../hooks/useInput'
 import { checkEmailIsValid } from '../utils'
 import TextInput from '../components/TextInput'
@@ -49,7 +50,10 @@ const LoginPage = () => {
                         }}
                     />
                     <div>
-                        <button type='button' onClick={() => onLoginHandler({ email, password })} disabled={!isEmailValid || password.length < 6}>Sign in</button>
+                        <button type='button' onClick={() => onLoginHandler({ email, password })} disabled={!isEmailValid || password.length < 6}>
+                            <span>Sign in</span>
+                            <TbUserCheck className='icons' />
+                        </button>
                     </div>
                 </form>
             </div>

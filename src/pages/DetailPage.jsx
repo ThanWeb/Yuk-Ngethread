@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import { asyncReceiveThreadDetail, asyncCreateComment, asyncGiveUpVoteDetail, asyncGiveDownVoteDetail, asyncGiveUpVoteComment, asyncGiveDownVoteComment } from '../states/threadDetail/action'
 import { asyncPopulateUsersAndThreads } from '../states/shared/action'
+import { TbMessage2, TbMoodSmile, TbMoodSad } from 'react-icons/tb'
 import useInput from '../hooks/useInput'
 import UserAvatar from '../components/UserAvatar'
 import ThreadInfo from '../components/ThreadInfo'
@@ -59,9 +60,13 @@ const DetailPage = () => {
             <div className='vote-section'>
                 <VoteInfo users={users} detail={threadDetail} />
                 <div className='vote-buttons'>
-                    <button type='button' onClick={() => onGiveUpVoteThread(threadDetail.id)} disabled={threadDetail.upVotesBy.includes(authUser.id)}>Up</button>
+                    <button type='button' onClick={() => onGiveUpVoteThread(threadDetail.id)} disabled={threadDetail.upVotesBy.includes(authUser.id)}>
+                        <TbMoodSmile className='icons' />
+                    </button>
                     {/* <button type='button'>Neutral</button> */}
-                    <button type='button' onClick={() => onGiveDownVoteThread(threadDetail.id)} disabled={threadDetail.downVotesBy.includes(authUser.id)}>Down</button>
+                    <button type='button' onClick={() => onGiveDownVoteThread(threadDetail.id)} disabled={threadDetail.downVotesBy.includes(authUser.id)}>
+                        <TbMoodSad className='icons' />
+                    </button>
                 </div>
             </div>
             <div className='comment-section'>
@@ -71,6 +76,7 @@ const DetailPage = () => {
                 </div>
                 <div className='form-container'>
                     <form className='form-section'>
+                        <TbMessage2 className='icons' />
                         <TextInput
                             props={{
                                 value: comment,
@@ -93,9 +99,13 @@ const DetailPage = () => {
                             <div className='comment-vote-section'>
                                 <VoteInfo users={users} detail={comment} />
                                 <div className='vote-buttons'>
-                                    <button type='button' onClick={() => onGiveUpVoteComment({ threadId: threadDetail.id, commentId: comment.id })} disabled={comment.upVotesBy.includes(authUser.id)}>Up</button>
+                                    <button type='button' onClick={() => onGiveUpVoteComment({ threadId: threadDetail.id, commentId: comment.id })} disabled={comment.upVotesBy.includes(authUser.id)}>
+                                        <TbMoodSmile className='icons' />
+                                    </button>
                                     {/* <button type='button'>Neutral</button> */}
-                                    <button type='button' onClick={() => onGiveDownVoteComment({ threadId: threadDetail.id, commentId: comment.id })} disabled={comment.downVotesBy.includes(authUser.id)}>Down</button>
+                                    <button type='button' onClick={() => onGiveDownVoteComment({ threadId: threadDetail.id, commentId: comment.id })} disabled={comment.downVotesBy.includes(authUser.id)}>
+                                        <TbMoodSad className='icons' />
+                                    </button>
                                 </div>
                             </div>
                         </div>

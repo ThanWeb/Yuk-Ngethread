@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
 import useInput from '../hooks/useInput'
+import { TbMessage2, TbSquarePlus, TbMoodSmile, TbMoodSad } from 'react-icons/tb'
 import TextInput from '../components/TextInput'
 import UserAvatar from '../components/UserAvatar'
 import ThreadInfo from '../components/ThreadInfo'
@@ -67,8 +68,14 @@ const ThreadPreview = ({ thread, users, authUser, onAddComment, filterQuery, onG
             </div>
             <div className='interactive-section'>
                 <div className='buttons-section'>
-                    <button type='button' onClick={() => toggleShowSection(true)}>Vote</button>
-                    <button type='button' onClick={() => toggleShowSection(false)}>Comment</button>
+                    <button type='button' onClick={() => toggleShowSection(true)}>
+                        <span>Vote</span>
+                        <TbSquarePlus className='icons' />
+                    </button>
+                    <button type='button' onClick={() => toggleShowSection(false)}>
+                        <span>Comment</span>
+                        <TbMessage2 className='icons' />
+                    </button>
                     <Link to={`/threads/${thread.id}`}>More</Link>
                 </div>
                 <div className='add-response-section'>
@@ -83,8 +90,12 @@ const ThreadPreview = ({ thread, users, authUser, onAddComment, filterQuery, onG
                     {
                         showVoteSection &&
                         <div className='vote-section'>
-                            <button type='button' onClick={() => onGiveUpVote(thread.id)} disabled={thread.upVotesBy.includes(authUser.id)}>Up</button>
-                            <button type='button' onClick={() => onGiveDownVote(thread.id)} disabled={thread.downVotesBy.includes(authUser.id)}>Down</button>
+                            <button type='button' onClick={() => onGiveUpVote(thread.id)} disabled={thread.upVotesBy.includes(authUser.id)}>
+                                <TbMoodSmile className='icons' />
+                            </button>
+                            <button type='button' onClick={() => onGiveDownVote(thread.id)} disabled={thread.downVotesBy.includes(authUser.id)}>
+                                <TbMoodSad className='icons' />
+                            </button>
                         </div>
                     }
                     {

@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types'
+import { TbEyeOff, TbEye } from 'react-icons/tb'
 
 const PasswordInput = ({ props }) => {
     return (
@@ -7,8 +8,8 @@ const PasswordInput = ({ props }) => {
             <input id='password' type={props.isShowed ? 'text' : 'password'} value={props.password} onChange={props.setPassword} placeholder={props.placeholder} required/>
             {
                 props.isShowed
-                    ? <img src='icons/open-eye.png' onClick={() => props.setShowed(false)} className='icons' alt='Show' title='Show'/>
-                    : <img src='icons/shut-eye.png' onClick={() => props.setShowed(true)} className='icons' alt='Hide' title='Hide'/>
+                    ? <TbEye onClick={() => props.setShowed(false)} className='icons' title='Show'/>
+                    : <TbEyeOff onClick={() => props.setShowed(true)} className='icons' title='Hide'/>
             }
         </div>
     )

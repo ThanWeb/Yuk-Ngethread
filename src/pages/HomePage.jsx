@@ -1,6 +1,7 @@
 
 import { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
+import { TbPencil } from 'react-icons/tb'
 import { asyncCreateThread, asyncCreateComment, asyncGiveUpVote, asyncGiveDownVote } from '../states/threads/action'
 import useInput from '../hooks/useInput'
 import { asyncPopulateUsersAndThreads } from '../states/shared/action'
@@ -90,7 +91,10 @@ const HomePage = () => {
                             <input id='body' type='text' value={category} onChange={setCategory} placeholder='What category'/>
                         </div>
                         <div>
-                            <button type='button' onClick={() => onCreateThread(title, body, category)} disabled={!title || !body}>Create</button>
+                            <button type='button' onClick={() => onCreateThread(title, body, category)} disabled={!title || !body}>
+                                <span>Create</span>
+                                <TbPencil className='icons' />
+                            </button>
                         </div>
                     </form>
                 </div>

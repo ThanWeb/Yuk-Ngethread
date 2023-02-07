@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useDispatch } from 'react-redux'
 import { Link, useNavigate } from 'react-router-dom'
+import { TbUserPlus } from 'react-icons/tb'
 import useInput from '../hooks/useInput'
 import { checkEmailIsValid } from '../utils'
 import TextInput from '../components/TextInput'
@@ -62,7 +63,10 @@ const RegisterPage = () => {
                         }}
                     />
                     <div>
-                        <button type='button' onClick={() => onRegisterHandler({ name, email, password })} disabled={!name || !isEmailValid || password.length < 6}>Sign up</button>
+                        <button type='button' onClick={() => onRegisterHandler({ name, email, password })} disabled={!name || !isEmailValid || password.length < 6}>
+                            <span>Sign up</span>
+                            <TbUserPlus className='icons'/>
+                        </button>
                     </div>
                 </form>
             </div>
