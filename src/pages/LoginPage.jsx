@@ -25,39 +25,41 @@ const LoginPage = () => {
 
     return (
         <div className='login-page'>
-            <header className='login-header'>
-                <h1>Almost there</h1>
-            </header>
-            <div className='form-container'>
-                <form>
-                    <TextInput
-                        props={{
-                            value: email,
-                            type: 'email',
-                            id: 'email',
-                            placeholder: 'yourname@gmail.com',
-                            label: 'E-mail Address',
-                            setValue: setEmail
-                        }}
-                    />
-                    <PasswordInput
-                        props={{
-                            password,
-                            setPassword,
-                            placeholder: 'yourpassword',
-                            isShowed: isPasswordShowed,
-                            setShowed: setIsPasswordShowed
-                        }}
-                    />
-                    <div>
-                        <button type='button' onClick={() => onLoginHandler({ email, password })} disabled={!isEmailValid || password.length < 6}>
-                            <span>Sign in</span>
-                            <TbUserCheck className='icons' />
-                        </button>
-                    </div>
-                </form>
+            <div className='container'>
+                <header className='login-header'>
+                    <h1>Almost there</h1>
+                </header>
+                <div className='form-container'>
+                    <form>
+                        <TextInput
+                            props={{
+                                value: email,
+                                type: 'email',
+                                id: 'email',
+                                placeholder: 'yourname@gmail.com',
+                                label: 'E-mail Address',
+                                setValue: setEmail
+                            }}
+                        />
+                        <PasswordInput
+                            props={{
+                                password,
+                                setPassword,
+                                placeholder: 'yourpassword',
+                                isShowed: isPasswordShowed,
+                                setShowed: setIsPasswordShowed
+                            }}
+                        />
+                        <div>
+                            <button type='button' className='login-button' onClick={() => onLoginHandler({ email, password })} disabled={!isEmailValid || password.length < 6}>
+                                <span>Sign in</span>
+                                <TbUserCheck className='icons' />
+                            </button>
+                        </div>
+                    </form>
+                </div>
+                <p>Doesn&apos;t have an account?<br></br>Please <Link to='/register'>Sign Up</Link></p>
             </div>
-            <p>Doesn&apos;t have an account? Please <Link to='/register'>Sign Up</Link></p>
         </div>
     )
 }

@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import { asyncReceiveThreadDetail, asyncCreateComment, asyncGiveUpVoteDetail, asyncGiveDownVoteDetail, asyncGiveUpVoteComment, asyncGiveDownVoteComment } from '../states/threadDetail/action'
 import { asyncPopulateUsersAndThreads } from '../states/shared/action'
-import { TbMessage2, TbMoodSmile, TbMoodSad } from 'react-icons/tb'
+import { TbMoodSmile, TbMoodSad } from 'react-icons/tb'
 import useInput from '../hooks/useInput'
 import UserAvatar from '../components/UserAvatar'
 import ThreadInfo from '../components/ThreadInfo'
@@ -70,13 +70,8 @@ const DetailPage = () => {
                 </div>
             </div>
             <div className='comment-section'>
-                <div className='user-section'>
-                    <img src={authUser.avatar} alt={authUser.name} title={authUser.name} />
-                    <span>{authUser.name}</span>
-                </div>
                 <div className='form-container'>
                     <form className='form-section'>
-                        <TbMessage2 className='icons' />
                         <TextInput
                             props={{
                                 value: comment,

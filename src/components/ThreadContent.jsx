@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom'
 const ThreadContent = ({ title, body, id }) => {
     return (
         <div className='content-section'>
-            <h3 className='owner-info'>
+            <h3>
                 {
                     id
                         ? <Link to={`/threads/${id}`}>{title}</Link>

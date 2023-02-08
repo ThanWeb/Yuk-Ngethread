@@ -19,6 +19,7 @@ const LeaderboardPage = () => {
 
     return (
         <div className='leaderboard-page'>
+            <h2>Leaderboard</h2>
             <div className='board'>
                 {
                     leaderboards.map((leaderboard, index, positon) =>

@@ -3,14 +3,18 @@ import { TbEyeOff, TbEye } from 'react-icons/tb'
 
 const PasswordInput = ({ props }) => {
     return (
-        <div className='input-field password-field'>
+        <div className='password-field'>
             <label htmlFor='password'>Password</label>
-            <input id='password' type={props.isShowed ? 'text' : 'password'} value={props.password} onChange={props.setPassword} placeholder={props.placeholder} required/>
-            {
-                props.isShowed
-                    ? <TbEye onClick={() => props.setShowed(false)} className='icons' title='Show'/>
-                    : <TbEyeOff onClick={() => props.setShowed(true)} className='icons' title='Hide'/>
-            }
+            <div className='input-password'>
+                <input id='password' type={props.isShowed ? 'text' : 'password'} value={props.password} onChange={props.setPassword} placeholder={props.placeholder} required/>
+                <button type='button'>
+                    {
+                        props.isShowed
+                            ? <TbEye onClick={() => props.setShowed(false)} className='icons' title='Show'/>
+                            : <TbEyeOff onClick={() => props.setShowed(true)} className='icons' title='Hide'/>
+                    }
+                </button>
+            </div>
         </div>
     )
 }

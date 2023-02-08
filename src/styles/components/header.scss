@@ -1,0 +1,44 @@
+.main-header {
+    .top-header, .main-nav {
+        position: fixed;
+        width: 100%;
+        left: 0;
+        padding: 0 16px;
+        background-color: $color-primary;
+        box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
+    }
+
+    .top-header {
+        @include flex-box($justify: space-between);
+        height: 64px;
+        gap: 12px;
+        top: 0;
+    }
+
+    .title {
+        @include flex-box();
+    }
+
+    .profile {
+        @include flex-box($direction: column);
+
+        span {
+            display: none;
+        }
+    }
+
+    .main-nav {
+        @include flex-box($justify: space-evenly);
+        height: 80px;
+        bottom: 0;
+    }
+
+    .nav-item {
+        @include flex-box($direction: column-reverse);
+        font-size: 18px;
+
+        svg {
+            width: 40px;
+        }
+    }
+}

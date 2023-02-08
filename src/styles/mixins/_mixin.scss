@@ -1,0 +1,104 @@
+@mixin flex-box($direction: row, $justify: center, $align: center) {
+    display: flex;
+    flex-direction: $direction;
+    justify-content: $justify;
+    align-items: $align;
+}
+
+@mixin sticky-elemen ($y-pos: top, $x-pos: left) {
+    position: fixed;
+    width: 100%;
+
+    @if $y-pos == top {
+        top: 0;
+    } @else {
+        bottom: 0;
+    }
+
+    @if $x-pos == left {
+        left: 0;
+    } @else {
+        right: 0;
+    }
+}
+
+@mixin auth-page () {
+    @include flex-box($direction: column);
+    height: 100vh;
+    background-image: url('/bg-login.jpg');
+    background-size: cover;
+    text-align: center;
+
+    .container {
+        width: 90%;
+        background-color: $color-primary;
+        box-shadow: rgba(17, 17, 26, 0.1) 0px 8px 24px, rgba(17, 17, 26, 0.1) 0px 16px 56px, rgba(17, 17, 26, 0.1) 0px 24px 80px;
+        padding: 20px 28px;
+        border-radius: 50px;
+
+        @include tablet {
+            width: 60%;
+        }
+
+        @include desktop {
+            width: 30%;
+        }
+    }
+
+    .login-header, .register-header {
+        h1 {
+            margin-bottom: 24px;
+        }
+    }
+
+    .login-button, .register-button {
+        @include submit-button();
+
+        &:disabled {
+            background-color: $color-secondary;
+        }
+    }
+}
+
+@mixin mobile {
+    @media screen and (min-width: $screen-mobile) {
+        @content;
+    }
+}
+
+@mixin tablet {
+    @media screen and (min-width: $screen-tablet) {
+        @content;
+    }
+}
+
+@mixin desktop {
+    @media screen and (min-width: $screen-desktop) {
+        @content;
+    }
+}
+  
+@mixin large-desktop {
+    @media screen and (min-width: $screen-large-desktop) {
+        @content;
+    }
+}
+
+@mixin extra-large-desktop {
+    @media screen and (min-width: $screen-extra-large-desktop) {
+        @content;
+    }
+}
+
+@mixin submit-button () {
+    @include flex-box();
+    width: 50%;
+    margin: 32px auto 20px;
+    padding: 4px;
+    font-size: 18px;
+    gap: 8px;
+    border: 1px solid white;
+    border-radius: 50px;
+    background-color: $color-button;
+    color: $color-primary;
+}

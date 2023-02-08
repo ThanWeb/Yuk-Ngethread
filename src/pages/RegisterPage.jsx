@@ -28,49 +28,51 @@ const RegisterPage = () => {
 
     return (
         <div className='register-page'>
-            <header className='register-header'>
-                <h1>Let&apos;s get started</h1>
-            </header>
-            <div className='form-container'>
-                <form>
-                    <TextInput
-                        props={{
-                            value: name,
-                            type: 'text',
-                            id: 'name',
-                            placeholder: 'Your Name',
-                            label: 'Name',
-                            setValue: setName
-                        }}
-                    />
-                    <TextInput
-                        props={{
-                            value: email,
-                            type: 'email',
-                            id: 'email',
-                            placeholder: 'yourname@gmail.com',
-                            label: 'E-mail Address',
-                            setValue: setEmail
-                        }}
-                    />
-                    <PasswordInput
-                        props={{
-                            password,
-                            setPassword,
-                            placeholder: 'yourpassword',
-                            isShowed: isPasswordShowed,
-                            setShowed: setIsPasswordShowed
-                        }}
-                    />
-                    <div>
-                        <button type='button' onClick={() => onRegisterHandler({ name, email, password })} disabled={!name || !isEmailValid || password.length < 6}>
-                            <span>Sign up</span>
-                            <TbUserPlus className='icons'/>
-                        </button>
-                    </div>
-                </form>
+            <div className='container'>
+                <header className='register-header'>
+                    <h1>Let&apos;s get started</h1>
+                </header>
+                <div className='form-container'>
+                    <form>
+                        <TextInput
+                            props={{
+                                value: name,
+                                type: 'text',
+                                id: 'name',
+                                placeholder: 'Your Name',
+                                label: 'Name',
+                                setValue: setName
+                            }}
+                        />
+                        <TextInput
+                            props={{
+                                value: email,
+                                type: 'email',
+                                id: 'email',
+                                placeholder: 'yourname@gmail.com',
+                                label: 'E-mail Address',
+                                setValue: setEmail
+                            }}
+                        />
+                        <PasswordInput
+                            props={{
+                                password,
+                                setPassword,
+                                placeholder: 'yourpassword',
+                                isShowed: isPasswordShowed,
+                                setShowed: setIsPasswordShowed
+                            }}
+                        />
+                        <div>
+                            <button type='button' className='register-button' onClick={() => onRegisterHandler({ name, email, password })} disabled={!name || !isEmailValid || password.length < 6}>
+                                <span>Sign up</span>
+                                <TbUserPlus className='icons'/>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+                <p><Link to='/'>Sign In</Link> if already have an account</p>
             </div>
-            <p><Link to='/'>Sign In</Link> if already have an account</p>
         </div>
     )
 }

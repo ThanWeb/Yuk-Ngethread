@@ -1,0 +1,47 @@
+.home-page {
+    .create-thread, .filter-section, .thread-preview {
+        box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
+        border-radius: 4px;
+        margin: 20px 0;
+        padding: 12px 20px;
+    }
+
+    .create-thread {
+        h3 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        button {
+            @include submit-button();
+        }
+    }
+
+    .filter {
+        button {
+            @include flex-box();
+        }
+    }
+
+    .buttons {
+        padding-top: 6px;
+        gap: 12px;
+        flex-wrap: wrap;
+        @include flex-box($justify: flex-start);
+
+        button {
+            color: $color-button;
+        }
+
+        .selected {
+            color: $color-anchor;
+        }
+    }
+
+    .thread-list {
+        @include tablet {
+            @include flex-box($justify: flex-start, $align: stretch);
+            flex-wrap: wrap;
+        }
+    }
+}

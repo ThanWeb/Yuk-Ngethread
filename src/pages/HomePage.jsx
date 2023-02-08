@@ -1,7 +1,7 @@
 
 import { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { TbPencil } from 'react-icons/tb'
+import { TbCircleCheck, TbFilter } from 'react-icons/tb'
 import { asyncCreateThread, asyncCreateComment, asyncGiveUpVote, asyncGiveDownVote } from '../states/threads/action'
 import useInput from '../hooks/useInput'
 import { asyncPopulateUsersAndThreads } from '../states/shared/action'
@@ -66,7 +66,7 @@ const HomePage = () => {
 
     return (
         <div className='home-page'>
-            <div className='create-thread'>
+            <div id='create-thread' className='create-thread'>
                 <div className='intro'>
                     <h3>What is going on inside your head?</h3>
                 </div>
@@ -93,18 +93,26 @@ const HomePage = () => {
                         <div>
                             <button type='button' onClick={() => onCreateThread(title, body, category)} disabled={!title || !body}>
                                 <span>Create</span>
-                                <TbPencil className='icons' />
+                                <TbCircleCheck className='icons' />
                             </button>
                         </div>
                     </form>
                 </div>
             </div>
-            <div className='filter-section'>
-                {
-                    categoryList.map((category, index) =>
-                        <button key={index} onClick={() => changeCategory(category)}>{category}</button>
-                    )
-                }
+            <div id='filter-section' className='filter-section'>
+                <div className='filter'>
+                    <button>
+                        <TbFilter className='icons' />
+                        <h3>Filter</h3>
+                    </button>
+                </div>
+                <div className='buttons'>
+                    {
+                        categoryList.map((category, index) =>
+                            <button key={index} className={filterQuery === category && 'selected'} onClick={() => changeCategory(category)}>{category}</button>
+                        )
+                    }
+                </div>
             </div>
             <div className='thread-list'>
                 {

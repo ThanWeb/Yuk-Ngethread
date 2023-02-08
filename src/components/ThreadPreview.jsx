@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
 import useInput from '../hooks/useInput'
-import { TbMessage2, TbSquarePlus, TbMoodSmile, TbMoodSad } from 'react-icons/tb'
+import { TbMessage2, TbSquarePlus, TbMoodSmile, TbMoodSad, TbListDetails } from 'react-icons/tb'
 import TextInput from '../components/TextInput'
 import UserAvatar from '../components/UserAvatar'
 import ThreadInfo from '../components/ThreadInfo'
@@ -53,71 +53,76 @@ const ThreadPreview = ({ thread, users, authUser, onAddComment, filterQuery, onG
 
     return (
         <div className={!thread.category.toLowerCase().includes(filterQuery.toLowerCase()) ? 'hidden thread-preview' : 'thread-preview'}>
-            <div className='header-section'>
-                <UserAvatar avatar={avatar} name={name} />
-                <ThreadInfo category={thread.category} name={name} createdAt={thread.createdAt} />
-            </div>
-            <ThreadContent title={thread.title} body={thread.body} id={thread.id} />
-            <div className='response-section'>
-                <VoteInfo users={users} detail={thread} />
-                {
-                    thread.totalComments > 1
-                        ? <p>{thread.totalComments} comments</p>
-                        : <p>{thread.totalComments} comment</p>
-                }
-            </div>
-            <div className='interactive-section'>
-                <div className='buttons-section'>
-                    <button type='button' onClick={() => toggleShowSection(true)}>
-                        <span>Vote</span>
-                        <TbSquarePlus className='icons' />
-                    </button>
-                    <button type='button' onClick={() => toggleShowSection(false)}>
-                        <span>Comment</span>
-                        <TbMessage2 className='icons' />
-                    </button>
-                    <Link to={`/threads/${thread.id}`}>More</Link>
+            <div>
+                <div className='header-section'>
+                    <UserAvatar avatar={avatar} name={name} />
+                    <ThreadInfo category={thread.category} name={name} createdAt={thread.createdAt} />
                 </div>
-                <div className='add-response-section'>
+                <ThreadContent title={thread.title} body={thread.body} id={thread.id} />
+                <div className='response-section'>
+                    <VoteInfo users={users} detail={thread} />
                     {
-                        showVoteSection || showCommentSection
-                            ? <div className='user-section'>
-                                <img src={authUser.avatar} alt={authUser.name} title={authUser.name} />
-                                <span>{authUser.name}</span>
-                            </div>
-                            : null
+                        thread.totalComments > 1
+                            ? <p>{thread.totalComments} comments</p>
+                            : <p>{thread.totalComments} comment</p>
                     }
-                    {
-                        showVoteSection &&
-                        <div className='vote-section'>
-                            <button type='button' onClick={() => onGiveUpVote(thread.id)} disabled={thread.upVotesBy.includes(authUser.id)}>
-                                <TbMoodSmile className='icons' />
-                            </button>
-                            <button type='button' onClick={() => onGiveDownVote(thread.id)} disabled={thread.downVotesBy.includes(authUser.id)}>
-                                <TbMoodSad className='icons' />
-                            </button>
-                        </div>
-                    }
-                    {
-                        showCommentSection &&
-                        <div className='comment-section'>
-                            <form className='form-section'>
-                                <TextInput
-                                    props={{
-                                        value: comment,
-                                        type: 'text',
-                                        id: 'comment',
-                                        placeholder: 'Your thought',
-                                        label: 'Comment',
-                                        setValue: setComment
-                                    }}
-                                />
-                                <div>
-                                    <button type='button' onClick={() => addCommentHandler(comment, thread.id)} disabled={!comment}>Post Comment</button>
+                </div>
+            </div>
+            <div>
+                <div className='interactive-section'>
+                    <div className='buttons-section'>
+                        <button type='button' onClick={() => toggleShowSection(true)}>
+                            <span>Vote</span>
+                            <TbSquarePlus className='icons' />
+                        </button>
+                        <button type='button' onClick={() => toggleShowSection(false)}>
+                            <span>Comment</span>
+                            <TbMessage2 className='icons' />
+                        </button>
+                        <Link to={`/threads/${thread.id}`}>
+                            <span>More</span>
+                            <TbListDetails className='icons' />
+                        </Link>
+                    </div>
+                    <div className='add-response-section'>
+                        {
+                            showVoteSection || showCommentSection
+                                ? <div className='user-section'>
+                                    <img src={authUser.avatar} alt={authUser.name} title={authUser.name} />
                                 </div>
-                            </form>
-                        </div>
-                    }
+                                : null
+                        }
+                        {
+                            showVoteSection &&
+                            <div className='vote-section'>
+                                <span>Vote</span>
+                                <button type='button' onClick={() => onGiveUpVote(thread.id)} disabled={thread.upVotesBy.includes(authUser.id)}>
+                                    <TbMoodSmile className='icons' />
+                                </button>
+                                <button type='button' onClick={() => onGiveDownVote(thread.id)} disabled={thread.downVotesBy.includes(authUser.id)}>
+                                    <TbMoodSad className='icons' />
+                                </button>
+                            </div>
+                        }
+                        {
+                            showCommentSection &&
+                            <div className='comment-section'>
+                                <form className='form-section'>
+                                    <TextInput
+                                        props={{
+                                            value: comment,
+                                            type: 'text',
+                                            id: 'comment',
+                                            placeholder: 'Your thought',
+                                            label: 'Comment',
+                                            setValue: setComment
+                                        }}
+                                    />
+                                    <button type='button' onClick={() => addCommentHandler(comment, thread.id)} disabled={!comment}>Send</button>
+                                </form>
+                            </div>
+                        }
+                    </div>
                 </div>
             </div>
         </div>
