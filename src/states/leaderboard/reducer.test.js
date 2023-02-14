@@ -36,7 +36,6 @@ describe('leaderboard reducer', () => {
                 ]
             }
         }
-
         const nextState = leaderboardReducer(initialState, action)
         expect(nextState).toEqual(action.payload.leaderboards)
     })

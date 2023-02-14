@@ -36,7 +36,6 @@ describe('users reducer', () => {
                 ]
             }
         }
-
         const nextState = usersReducer(initialState, action)
         expect(nextState).toEqual(action.payload.users)
     })
