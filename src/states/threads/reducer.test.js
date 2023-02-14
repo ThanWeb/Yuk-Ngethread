@@ -1,6 +1,19 @@
 import { describe, it, expect } from 'vitest'
 import threadsReducer from './reducer'
 
+/**
+ * test scenario for threads reducer
+ *
+ * - threadsReducer function
+ *  - should return the initial state when given by unknown action
+ *  - should return the array of threads when given by RECEIVE_THREADS action
+ *  - should return new array of threads when given CREATE_THREAD action
+ *  - should return new total comments of one thread when given CREATE_COMMENT_THREAD action
+ *  - should return new up vote of one thread when given GIVE_UP_VOTE_THREAD action
+ *  - should return new down vote of one thread when given GIVE_DOWN_VOTE_THREAD action
+ *
+ */
+
 describe('threads reducer', () => {
     it('should return the initial state when given by unknown action', () => {
         const initialState = []
@@ -169,7 +182,7 @@ describe('threads reducer', () => {
         expect(nextState).toEqual(expectedState)
     })
 
-    it('should return new up vote of one thread when given GIVE_DOWN_VOTE_THREAD action', () => {
+    it('should return new down vote of one thread when given GIVE_DOWN_VOTE_THREAD action', () => {
         const initialState = [
             {
                 id: 'thread-1',

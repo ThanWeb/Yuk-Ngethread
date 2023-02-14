@@ -1,6 +1,16 @@
 import { describe, it, expect } from 'vitest'
 import authUserReducer from './reducer'
 
+/**
+ * test scenario for authUser reducer
+ *
+ * - authUserReducer function
+ *  - should return the initial state when given by unknown action
+ *  - should return the null value when given by UNSET_AUTH_USER action
+ *  - should return the user object value when given by SET_AUTH_USER action
+ *
+ */
+
 describe('authUser reducer', () => {
     it('should return the initial state when given by unknown action', () => {
         const initialState = null
@@ -18,15 +28,11 @@ describe('authUser reducer', () => {
 
     it('should return user data when given SET_AUTH_USER action', () => {
         const expectedResult = {
-            status: 'success',
-            message: 'ok',
-            data: {
-                user: {
-                    id: 'john_doe',
-                    name: 'John Doe',
-                    email: 'john@example.com',
-                    avatar: 'https://generated-image-url.jpg'
-                }
+            user: {
+                id: 'john_doe',
+                name: 'John Doe',
+                email: 'john@example.com',
+                avatar: 'https://generated-image-url.jpg'
             }
         }
         const initialState = null

@@ -1,6 +1,15 @@
 import { describe, it, expect } from 'vitest'
 import leaderboardReducer from './reducer'
 
+/**
+ * test scenario for leaderboard reducer
+ *
+ * - leaderboardReducer function
+ *  - should return the initial state when given by unknown action
+ *  - should return the array of leaderboard when given by RECEIVE_LEADERBOARDS action
+ *
+ */
+
 describe('leaderboard reducer', () => {
     it('should return the initial state when given by unknown action', () => {
         const initialState = []
