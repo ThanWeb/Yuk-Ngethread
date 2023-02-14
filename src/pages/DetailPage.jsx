@@ -63,10 +63,12 @@ const DetailPage = () => {
                     <button type='button' onClick={() => onGiveUpVoteThread(threadDetail.id)} disabled={threadDetail.upVotesBy.includes(authUser.id)}>
                         <TbMoodSmile className='icons' />
                     </button>
+                    <span>{threadDetail.upVotesBy.length}</span>
                     {/* <button type='button'>Neutral</button> */}
                     <button type='button' onClick={() => onGiveDownVoteThread(threadDetail.id)} disabled={threadDetail.downVotesBy.includes(authUser.id)}>
                         <TbMoodSad className='icons' />
                     </button>
+                    <span>{threadDetail.downVotesBy.length}</span>
                 </div>
             </div>
             <div className='comment-section'>
@@ -97,10 +99,12 @@ const DetailPage = () => {
                                     <button type='button' onClick={() => onGiveUpVoteComment({ threadId: threadDetail.id, commentId: comment.id })} disabled={comment.upVotesBy.includes(authUser.id)}>
                                         <TbMoodSmile className='icons' />
                                     </button>
+                                    <span>{comment.upVotesBy.length}</span>
                                     {/* <button type='button'>Neutral</button> */}
                                     <button type='button' onClick={() => onGiveDownVoteComment({ threadId: threadDetail.id, commentId: comment.id })} disabled={comment.downVotesBy.includes(authUser.id)}>
                                         <TbMoodSad className='icons' />
                                     </button>
+                                    <span>{comment.downVotesBy.length}</span>
                                 </div>
                             </div>
                         </div>

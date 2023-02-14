@@ -21,6 +21,8 @@
     }    
 
     .vote-buttons {
+        @include flex-box($justify: flex-start);
+        gap: 20px;
         margin-top: 10px;
     }
 

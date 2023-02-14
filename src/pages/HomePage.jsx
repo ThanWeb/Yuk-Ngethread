@@ -109,7 +109,7 @@ const HomePage = () => {
                 <div className='buttons'>
                     {
                         categoryList.map((category, index) =>
-                            <button key={index} className={filterQuery === category && 'selected'} onClick={() => changeCategory(category)}>{category}</button>
+                            <button key={index} className={filterQuery === category ? 'selected' : ''} onClick={() => changeCategory(category)}>{category}</button>
                         )
                     }
                 </div>

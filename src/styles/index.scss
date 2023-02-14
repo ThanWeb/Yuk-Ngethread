@@ -57,11 +57,12 @@ button, a {
     cursor: pointer;
 
     &:hover {
-        color: $color-secondary;
+        color: $color-button;
     }
 
     &:disabled {
-        color: $color-secondary;
+        cursor: not-allowed;
+        color: $color-anchor;
     }
 }
 

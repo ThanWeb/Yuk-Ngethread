@@ -99,9 +99,11 @@ const ThreadPreview = ({ thread, users, authUser, onAddComment, filterQuery, onG
                                 <button type='button' onClick={() => onGiveUpVote(thread.id)} disabled={thread.upVotesBy.includes(authUser.id)}>
                                     <TbMoodSmile className='icons' />
                                 </button>
+                                <span>{thread.upVotesBy.length}</span>
                                 <button type='button' onClick={() => onGiveDownVote(thread.id)} disabled={thread.downVotesBy.includes(authUser.id)}>
                                     <TbMoodSad className='icons' />
                                 </button>
+                                <span>{thread.downVotesBy.length}</span>
                             </div>
                         }
                         {
