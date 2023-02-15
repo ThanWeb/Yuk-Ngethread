@@ -63,7 +63,7 @@ const asyncCreateThread = ({ title, body, category }) => {
             const thread = await api.createThread({ title, body, category })
             dispatch(createThreadActionCreator(thread))
         } catch (error) {
-            console.log(error.message)
+            alert(error.message)
         }
         hideLoading()
     }
@@ -76,7 +76,7 @@ const asyncCreateComment = ({ content, id }) => {
             const comment = await api.createCommentThread({ content, id })
             dispatch(createCommentActionCreator(comment, id))
         } catch (error) {
-            console.log(error.message)
+            alert(error.message)
         }
         hideLoading()
     }
@@ -89,7 +89,7 @@ const asyncGiveUpVote = (id) => {
             const vote = await api.giveUpVoteThread(id)
             dispatch(giveUpVoteActionCreator(vote))
         } catch (error) {
-            console.log(error.message)
+            alert(error.message)
         }
         hideLoading()
     }
@@ -102,7 +102,7 @@ const asyncGiveDownVote = (id) => {
             const vote = await api.giveDownVoteThread(id)
             dispatch(giveDownVoteActionCreator(vote))
         } catch (error) {
-            console.log(error.message)
+            alert(error.message)
         }
         hideLoading()
     }
