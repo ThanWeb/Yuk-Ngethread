@@ -85,7 +85,7 @@ const api = (() => {
         const { status, message } = responseJson
 
         if (status !== 'success') {
-            alert(message)
+            console.log(message)
         }
 
         const { data: { user } } = responseJson

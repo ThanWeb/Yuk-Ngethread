@@ -41,7 +41,8 @@ const fakeCreateThreadResponse = {
 }
 
 const fakeCreateCommentParam = {
-    content: 'Ini adalah komentar pertama'
+    content: 'Ini adalah komentar pertama',
+    id: 'thread-1'
 }
 
 const fakeCreateCommentResponse = {
@@ -113,7 +114,7 @@ describe('asyncCreateComment thunk', () => {
         api.createCommentThread = () => Promise.resolve(fakeCreateCommentResponse)
         const dispatch = vi.fn()
         await asyncCreateComment(fakeCreateCommentParam)(dispatch)
-        expect(dispatch).toHaveBeenCalledWith(createCommentActionCreator(fakeCreateCommentResponse))
+        expect(dispatch).toHaveBeenCalledWith(createCommentActionCreator(fakeCreateCommentResponse, fakeCreateCommentParam.id))
     })
 
     it('should dispatch action and call alert correctly when data fetching failed', async () => {
