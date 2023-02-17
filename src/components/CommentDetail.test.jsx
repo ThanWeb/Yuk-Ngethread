@@ -28,7 +28,7 @@ const fakeCommentProps = {
 
 describe('CommentDetail component', () => {
     beforeEach(() => {
-        render(<CommentDetail comment={fakeCommentProps}></CommentDetail>)
+        render(<CommentDetail comment={fakeCommentProps} />)
     })
 
     test('should render alt and title atribute of the avatar image in component correctly', () => {
