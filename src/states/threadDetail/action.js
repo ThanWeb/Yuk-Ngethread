@@ -161,6 +161,8 @@ export {
     createCommentActionCreator,
     giveUpVoteDetailActionCreator,
     giveDownVoteDetailActionCreator,
+    giveUpVoteCommentActionCreator,
+    giveDownVoteCommentActionCreator,
     asyncReceiveThreadDetail,
     asyncCreateComment,
     asyncGiveUpVoteDetail,
