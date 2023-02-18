@@ -2,7 +2,8 @@
     "env": {
         "browser": true,
         "es2021": true,
-        "node": true
+        "node": true,
+        "cypress/globals": true
     },
     "extends": [
         "plugin:react/recommended",
@@ -15,8 +16,10 @@
         "sourceType": "module"
     },
     "plugins": [
-        "react"
+        "react",
+        "cypress"
     ],
+    "ignorePatterns": ["**.scss", "cypress/"],
     "rules": {
         "indent": ["error", 4],
         "react/jsx-uses-react": "off",

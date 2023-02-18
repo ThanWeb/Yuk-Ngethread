@@ -8,7 +8,8 @@
         "build": "vite build",
         "preview": "vite preview",
         "lint": "npx eslint src/**",
-        "test": "vitest"
+        "test": "vitest",
+        "e2e": "cypress run"
     },
     "dependencies": {
         "@reduxjs/toolkit": "^1.9.2",
@@ -27,8 +28,10 @@
         "@types/react": "^18.0.26",
         "@types/react-dom": "^18.0.9",
         "@vitejs/plugin-react": "^3.0.0",
+        "cypress": "^12.6.0",
         "eslint": "^8.33.0",
         "eslint-config-standard": "^17.0.0",
+        "eslint-plugin-cypress": "^2.12.1",
         "eslint-plugin-import": "^2.27.5",
         "eslint-plugin-n": "^15.6.1",
         "eslint-plugin-promise": "^6.1.1",
