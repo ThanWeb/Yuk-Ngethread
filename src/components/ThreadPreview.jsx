@@ -71,7 +71,7 @@ const ThreadPreview = ({ thread, users, authUser, onAddComment, filterQuery, onG
             <div>
                 <div className='interactive-section'>
                     <div className='buttons-section'>
-                        <button type='button' onClick={() => toggleShowSection(true)}>
+                        <button type='button' onClick={() => toggleShowSection(true)} data-testid='open-votes-button'>
                             <span>Vote</span>
                             <TbSquarePlus className='icons' />
                         </button>
@@ -96,14 +96,14 @@ const ThreadPreview = ({ thread, users, authUser, onAddComment, filterQuery, onG
                             showVoteSection &&
                             <div className='vote-section'>
                                 <span>Vote</span>
-                                <button type='button' onClick={() => onGiveUpVote(thread.id)} disabled={thread.upVotesBy.includes(authUser.id)}>
+                                <button type='button' onClick={() => onGiveUpVote(thread.id)} disabled={thread.upVotesBy.includes(authUser.id)} data-testid='up-vote-button'>
                                     <TbMoodSmile className='icons' />
                                 </button>
-                                <span>{thread.upVotesBy.length}</span>
-                                <button type='button' onClick={() => onGiveDownVote(thread.id)} disabled={thread.downVotesBy.includes(authUser.id)}>
+                                <span data-testid='up-vote-total'>{thread.upVotesBy.length}</span>
+                                <button type='button' onClick={() => onGiveDownVote(thread.id)} disabled={thread.downVotesBy.includes(authUser.id)} data-testid='down-vote-button'>
                                     <TbMoodSad className='icons' />
                                 </button>
-                                <span>{thread.downVotesBy.length}</span>
+                                <span data-testid='down-vote-total'>{thread.downVotesBy.length}</span>
                             </div>
                         }
                         {
