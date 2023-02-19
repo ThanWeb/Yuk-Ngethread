@@ -19,7 +19,7 @@
         "react",
         "cypress"
     ],
-    "ignorePatterns": ["**.scss", "cypress/"],
+    "ignorePatterns": ["**.scss"],
     "rules": {
         "indent": ["error", 4],
         "react/jsx-uses-react": "off",
