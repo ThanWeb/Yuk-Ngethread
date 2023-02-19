@@ -27,7 +27,7 @@ const LoginPage = () => {
         <div className='login-page'>
             <div className='container'>
                 <header className='login-header'>
-                    <h1>Almost there</h1>
+                    <h1>Almost there!</h1>
                 </header>
                 <div className='form-container'>
                     <form>
