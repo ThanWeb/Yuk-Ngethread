@@ -9,7 +9,8 @@
         "preview": "vite preview",
         "lint": "npx eslint src/**",
         "test": "vitest",
-        "e2e": "cypress run"
+        "e2e": "cypress run",
+        "ci:test": "npm run test && start-server-and-test start http-get://0.0.0.0:3000 e2e"
     },
     "dependencies": {
         "@reduxjs/toolkit": "^1.9.2",
@@ -38,6 +39,7 @@
         "eslint-plugin-react": "^7.32.2",
         "jsdom": "^21.1.0",
         "sass": "^1.57.1",
+        "start-server-and-test": "^1.15.4",
         "vite": "^4.0.0",
         "vitest": "^0.28.4"
     }
