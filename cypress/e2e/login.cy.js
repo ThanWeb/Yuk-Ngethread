@@ -9,21 +9,21 @@
 
 describe('Login spec', () => {
     beforeEach(() => {
-        cy.visit('http://localhost:5173/')
+        cy.visit('http://localhost:3000/')
     })
 
     it('should display login page correctly', () => {
         cy.get('input[placeholder="yourname@gmail.com"]').should('be.visible')
         cy.get('input[placeholder="yourpassword"]').should('be.visible')
         cy.get('button').contains(/^Sign in$/).should('be.visible')
-        cy.get('h1').contains(/^Almost there$/).should('be.visible')
+        cy.get('h1').contains(/^Almost there!$/).should('be.visible')
     })
 
     it('should disabled sign in button when email is invalid', () => {
         cy.get('input[placeholder="yourpassword"]').type('validpass')
         cy.get('button').contains(/^Sign in$/).click()
         cy.get('button').contains(/^Sign in$/).should('be.visible')
-        cy.get('h1').contains(/^Almost there$/).should('be.visible')
+        cy.get('h1').contains(/^Almost there!$/).should('be.visible')
     })
 
     it('should disabled sign in button when password is invalid', () => {
@@ -31,7 +31,7 @@ describe('Login spec', () => {
         cy.get('input[placeholder="yourpassword"]').type('n')
         cy.get('button').contains(/^Sign in$/).click()
         cy.get('button').contains(/^Sign in$/).should('be.visible')
-        cy.get('h1').contains(/^Almost there$/).should('be.visible')
+        cy.get('h1').contains(/^Almost there!$/).should('be.visible')
     })
 
     it('should display alert when username and password are incorrect', () => {
