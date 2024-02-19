@@ -1,77 +1,82 @@
 .thread-preview {
-    @include tablet {
-        @include flex-box($direction: column, $justify: space-between, $align: stretch);
-        flex-basis: calc(50% - 20px);
-        margin: 10px !important;
+  @include tablet {
+    @include flex-box($direction: column, $justify: space-between, $align: stretch);
+    
+    flex-basis: calc(50% - 20px);
+    margin: 10px !important;
+  }
+
+  @include extra-large-desktop {
+    flex-basis: calc(33% - 16px);
+  }
+
+  .header-section {
+    @include flex-box($justify: space-between);
+
+    gap: 8px;
+
+    > div {
+      &:nth-child(1) {
+        flex-basis: 10%;
+      }
+  }
+
+    img {
+      width: 40px;
     }
+  }    
 
-    @include extra-large-desktop {
-        flex-basis: calc(33% - 16px);
+  .thread-created, .thread-category {
+    font-size: 16px;
+  }
+
+  .content-section, .response-section {
+    margin-top: 10px;
+  }
+
+  .thread-body {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    line-clamp: 1; 
+    -webkit-line-clamp: 1;           
+    -webkit-box-orient: vertical;
+  }
+
+  .buttons-section {
+    @include flex-box($justify: space-evenly);
+
+    margin-top: 20px;
+
+    button, a {
+      @include flex-box($direction: column-reverse);
     }
+  }
 
-    .header-section {
-        @include flex-box($justify: space-between);
-        gap: 8px;
+  .add-response-section {
+    @include flex-box($justify: flex-start);
 
-        > div {
-            &:nth-child(1) {
-                flex-basis: 10%;
-            }
-        }
+    margin-top: 20px;
+    padding-top: 12px;
+    border-top: 1px solid $bg-primary;
+    gap: 20px;
 
-        img {
-            width: 40px;
-        }
-    }    
-
-    .thread-created, .thread-category {
-        font-size: 16px;
+    img, svg {
+      width: 40px;
     }
+  }
 
-    .content-section, .response-section {
-        margin-top: 10px;
+  .user-section, .vote-section {
+    @include flex-box($justify: flex-start);
+
+    gap: 20px;
+  }
+
+  .form-section {
+    @include flex-box($direction: column, $align: flex-start);
+
+    button {
+      padding: 0 12px;
     }
-
-    .thread-body {
-        overflow: hidden;
-        text-overflow: ellipsis;
-        display: -webkit-box;
-        line-clamp: 1; 
-        -webkit-line-clamp: 1;           
-        -webkit-box-orient: vertical;
-    }
-
-    .buttons-section {
-        @include flex-box($justify: space-evenly);
-        margin-top: 20px;
-
-        button, a {
-            @include flex-box($direction: column-reverse);
-        }
-    }
-
-    .add-response-section {
-        @include flex-box($justify: flex-start);
-        margin-top: 20px;
-        padding-top: 12px;
-        border-top: 1px solid $bg-primary;
-        gap: 20px;
-
-        img, svg {
-            width: 40px;
-        }
-    }
-
-    .user-section, .vote-section {
-        @include flex-box($justify: flex-start);
-        gap: 20px;
-    }
-
-    .form-section {
-        @include flex-box($direction: column, $align: flex-start);
-
-        button {
-            padding: 0 12px;
-        }
-    }
+  }
 }

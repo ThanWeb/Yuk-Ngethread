@@ -1,52 +1,54 @@
 .leaderboard-page {
-    h2, .board {
-        margin-top: 20px;
+  h2, .board {
+    margin-top: 20px;
+  }
+
+  h2 {
+    text-align: center;
+  }
+
+  .board {
+    @include flex-box($align: flex-start);
+
+    flex-wrap: wrap;
+
+    @include desktop {
+      gap: 10px;
+    }
+  }
+
+  .leaderboard-item {
+    @include flex-box($justify: space-between);
+
+    border-radius: 50px;
+    font-size: 20px;
+    padding: 10px 50px;
+    margin-bottom: 12px;
+    flex-basis: 100%;
+    border: 1px solid $color-button;
+
+    img {
+      border-radius: 50%;
+      height: 40px;
     }
 
-    h2 {
-        text-align: center;
+    @include large-desktop {
+      flex-basis: calc(50% - 30px);
     }
 
-    .board {
-        @include flex-box($align: flex-start);
-        flex-wrap: wrap;
-
-        @include desktop {
-            gap: 10px;
-        }
+    &.position-1 {
+      border-width: 0;
+      background-color: gold;
     }
 
-    .leaderboard-item {
-        @include flex-box($justify: space-between);
-        border-radius: 50px;
-        font-size: 20px;
-        padding: 10px 50px;
-        margin-bottom: 12px;
-        flex-basis: 100%;
-        border: 1px solid $color-button;
-
-        img {
-            border-radius: 50%;
-            height: 40px;
-        }
-
-        @include large-desktop {
-            flex-basis: calc(50% - 30px);
-        }
-
-        &.position-1 {
-            border-width: 0;
-            background-color: gold;
-        }
-
-        &.position-2 {
-            border-width: 0;
-            background-color: silver;
-        }
-
-        &.position-3 {
-            border-width: 0;
-            background-color: burlywood;
-        }
+    &.position-2 {
+      border-width: 0;
+      background-color: silver;
     }
+
+    &.position-3 {
+      border-width: 0;
+      background-color: burlywood;
+    }
+  }
 }
