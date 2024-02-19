@@ -1,16 +1,16 @@
 import { useNavigate } from 'react-router-dom'
 
 const NotFoundPage = () => {
-    const navigate = useNavigate()
+  const navigate = useNavigate()
 
-    return (
-        <div className='not-found-page'>
-            <p>
-                <span>404</span><span>|</span><span>Not Found</span>
-            </p>
-            <button onClick={() => navigate('/')}>Back to Home</button>
-        </div>
-    )
+  return (
+    <div className='not-found-page'>
+      <p>
+        <span>404</span><span>|</span><span>Not Found</span>
+      </p>
+      <button onClick={() => navigate('/')}>Back to Home</button>
+    </div>
+  )
 }
 
 export default NotFoundPage

@@ -15,91 +15,91 @@ import { asyncUnsetAuthUser } from './states/authUser/action'
 import { TbArrowBigUpLine } from 'react-icons/tb'
 
 const App = () => {
-    const { authUser = null, isPreload = false } = useSelector((states) => states)
-    const [showScrollToTop, setShowScrollToTop] = useState(false)
-    const dispatch = useDispatch()
-    const location = useLocation()
-    const navigate = useNavigate()
+  const { authUser = null, isPreload = false } = useSelector((states) => states)
+  const [showScrollToTop, setShowScrollToTop] = useState(false)
+  const dispatch = useDispatch()
+  const location = useLocation()
+  const navigate = useNavigate()
 
-    useEffect(() => {
-        dispatch(asyncPreloadProcess())
-    }, [dispatch])
+  useEffect(() => {
+    dispatch(asyncPreloadProcess())
+  }, [dispatch])
 
-    useEffect(() => {
-        window.scrollTo(0, 0)
-    }, [location])
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [location])
 
-    const onSignOut = () => {
-        dispatch(asyncUnsetAuthUser())
-        navigate('/')
+  const onSignOut = () => {
+    dispatch(asyncUnsetAuthUser())
+    navigate('/')
+  }
+
+  const scrollToTop = () => {
+    window.scrollTo(0, 0)
+  }
+
+  const checkScrollPosition = () => {
+    const scrolled = document.documentElement.scrollTop
+    if (scrolled > 50) {
+      setShowScrollToTop(true)
+    } else if (scrolled <= 50) {
+      setShowScrollToTop(false)
     }
+  }
 
-    const scrollToTop = () => {
-        window.scrollTo(0, 0)
-    }
+  window.addEventListener('scroll', checkScrollPosition)
 
-    const checkScrollPosition = () => {
-        const scrolled = document.documentElement.scrollTop
-        if (scrolled > 50) {
-            setShowScrollToTop(true)
-        } else if (scrolled <= 50) {
-            setShowScrollToTop(false)
-        }
-    }
+  if (isPreload) {
+    return null
+  }
 
-    window.addEventListener('scroll', checkScrollPosition)
-
-    if (isPreload) {
-        return null
-    }
-
-    if (authUser === null) {
-        return (
-            <div className='container'>
-                <main>
-                    <Routes>
-                        <Route path="/" element={<LoginPage />} />
-                        <Route path="/register" element={<RegisterPage />} />
-                        <Route path="*" element={<NotFoundPage />} />
-                    </Routes>
-                </main>
-                <Loading />
-            </div>
-        )
-    }
-
+  if (authUser === null) {
     return (
-        <div className="container">
-            <header className='main-header'>
-                <div className='top-header'>
-                    <div className='title'>
-                        <img src='favicon.png' title='Yuk Ngethread' alt='Yuk Ngethread'/>
-                        <h3>Yuk Ngethread</h3>
-                    </div>
-                    <div className='profile'>
-                        <UserAvatar avatar={authUser.avatar} name={authUser.name} />
-                        <span>{authUser.name}</span>
-                    </div>
-                </div>
-                <Navigation signOut={onSignOut} />
-            </header>
-            <main className='logged-in'>
-                <Routes>
-                    <Route path="/" element={<HomePage />} />
-                    <Route path="/threads/:id" element={<DetailPage />} />
-                    <Route path="/leaderboard" element={<LeaderboardPage />} />
-                    <Route path="*" element={<NotFoundPage />} />
-                </Routes>
-            </main>
-            <Loading />
-            {
-                showScrollToTop &&
-                <button className='scroll-to-top' onClick={scrollToTop}>
-                    <TbArrowBigUpLine className='icons' />
-                </button>
-            }
-        </div>
+      <div className='container'>
+        <main>
+          <Routes>
+            <Route path='/' element={<LoginPage />} />
+            <Route path='/register' element={<RegisterPage />} />
+            <Route path='*' element={<NotFoundPage />} />
+          </Routes>
+        </main>
+        <Loading />
+      </div>
     )
+  }
+
+  return (
+    <div className='container'>
+      <header className='main-header'>
+        <div className='top-header'>
+          <div className='title'>
+            <img src='favicon.png' title='Yuk Ngethread' alt='Yuk Ngethread'/>
+            <h3>Yuk Ngethread</h3>
+          </div>
+          <div className='profile'>
+            <UserAvatar avatar={authUser.avatar} name={authUser.name} />
+            <span>{authUser.name}</span>
+          </div>
+        </div>
+        <Navigation signOut={onSignOut} />
+      </header>
+      <main className='logged-in'>
+        <Routes>
+          <Route path='/' element={<HomePage />} />
+          <Route path='/threads/:id' element={<DetailPage />} />
+          <Route path='/leaderboard' element={<LeaderboardPage />} />
+          <Route path='*' element={<NotFoundPage />} />
+        </Routes>
+      </main>
+      <Loading />
+      {
+        showScrollToTop &&
+        <button className='scroll-to-top' onClick={scrollToTop}>
+          <TbArrowBigUpLine className='icons' />
+        </button>
+      }
+    </div>
+  )
 }
 
 export default App

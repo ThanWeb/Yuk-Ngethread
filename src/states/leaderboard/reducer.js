@@ -1,12 +1,12 @@
 import { ActionType } from './action'
 
 const leaderboardReducer = (leaderboards = [], action = {}) => {
-    switch (action.type) {
+  switch (action.type) {
     case ActionType.RECEIVE_LEADERBOARDS:
-        return action.payload.leaderboards
+      return action.payload.leaderboards
     default:
-        return leaderboards
-    }
+      return leaderboards
+  }
 }
 
 export default leaderboardReducer

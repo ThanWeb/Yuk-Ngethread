@@ -11,10 +11,10 @@ import userEvent from '@testing-library/user-event'
  */
 
 describe('PasswordInput component', () => {
-    test('should type the password correctly', async () => {
-        render(<PasswordInput props={{ placeholder: 'yourpassword' }}/>)
-        const passwordInput = await screen.getByPlaceholderText('yourpassword')
-        await userEvent.type(passwordInput, 'passwordtest')
-        expect(passwordInput.value).toContain('passwordtest')
-    })
+  test('should type the password correctly', async () => {
+    render(<PasswordInput props={{ placeholder: 'yourpassword' }}/>)
+    const passwordInput = await screen.getByPlaceholderText('yourpassword')
+    await userEvent.type(passwordInput, 'passwordtest')
+    expect(passwordInput.value).toContain('passwordtest')
+  })
 })

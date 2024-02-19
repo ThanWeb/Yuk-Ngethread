@@ -11,10 +11,10 @@ import userEvent from '@testing-library/user-event'
  */
 
 describe('TextInput component', () => {
-    test('should type the the text correctly', async () => {
-        render(<TextInput props={{ placeholder: 'testinputhere' }}/>)
-        const textInput = await screen.getByPlaceholderText('testinputhere')
-        await userEvent.type(textInput, '8adk11;1-0ada')
-        expect(textInput.value).toContain('8adk11;1-0ada')
-    })
+  test('should type the the text correctly', async () => {
+    render(<TextInput props={{ placeholder: 'testinputhere' }}/>)
+    const textInput = await screen.getByPlaceholderText('testinputhere')
+    await userEvent.type(textInput, '8adk11;1-0ada')
+    expect(textInput.value).toContain('8adk11;1-0ada')
+  })
 })
