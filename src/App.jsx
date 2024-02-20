@@ -9,16 +9,20 @@ import DetailPage from './pages/DetailPage'
 import NotFoundPage from './pages/NotFoundPage'
 import Navigation from './components/Navigation'
 import UserAvatar from './components/UserAvatar'
+import Message from './components/Message'
 import { asyncPreloadProcess } from './states/isPreload/action'
 import { asyncUnsetAuthUser } from './states/authUser/action'
+import { unsetMessageActionCreator } from './states/message/action'
 import { TbArrowBigUpLine } from 'react-icons/tb'
 
 const App = () => {
-  const { authUser = null, isPreload = false } = useSelector((states) => states)
-  const [showScrollToTop, setShowScrollToTop] = useState(false)
   const dispatch = useDispatch()
   const location = useLocation()
   const navigate = useNavigate()
+
+  const [showScrollToTop, setShowScrollToTop] = useState(false)
+
+  const { authUser = null, isPreload = false, message = null } = useSelector((states) => states)
 
   useEffect(() => {
     dispatch(asyncPreloadProcess())
@@ -27,6 +31,14 @@ const App = () => {
   useEffect(() => {
     window.scrollTo(0, 0)
   }, [location])
+
+  useEffect(() => {
+    if (message !== null) {
+      setTimeout(() => {
+        dispatch(unsetMessageActionCreator())
+      }, 2000)
+    }
+  }, [message])
 
   const onSignOut = () => {
     dispatch(asyncUnsetAuthUser())
@@ -54,7 +66,7 @@ const App = () => {
 
   if (authUser === null) {
     return (
-      <div>
+      <>
         <main>
           <Routes>
             <Route path='/' element={<LoginPage />} />
@@ -62,12 +74,13 @@ const App = () => {
             <Route path='*' element={<NotFoundPage />} />
           </Routes>
         </main>
-      </div>
+        <Message message={message} />
+      </>
     )
   }
 
   return (
-    <div>
+    <>
       <header>
         <div>
           <div>
@@ -102,7 +115,8 @@ const App = () => {
           <TbArrowBigUpLine/>
         </button>
       }
-    </div>
+      <Message message={message} />
+    </>
   )
 }
 
