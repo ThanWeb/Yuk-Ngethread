@@ -27,16 +27,4 @@ const findWhoGiveVote = (users, id) => {
   }
 }
 
-const showLoading = () => {
-  if (document.querySelector('.loading')) {
-    document.querySelector('.loading').classList.remove('hide')
-  }
-}
-
-const hideLoading = () => {
-  if (document.querySelector('.loading')) {
-    document.querySelector('.loading').classList.add('hide')
-  }
-}
-
-export { checkEmailIsValid, getFormattedDateString, findWhoGiveVote, showLoading, hideLoading }
+export { checkEmailIsValid, getFormattedDateString, findWhoGiveVote }

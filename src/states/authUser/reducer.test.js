@@ -35,13 +35,16 @@ describe('authUser reducer', () => {
         avatar: 'https://generated-image-url.jpg'
       }
     }
+
     const initialState = null
+
     const action = {
       type: 'SET_AUTH_USER',
       payload: {
         authUser: expectedResult
       }
     }
+
     const nextState = authUserReducer(initialState, action)
     expect(nextState).toEqual(expectedResult)
   })

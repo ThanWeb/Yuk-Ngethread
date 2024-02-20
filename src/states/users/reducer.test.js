@@ -20,6 +20,7 @@ describe('users reducer', () => {
 
   it('should return array of users when given RECEIVE_USERS action', () => {
     const initialState = []
+
     const action = {
       type: 'RECEIVE_USERS',
       payload: {
@@ -45,6 +46,7 @@ describe('users reducer', () => {
         ]
       }
     }
+
     const nextState = usersReducer(initialState, action)
     expect(nextState).toEqual(action.payload.users)
   })

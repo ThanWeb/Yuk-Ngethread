@@ -1,12 +1,10 @@
 import api from '../../utils/api'
-import { showLoading, hideLoading } from '../../utils'
 
 const ActionType = {
   RECEIVE_THREADS: 'RECEIVE_THREADS',
   CREATE_THREAD: 'CREATE_THREAD',
   GIVE_UP_VOTE_THREAD: 'GIVE_UP_VOTE_THREAD',
   GIVE_DOWN_VOTE_THREAD: 'GIVE_DOWN_VOTE_THREAD',
-  // GIVE_NEUTRAL_VOTE_THREAD: 'GIVE_NEUTRAL_VOTE_THREAD',
   CREATE_COMMENT_THREAD: 'CREATE_COMMENT_THREAD'
 }
 
@@ -58,53 +56,45 @@ const giveDownVoteActionCreator = (vote) => {
 
 const asyncCreateThread = ({ title, body, category }) => {
   return async (dispatch) => {
-    showLoading()
     try {
       const thread = await api.createThread({ title, body, category })
       dispatch(createThreadActionCreator(thread))
     } catch (error) {
       alert(error.message)
     }
-    hideLoading()
   }
 }
 
 const asyncCreateComment = ({ content, id }) => {
   return async (dispatch) => {
-    showLoading()
     try {
       const comment = await api.createCommentThread({ content, id })
       dispatch(createCommentActionCreator(comment, id))
     } catch (error) {
       alert(error.message)
     }
-    hideLoading()
   }
 }
 
 const asyncGiveUpVote = (id) => {
   return async (dispatch) => {
-    showLoading()
     try {
       const vote = await api.giveUpVoteThread(id)
       dispatch(giveUpVoteActionCreator(vote))
     } catch (error) {
       alert(error.message)
     }
-    hideLoading()
   }
 }
 
 const asyncGiveDownVote = (id) => {
   return async (dispatch) => {
-    showLoading()
     try {
       const vote = await api.giveDownVoteThread(id)
       dispatch(giveDownVoteActionCreator(vote))
     } catch (error) {
       alert(error.message)
     }
-    hideLoading()
   }
 }
 

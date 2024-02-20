@@ -20,6 +20,7 @@ describe('leaderboard reducer', () => {
 
   it('should return array of leaderboard when given RECEIVE_LEADERBOARDS action', () => {
     const initialState = []
+
     const action = {
       type: 'RECEIVE_LEADERBOARDS',
       payload: {
@@ -45,6 +46,7 @@ describe('leaderboard reducer', () => {
         ]
       }
     }
+
     const nextState = leaderboardReducer(initialState, action)
     expect(nextState).toEqual(action.payload.leaderboards)
   })

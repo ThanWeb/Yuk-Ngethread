@@ -32,6 +32,7 @@ describe('threadDetail reducer', () => {
 
   it('should return the threadDetail value of object when given by RECEIVE_THREAD_DETAIL action', () => {
     const initialState = null
+
     const action = {
       type: 'RECEIVE_THREAD_DETAIL',
       payload: {
@@ -65,6 +66,7 @@ describe('threadDetail reducer', () => {
         }
       }
     }
+
     const nextState = threadDetailReducer(initialState, action)
     expect(nextState).toEqual(action.payload.threadDetail)
   })
@@ -98,6 +100,7 @@ describe('threadDetail reducer', () => {
         }
       ]
     }
+
     const action = {
       type: 'CREATE_COMMENT_THREAD_DETAIL',
       payload: {
@@ -115,6 +118,7 @@ describe('threadDetail reducer', () => {
         }
       }
     }
+
     const nextState = threadDetailReducer(initialState, action)
     expect(nextState).toEqual({ ...initialState, comments: [action.payload.comment, ...initialState.comments] })
   })
@@ -148,6 +152,7 @@ describe('threadDetail reducer', () => {
         }
       ]
     }
+
     const action = {
       type: 'GIVE_UP_VOTE_THREAD_DETAIL',
       payload: {
@@ -159,6 +164,7 @@ describe('threadDetail reducer', () => {
         }
       }
     }
+
     const nextState = threadDetailReducer(initialState, action)
     expect(nextState).toEqual({ ...initialState, upVotesBy: [action.payload.vote.userId] })
   })
@@ -192,6 +198,7 @@ describe('threadDetail reducer', () => {
         }
       ]
     }
+
     const action = {
       type: 'GIVE_DOWN_VOTE_THREAD_DETAIL',
       payload: {
@@ -203,6 +210,7 @@ describe('threadDetail reducer', () => {
         }
       }
     }
+
     const nextState = threadDetailReducer(initialState, action)
     expect(nextState).toEqual({ ...initialState, downVotesBy: [action.payload.vote.userId] })
   })
@@ -236,6 +244,7 @@ describe('threadDetail reducer', () => {
         }
       ]
     }
+
     const action = {
       type: 'GIVE_UP_VOTE_COMMENT_THREAD_DETAIL',
       payload: {
@@ -248,6 +257,7 @@ describe('threadDetail reducer', () => {
         }
       }
     }
+
     const nextState = threadDetailReducer(initialState, action)
     expect(nextState).toEqual({ ...initialState, comments: [{ ...initialState.comments[0], upVotesBy: [action.payload.vote.userId] }] })
   })
@@ -281,6 +291,7 @@ describe('threadDetail reducer', () => {
         }
       ]
     }
+
     const action = {
       type: 'GIVE_DOWN_VOTE_COMMENT_THREAD_DETAIL',
       payload: {
@@ -293,6 +304,7 @@ describe('threadDetail reducer', () => {
         }
       }
     }
+
     const nextState = threadDetailReducer(initialState, action)
     expect(nextState).toEqual({ ...initialState, comments: [{ ...initialState.comments[0], downVotesBy: [action.payload.vote.userId] }] })
   })

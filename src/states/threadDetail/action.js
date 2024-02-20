@@ -1,16 +1,13 @@
 import api from '../../utils/api'
-import { showLoading, hideLoading } from '../../utils'
 
 const ActionType = {
   RECEIVE_THREAD_DETAIL: 'RECEIVE_THREAD_DETAIL',
   CLEAR_THREAD_DETAIL: 'CLEAR_THREAD_DETAIL',
   GIVE_UP_VOTE_THREAD_DETAIL: 'GIVE_UP_VOTE_THREAD_DETAIL',
   GIVE_DOWN_VOTE_THREAD_DETAIL: 'GIVE_DOWN_VOTE_THREAD_DETAIL',
-  // GIVE_NEUTRAL_VOTE_THREAD_DETAIL: 'GIVE_NEUTRAL_VOTE_THREAD_DETAIL',
   CREATE_COMMENT_THREAD_DETAIL: 'CREATE_COMMENT_THREAD_DETAIL',
   GIVE_UP_VOTE_COMMENT_THREAD_DETAIL: 'GIVE_UP_VOTE_COMMENT_THREAD_DETAIL',
   GIVE_DOWN_VOTE_COMMENT_THREAD_DETAIL: 'GIVE_DOWN_VOTE_COMMENT_THREAD_DETAIL'
-  // GIVE_NEUTRAL_VOTE_COMMENT_THREAD_DETAIL: 'GIVE_NEUTRAL_VOTE_COMMENT_THREAD_DETAIL'
 }
 
 const clearThreadDetailActionCreator = () => {
@@ -77,7 +74,6 @@ const giveDownVoteCommentActionCreator = ({ commentId, vote }) => {
 
 const asyncReceiveThreadDetail = (threadId) => {
   return async (dispatch) => {
-    showLoading()
     dispatch(clearThreadDetailActionCreator())
     try {
       const threadDetail = await api.getDetailThread(threadId)
@@ -85,72 +81,61 @@ const asyncReceiveThreadDetail = (threadId) => {
     } catch (error) {
       alert(error.message)
     }
-    hideLoading()
   }
 }
 
 const asyncCreateComment = ({ content, id }) => {
   return async (dispatch) => {
-    showLoading()
     try {
       const comment = await api.createCommentThread({ content, id })
       dispatch(createCommentActionCreator(comment))
     } catch (error) {
       alert(error.message)
     }
-    hideLoading()
   }
 }
 
 const asyncGiveUpVoteDetail = (id) => {
   return async (dispatch) => {
-    showLoading()
     try {
       const vote = await api.giveUpVoteThread(id)
       dispatch(giveUpVoteDetailActionCreator(vote))
     } catch (error) {
       alert(error.message)
     }
-    hideLoading()
   }
 }
 
 const asyncGiveDownVoteDetail = (id) => {
   return async (dispatch) => {
-    showLoading()
     try {
       const vote = await api.giveDownVoteThread(id)
       dispatch(giveDownVoteDetailActionCreator(vote))
     } catch (error) {
       alert(error.message)
     }
-    hideLoading()
   }
 }
 
 const asyncGiveUpVoteComment = ({ threadId, commentId }) => {
   return async (dispatch) => {
-    showLoading()
     try {
       const vote = await api.giveUpVoteComment({ threadId, commentId })
       dispatch(giveUpVoteCommentActionCreator({ commentId, vote }))
     } catch (error) {
       alert(error.message)
     }
-    hideLoading()
   }
 }
 
 const asyncGiveDownVoteComment = ({ threadId, commentId }) => {
   return async (dispatch) => {
-    showLoading()
     try {
       const vote = await api.giveDownVoteComment({ threadId, commentId })
       dispatch(giveDownVoteCommentActionCreator({ commentId, vote }))
     } catch (error) {
       alert(error.message)
     }
-    hideLoading()
   }
 }
 

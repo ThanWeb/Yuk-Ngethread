@@ -196,22 +196,6 @@ const api = (() => {
     return vote
   }
 
-  // const giveNeutralVoteThread = async (id) => {
-  //     const response = await _fetchWithAuth(`${BASE_URL}/threads/${id}/neutral-vote`, {
-  //         method: 'POST'
-  //     })
-
-  //     const responseJson = await response.json()
-  //     const { status, message } = responseJson
-
-  //     if (status !== 'success') {
-  //         alert(message)
-  //     }
-
-  //     const { data: { vote } } = responseJson
-  //     return vote
-  // }
-
   const giveUpVoteComment = async ({ threadId, commentId }) => {
     const response = await _fetchWithAuth(`${BASE_URL}/threads/${threadId}/comments/${commentId}/up-vote`, {
       method: 'POST'
@@ -244,22 +228,6 @@ const api = (() => {
     return vote
   }
 
-  // const giveNeutralVoteComment = async ({ threadId, commentId }) => {
-  //     const response = await _fetchWithAuth(`${BASE_URL}/threads/${threadId}/comments/${commentId}/neutral-vote`, {
-  //         method: 'POST'
-  //     })
-
-  //     const responseJson = await response.json()
-  //     const { status, message } = responseJson
-
-  //     if (status !== 'success') {
-  //         alert(message)
-  //     }
-
-  //     const { data: { vote } } = responseJson
-  //     return vote
-  // }
-
   const getLeaderboards = async () => {
     const response = await fetch(`${BASE_URL}/leaderboards`)
     const responseJson = await response.json()
@@ -286,10 +254,8 @@ const api = (() => {
     createCommentThread,
     giveUpVoteThread,
     giveDownVoteThread,
-    // giveNeutralVoteThread,
     giveUpVoteComment,
     giveDownVoteComment,
-    // giveNeutralVoteComment,
     getLeaderboards
   }
 })()

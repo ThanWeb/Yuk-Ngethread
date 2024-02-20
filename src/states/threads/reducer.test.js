@@ -24,6 +24,7 @@ describe('threads reducer', () => {
 
   it('should return array of threads when given RECEIVE_THREADS action', () => {
     const initialState = []
+
     const action = {
       type: 'RECEIVE_THREADS',
       payload: {
@@ -53,6 +54,7 @@ describe('threads reducer', () => {
         ]
       }
     }
+
     const nextState = threadsReducer(initialState, action)
     expect(nextState).toEqual(action.payload.threads)
   })
@@ -71,6 +73,7 @@ describe('threads reducer', () => {
         totalComments: 0
       }
     ]
+
     const action = {
       type: 'CREATE_THREAD',
       payload: {
@@ -87,6 +90,7 @@ describe('threads reducer', () => {
         }
       }
     }
+
     const nextState = threadsReducer(initialState, action)
     expect(nextState).toEqual([action.payload.thread, ...initialState])
   })
@@ -105,6 +109,7 @@ describe('threads reducer', () => {
         totalComments: 0
       }
     ]
+
     const expectedState = [
       {
         id: 'thread-1',
@@ -118,6 +123,7 @@ describe('threads reducer', () => {
         totalComments: 1
       }
     ]
+
     const action = {
       type: 'CREATE_COMMENT_THREAD',
       payload: {
@@ -136,6 +142,7 @@ describe('threads reducer', () => {
         id: 'thread-1'
       }
     }
+
     const nextState = threadsReducer(initialState, action)
     expect(nextState).toEqual(expectedState)
   })
@@ -154,6 +161,7 @@ describe('threads reducer', () => {
         totalComments: 0
       }
     ]
+
     const expectedState = [
       {
         id: 'thread-1',
@@ -167,6 +175,7 @@ describe('threads reducer', () => {
         totalComments: 0
       }
     ]
+
     const action = {
       type: 'GIVE_UP_VOTE_THREAD',
       payload: {
@@ -178,6 +187,7 @@ describe('threads reducer', () => {
         }
       }
     }
+
     const nextState = threadsReducer(initialState, action)
     expect(nextState).toEqual(expectedState)
   })
@@ -196,6 +206,7 @@ describe('threads reducer', () => {
         totalComments: 0
       }
     ]
+
     const expectedState = [
       {
         id: 'thread-1',
@@ -209,6 +220,7 @@ describe('threads reducer', () => {
         totalComments: 0
       }
     ]
+
     const action = {
       type: 'GIVE_DOWN_VOTE_THREAD',
       payload: {
@@ -220,6 +232,7 @@ describe('threads reducer', () => {
         }
       }
     }
+
     const nextState = threadsReducer(initialState, action)
     expect(nextState).toEqual(expectedState)
   })

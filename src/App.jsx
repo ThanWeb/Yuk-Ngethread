@@ -8,7 +8,6 @@ import RegisterPage from './pages/RegisterPage'
 import DetailPage from './pages/DetailPage'
 import NotFoundPage from './pages/NotFoundPage'
 import Navigation from './components/Navigation'
-import Loading from './components/Loading'
 import UserAvatar from './components/UserAvatar'
 import { asyncPreloadProcess } from './states/isPreload/action'
 import { asyncUnsetAuthUser } from './states/authUser/action'
@@ -55,7 +54,7 @@ const App = () => {
 
   if (authUser === null) {
     return (
-      <div className='container'>
+      <div>
         <main>
           <Routes>
             <Route path='/' element={<LoginPage />} />
@@ -63,27 +62,33 @@ const App = () => {
             <Route path='*' element={<NotFoundPage />} />
           </Routes>
         </main>
-        <Loading />
       </div>
     )
   }
 
   return (
-    <div className='container'>
-      <header className='main-header'>
-        <div className='top-header'>
-          <div className='title'>
-            <img src='favicon.png' title='Yuk Ngethread' alt='Yuk Ngethread'/>
+    <div>
+      <header>
+        <div>
+          <div>
+            <img
+              src='favicon.png'
+              title='Yuk Ngethread'
+              alt='Yuk Ngethread'
+            />
             <h3>Yuk Ngethread</h3>
           </div>
-          <div className='profile'>
-            <UserAvatar avatar={authUser.avatar} name={authUser.name} />
+          <div>
+            <UserAvatar
+              avatar={authUser.avatar}
+              name={authUser.name}
+            />
             <span>{authUser.name}</span>
           </div>
         </div>
         <Navigation signOut={onSignOut} />
       </header>
-      <main className='logged-in'>
+      <main>
         <Routes>
           <Route path='/' element={<HomePage />} />
           <Route path='/threads/:id' element={<DetailPage />} />
@@ -91,11 +96,10 @@ const App = () => {
           <Route path='*' element={<NotFoundPage />} />
         </Routes>
       </main>
-      <Loading />
       {
         showScrollToTop &&
-        <button className='scroll-to-top' onClick={scrollToTop}>
-          <TbArrowBigUpLine className='icons' />
+        <button onClick={scrollToTop}>
+          <TbArrowBigUpLine/>
         </button>
       }
     </div>

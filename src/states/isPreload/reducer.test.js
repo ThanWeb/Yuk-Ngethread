@@ -20,12 +20,14 @@ describe('isPreload reducer', () => {
 
   it('should return false when given SET_IS_PRELOAD action', () => {
     const initialState = true
+
     const action = {
       type: 'SET_IS_PRELOAD',
       payload: {
         isPreload: false
       }
     }
+
     const nextState = isPreloadReducer(initialState, action)
     expect(nextState).toEqual(action.payload.isPreload)
   })
