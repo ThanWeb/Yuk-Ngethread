@@ -67,7 +67,7 @@ const App = () => {
   if (authUser === null) {
     return (
       <>
-        <main>
+        <main className='min-w-screen min-h-screen'>
           <Routes>
             <Route path='/' element={<LoginPage />} />
             <Route path='/register' element={<RegisterPage />} />
@@ -81,7 +81,7 @@ const App = () => {
 
   return (
     <>
-      <header>
+      <header className='min-w-screen min-h-screen'>
         <div>
           <div>
             <img
@@ -101,7 +101,7 @@ const App = () => {
         </div>
         <Navigation signOut={onSignOut} />
       </header>
-      <main>
+      <main className='min-w-screen min-h-screen'>
         <Routes>
           <Route path='/' element={<HomePage />} />
           <Route path='/threads/:id' element={<DetailPage />} />
