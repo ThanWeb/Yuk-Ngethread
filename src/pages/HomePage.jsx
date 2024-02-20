@@ -42,6 +42,7 @@ const HomePage = () => {
 
   const collectCategories = () => {
     const tempCategoryList = []
+
     threads.forEach(thread => {
       if (!tempCategoryList.includes(thread.category)) {
         if (thread.category !== 'general') {
@@ -49,6 +50,7 @@ const HomePage = () => {
         }
       }
     })
+
     setCategoryList(tempCategoryList)
   }
 
@@ -65,61 +67,92 @@ const HomePage = () => {
   }
 
   return (
-    <div className='home-page'>
-      <div id='create-thread' className='create-thread'>
-        <div className='intro'>
+    <div id='home-page'>
+      <div>
+        <div>
           <h3>What is going on inside your head?</h3>
         </div>
-        <div className='form-container'>
+        <div>
           <form>
             <TextInput
-                            props={{
-                              value: title,
-                              type: 'text',
-                              id: 'title',
-                              placeholder: 'Title please',
-                              label: 'Title',
-                              setValue: setTitle
-                            }}
-                        />
-            <div className='input-field'>
+              props={{
+                value: title,
+                type: 'text',
+                id: 'title',
+                placeholder: 'Title please',
+                label: 'Title',
+                setValue: setTitle
+              }}
+            />
+            <div>
               <label htmlFor='body'>Content</label>
-              <textarea id='body' type='text' value={body} onChange={setBody} placeholder='Your thoughts' required/>
-            </div>
-            <div className='input-field'>
-              <label htmlFor='body'>Category</label>
-              <input id='body' type='text' value={category} onChange={setCategory} placeholder='What category'/>
+              <textarea
+                id='body'
+                type='text'
+                value={body}
+                onChange={setBody}
+                placeholder='Your thoughts'
+                required
+              />
             </div>
             <div>
-              <button type='button' onClick={() => onCreateThread(title, body, category)} disabled={!title || !body}>
+              <label htmlFor='body'>Category</label>
+              <input
+                id='body'
+                type='text'
+                value={category}
+                onChange={setCategory}
+                placeholder='What category'
+              />
+            </div>
+            <div>
+              <button
+                type='button'
+                onClick={() => onCreateThread(title, body, category)}
+                disabled={!title || !body}
+              >
                 <span>Create</span>
-                <TbCircleCheck className='icons' />
+                <TbCircleCheck/>
               </button>
             </div>
           </form>
         </div>
       </div>
-      <div id='filter-section' className='filter-section'>
-        <div className='filter'>
+      <div>
+        <div>
           <button>
-            <TbFilter className='icons' />
+            <TbFilter/>
             <h3>Filter</h3>
           </button>
         </div>
-        <div className='buttons'>
+        <div>
           {
-                        categoryList.map((category, index) =>
-                          <button key={index} className={filterQuery === category ? 'selected' : ''} onClick={() => changeCategory(category)}>{category}</button>
-                        )
-                    }
+            categoryList.map((category, index) =>
+              <button
+                key={index}
+                onClick={() => changeCategory(category)}
+              >
+                {category}
+              </button>
+            )
+          }
         </div>
       </div>
-      <div className='thread-list'>
+      <div>
         {
-                    threads.map((thread, index) =>
-                      <ThreadPreview key={index} thread={thread} users={users} authUser={authUser} onAddComment={onAddComment} filterQuery={filterQuery} onGiveUpVote={onGiveUpVote} onGiveDownVote={onGiveDownVote} />
-                    )
-                }
+          threads.map((thread, index) =>
+            <ThreadPreview
+              key={index}
+              thread={thread}
+              users={users}
+              authUser={authUser}
+              onAddComment={onAddComment}
+              filterQuery={filterQuery}
+              onGiveUpVote={onGiveUpVote}
+              onGiveDownVote={onGiveDownVote}
+            />
+          )
+        }
       </div>
     </div>
   )

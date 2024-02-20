@@ -44,72 +44,102 @@ const DetailPage = () => {
     dispatch(asyncGiveDownVoteComment({ threadId, commentId }))
   }
 
-  if (threadDetail === null) {
-    return (
-      <p>Loading</p>
-    )
-  }
-
   return (
-    <div className='detail-page'>
-      <div className='header-section'>
-        <UserAvatar avatar={threadDetail.owner.avatar} name={threadDetail.owner.name} />
-        <ThreadInfo category={threadDetail.category} name={threadDetail.owner.name} createdAt={threadDetail.createdAt} />
+    <div id='detail-page'>
+      <div>
+        <UserAvatar
+          avatar={threadDetail.owner.avatar}
+          name={threadDetail.owner.name}
+        />
+        <ThreadInfo
+          category={threadDetail.category}
+          name={threadDetail.owner.name}
+          createdAt={threadDetail.createdAt}
+        />
       </div>
-      <ThreadContent title={threadDetail.title} body={threadDetail.body} />
-      <div className='vote-section'>
-        <VoteInfo users={users} detail={threadDetail} />
-        <div className='vote-buttons'>
-          <button type='button' onClick={() => onGiveUpVoteThread(threadDetail.id)} disabled={threadDetail.upVotesBy.includes(authUser.id)}>
-            <TbMoodSmile className='icons' />
+      <ThreadContent
+        title={threadDetail.title}
+        body={threadDetail.body}
+      />
+      <div>
+        <VoteInfo
+          users={users}
+          detail={threadDetail}
+        />
+        <div>
+          <button
+            type='button'
+            onClick={() => onGiveUpVoteThread(threadDetail.id)}
+            disabled={threadDetail.upVotesBy.includes(authUser.id)}
+          >
+            <TbMoodSmile/>
           </button>
           <span>{threadDetail.upVotesBy.length}</span>
-          {/* <button type='button'>Neutral</button> */}
-          <button type='button' onClick={() => onGiveDownVoteThread(threadDetail.id)} disabled={threadDetail.downVotesBy.includes(authUser.id)}>
-            <TbMoodSad className='icons' />
+          <button
+            type='button'
+            onClick={() => onGiveDownVoteThread(threadDetail.id)}
+            disabled={threadDetail.downVotesBy.includes(authUser.id)}
+          >
+            <TbMoodSad/>
           </button>
           <span>{threadDetail.downVotesBy.length}</span>
         </div>
       </div>
-      <div className='comment-section'>
-        <div className='form-container'>
-          <form className='form-section'>
+      <div>
+        <div >
+          <form>
             <TextInput
-                            props={{
-                              value: comment,
-                              type: 'text',
-                              id: 'comment',
-                              placeholder: 'Your thought',
-                              label: 'Comment',
-                              setValue: setComment
-                            }}
-                        />
+              props={{
+                value: comment,
+                type: 'text',
+                id: 'comment',
+                placeholder: 'Your thought',
+                label: 'Comment',
+                setValue: setComment
+              }}
+            />
             <div>
-              <button type='button' onClick={() => onAddComment(comment, threadDetail.id)} disabled={!comment}>Post Comment</button>
+              <button
+                type='button'
+                onClick={() => onAddComment(comment, threadDetail.id)}
+                disabled={!comment}
+              >
+                Post Comment
+              </button>
             </div>
           </form>
         </div>
         {
-                    threadDetail.comments.map((comment, index) =>
-                      <div className='comment-detail' key={index} >
-                        <CommentDetail comment={comment} />
-                        <div className='comment-vote-section'>
-                          <VoteInfo users={users} detail={comment} />
-                          <div className='vote-buttons'>
-                            <button type='button' onClick={() => onGiveUpVoteComment({ threadId: threadDetail.id, commentId: comment.id })} disabled={comment.upVotesBy.includes(authUser.id)}>
-                              <TbMoodSmile className='icons' />
-                            </button>
-                            <span>{comment.upVotesBy.length}</span>
-                            {/* <button type='button'>Neutral</button> */}
-                            <button type='button' onClick={() => onGiveDownVoteComment({ threadId: threadDetail.id, commentId: comment.id })} disabled={comment.downVotesBy.includes(authUser.id)}>
-                              <TbMoodSad className='icons' />
-                            </button>
-                            <span>{comment.downVotesBy.length}</span>
-                          </div>
-                        </div>
-                      </div>
-                    )
-                }
+          threadDetail.comments.map((comment, index) =>
+            <div key={index} >
+              <CommentDetail comment={comment} />
+              <div>
+                <VoteInfo
+                  users={users}
+                  detail={comment}
+                />
+                <div>
+                  <button
+                    type='button'
+                    onClick={() => onGiveUpVoteComment({ threadId: threadDetail.id, commentId: comment.id })}
+                    disabled={comment.upVotesBy.includes(authUser.id)}
+                  >
+                    <TbMoodSmile/>
+                  </button>
+                  <span>{comment.upVotesBy.length}</span>
+                  <button
+                    type='button'
+                    onClick={() => onGiveDownVoteComment({ threadId: threadDetail.id, commentId: comment.id })}
+                    disabled={comment.downVotesBy.includes(authUser.id)}
+                  >
+                    <TbMoodSad/>
+                  </button>
+                  <span>{comment.downVotesBy.length}</span>
+                </div>
+              </div>
+            </div>
+          )
+        }
       </div>
     </div>
   )

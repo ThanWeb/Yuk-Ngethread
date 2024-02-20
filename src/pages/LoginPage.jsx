@@ -24,36 +24,40 @@ const LoginPage = () => {
   }, [email])
 
   return (
-    <div className='login-page'>
-      <div className='container'>
-        <header className='login-header'>
+    <div id='login-page'>
+      <div>
+        <header>
           <h1>Almost there!</h1>
         </header>
-        <div className='form-container'>
+        <div>
           <form>
             <TextInput
-                            props={{
-                              value: email,
-                              type: 'email',
-                              id: 'email',
-                              placeholder: 'yourname@gmail.com',
-                              label: 'E-mail Address',
-                              setValue: setEmail
-                            }}
-                        />
+              props={{
+                value: email,
+                type: 'email',
+                id: 'email',
+                placeholder: 'yourname@gmail.com',
+                label: 'E-mail Address',
+                setValue: setEmail
+              }}
+            />
             <PasswordInput
-                            props={{
-                              password,
-                              setPassword,
-                              placeholder: 'yourpassword',
-                              isShowed: isPasswordShowed,
-                              setShowed: setIsPasswordShowed
-                            }}
-                        />
+              props={{
+                password,
+                setPassword,
+                placeholder: 'yourpassword',
+                isShowed: isPasswordShowed,
+                setShowed: setIsPasswordShowed
+              }}
+            />
             <div>
-              <button type='button' className='login-button' onClick={() => onLoginHandler({ email, password })} disabled={!isEmailValid || password.length < 6}>
+              <button
+                type='button'
+                onClick={() => onLoginHandler({ email, password })}
+                disabled={!isEmailValid || password.length < 6}
+              >
                 <span>Sign in</span>
-                <TbUserCheck className='icons' />
+                <TbUserCheck/>
               </button>
             </div>
           </form>

@@ -11,21 +11,20 @@ const LeaderboardPage = () => {
     dispatch(asyncReceiveLeaderboards())
   }, [dispatch])
 
-  if (leaderboards.length <= 0) {
-    return (
-      <p>Loading</p>
-    )
-  }
-
   return (
-    <div className='leaderboard-page'>
+    <div id='leaderboard-page'>
       <h2>Leaderboard</h2>
-      <div className='board'>
+      <div>
         {
-                    leaderboards.map((leaderboard, index, positon) =>
-                      <LeaderboardItem key={index} position={index} user={leaderboard.user} score={leaderboard.score} />
-                    )
-                }
+          leaderboards.map((leaderboard, index, positon) =>
+            <LeaderboardItem
+              key={index}
+              position={index}
+              user={leaderboard.user}
+              score={leaderboard.score}
+            />
+          )
+        }
       </div>
     </div>
   )

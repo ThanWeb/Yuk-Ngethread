@@ -47,12 +47,6 @@ const ThreadPreview = ({ thread, users, authUser, onAddComment, filterQuery, onG
     setComment('')
   }
 
-  if (!avatar || !name) {
-    return (
-      <p>Loading</p>
-    )
-  }
-
   return (
     <div>
       <div>
