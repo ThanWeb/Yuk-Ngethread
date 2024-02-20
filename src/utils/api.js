@@ -33,14 +33,7 @@ const api = (() => {
     })
 
     const responseJson = await response.json()
-    const { status, message } = responseJson
-
-    if (status !== 'success') {
-      alert(message)
-    }
-
-    const { data: { user } } = responseJson
-    return user
+    return responseJson
   }
 
   const login = async ({ email, password }) => {
@@ -83,10 +76,6 @@ const api = (() => {
     const response = await _fetchWithAuth(`${BASE_URL}/users/me`)
     const responseJson = await response.json()
     const { status, message } = responseJson
-
-    if (status !== 'success') {
-      console.log(message)
-    }
 
     const { data: { user } } = responseJson
     return user

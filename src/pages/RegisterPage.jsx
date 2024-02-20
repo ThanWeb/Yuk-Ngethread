@@ -7,6 +7,7 @@ import { checkEmailIsValid } from '../utils'
 import TextInput from '../components/TextInput'
 import PasswordInput from '../components/PasswordInput'
 import { asyncRegisterUser } from '../states/users/action'
+import { setMessageActionCreator } from '../states/message/action'
 
 const RegisterPage = () => {
   const navigate = useNavigate()
@@ -17,9 +18,15 @@ const RegisterPage = () => {
   const [name, setName] = useInput()
   const [password, setPassword] = useInput()
 
-  const onRegisterHandler = ({ name, email, password }) => {
-    dispatch(asyncRegisterUser({ name, email, password }))
-    navigate('/')
+  const onRegisterHandler = async ({ name, email, password }) => {
+    const { status = 'fail', message = null, data = null } = await dispatch(asyncRegisterUser({ name, email, password }))
+
+    if (status !== 'fail') {
+      dispatch(setMessageActionCreator({ status, text: `welcome ${data.name}` }))
+      navigate('/')
+    } else {
+      dispatch(setMessageActionCreator({ status, text: message }))
+    }
   }
 
   useEffect(() => {
