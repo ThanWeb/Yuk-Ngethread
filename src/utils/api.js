@@ -49,14 +49,7 @@ const api = (() => {
     })
 
     const responseJson = await response.json()
-    const { status, message } = responseJson
-
-    if (status !== 'success') {
-      alert(message)
-    }
-
-    const { data: { token } } = responseJson
-    return token
+    return responseJson
   }
 
   const getAllUsers = async () => {
@@ -65,7 +58,7 @@ const api = (() => {
     const { status, message } = responseJson
 
     if (status !== 'success') {
-      alert(message)
+      console.log(message)
     }
 
     const { data: { users } } = responseJson
@@ -75,10 +68,7 @@ const api = (() => {
   const getOwnProfile = async () => {
     const response = await _fetchWithAuth(`${BASE_URL}/users/me`)
     const responseJson = await response.json()
-    const { status, message } = responseJson
-
-    const { data: { user } } = responseJson
-    return user
+    return responseJson
   }
 
   const createThread = async ({ title, body, category = '' }) => {
@@ -98,7 +88,7 @@ const api = (() => {
     const { status, message } = responseJson
 
     if (status !== 'success') {
-      alert(message)
+      console.log(message)
     }
 
     const { data: { thread } } = responseJson
@@ -111,7 +101,7 @@ const api = (() => {
     const { status, message } = responseJson
 
     if (status !== 'success') {
-      alert(message)
+      console.log(message)
     }
 
     const { data: { threads } } = responseJson
@@ -124,7 +114,7 @@ const api = (() => {
     const { status, message } = responseJson
 
     if (status !== 'success') {
-      alert(message)
+      console.log(message)
     }
 
     const { data: { detailThread } } = responseJson
@@ -146,7 +136,7 @@ const api = (() => {
     const { status, message } = responseJson
 
     if (status !== 'success') {
-      alert(message)
+      console.log(message)
     }
 
     const { data: { comment } } = responseJson
@@ -162,7 +152,7 @@ const api = (() => {
     const { status, message } = responseJson
 
     if (status !== 'success') {
-      alert(message)
+      console.log(message)
     }
 
     const { data: { vote } } = responseJson
@@ -178,7 +168,7 @@ const api = (() => {
     const { status, message } = responseJson
 
     if (status !== 'success') {
-      alert(message)
+      console.log(message)
     }
 
     const { data: { vote } } = responseJson
@@ -194,7 +184,7 @@ const api = (() => {
     const { status, message } = responseJson
 
     if (status !== 'success') {
-      alert(message)
+      console.log(message)
     }
 
     const { data: { vote } } = responseJson
@@ -210,7 +200,7 @@ const api = (() => {
     const { status, message } = responseJson
 
     if (status !== 'success') {
-      alert(message)
+      console.log(message)
     }
 
     const { data: { vote } } = responseJson
@@ -223,11 +213,16 @@ const api = (() => {
     const { status, message } = responseJson
 
     if (status !== 'success') {
-      alert(message)
+      console.log(message)
     }
 
     const { data: { leaderboards } } = responseJson
     return leaderboards
+  }
+
+  const handleError = (error) => {
+    console.error(error.message)
+    return { status: 'fail', message: 'server error' }
   }
 
   return {
@@ -245,7 +240,8 @@ const api = (() => {
     giveDownVoteThread,
     giveUpVoteComment,
     giveDownVoteComment,
-    getLeaderboards
+    getLeaderboards,
+    handleError
   }
 })()
 

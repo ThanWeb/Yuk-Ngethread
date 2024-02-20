@@ -19,7 +19,7 @@ const asyncRegisterUser = ({ name, email, password }) => {
       const response = await api.register({ name, email, password })
       return response
     } catch (error) {
-      alert(error.message)
+      return api.handleError(error)
     }
   }
 }

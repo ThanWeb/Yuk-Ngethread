@@ -19,13 +19,13 @@ const RegisterPage = () => {
   const [password, setPassword] = useInput()
 
   const onRegisterHandler = async ({ name, email, password }) => {
-    const { status = 'fail', message = null, data = null } = await dispatch(asyncRegisterUser({ name, email, password }))
+    const { status = 'fail', message = '', data = null } = await dispatch(asyncRegisterUser({ name, email, password }))
 
     if (status !== 'fail') {
-      dispatch(setMessageActionCreator({ status, text: `welcome ${data.name}` }))
+      dispatch(setMessageActionCreator({ error: false, text: `welcome ${data.name}` }))
       navigate('/')
     } else {
-      dispatch(setMessageActionCreator({ status, text: message }))
+      dispatch(setMessageActionCreator({ error: true, text: message }))
     }
   }
 
