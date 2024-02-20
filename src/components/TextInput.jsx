@@ -2,9 +2,16 @@ import PropTypes from 'prop-types'
 
 const TextInput = ({ props }) => {
   return (
-    <div className='input-field'>
+    <div>
       <label htmlFor={props.id}>{props.label}</label>
-      <input id={props.id} type={props.type} value={props.value} onChange={props.setValue} placeholder={props.placeholder} required/>
+      <input
+        id={props.id}
+        type={props.type}
+        value={props.value}
+        onChange={props.setValue}
+        placeholder={props.placeholder}
+        required
+      />
     </div>
   )
 }

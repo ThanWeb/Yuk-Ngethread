@@ -4,15 +4,15 @@ import { Link } from 'react-router-dom'
 
 const ThreadContent = ({ title, body, id }) => {
   return (
-    <div className='content-section'>
+    <div>
       <h3>
         {
-                    id
-                      ? <Link to={`/threads/${id}`}>{title}</Link>
-                      : `${title}`
-                }
+          id
+            ? <Link to={`/threads/${id}`}>{title}</Link>
+            : `${title}`
+        }
       </h3>
-      <div className='thread-body'>{parse(body)}</div>
+      <div>{parse(body)}</div>
     </div>
   )
 }

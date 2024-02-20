@@ -4,18 +4,21 @@ import { TbLogout, TbStars, TbStack2 } from 'react-icons/tb'
 
 const Navigation = ({ signOut }) => {
   return (
-    <nav className='main-nav'>
-      <Link to='/' className='nav-item'>
+    <nav>
+      <Link to='/'>
         <span>Home</span>
-        <TbStack2 className='icons' />
+        <TbStack2/>
       </Link>
-      <Link to='/leaderboard' className='nav-item'>
+      <Link to='/leaderboard'>
         <span>Leaderboard</span>
-        <TbStars className='icons' />
+        <TbStars/>
       </Link>
-      <button type='button' className='nav-item' onClick={signOut}>
+      <button
+        type='button'
+        onClick={signOut}
+      >
         <span>Sign Out</span>
-        <TbLogout className='icons' />
+        <TbLogout/>
       </button>
     </nav>
   )

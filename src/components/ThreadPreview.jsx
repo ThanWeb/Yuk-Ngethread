@@ -23,11 +23,13 @@ const ThreadPreview = ({ thread, users, authUser, onAddComment, filterQuery, onG
   const toggleShowSection = (voteSection) => {
     if (voteSection) {
       setShowVoteSection(true)
+
       if (showCommentSection) {
         setShowCommentSection(false)
       }
     } else {
       setShowCommentSection(true)
+
       if (showVoteSection) {
         setShowVoteSection(false)
       }
@@ -52,78 +54,119 @@ const ThreadPreview = ({ thread, users, authUser, onAddComment, filterQuery, onG
   }
 
   return (
-    <div className={!thread.category.toLowerCase().includes(filterQuery.toLowerCase()) ? 'hidden thread-preview' : 'thread-preview'}>
+    <div>
       <div>
-        <div className='header-section'>
-          <UserAvatar avatar={avatar} name={name} />
-          <ThreadInfo category={thread.category} name={name} createdAt={thread.createdAt} />
+        <div>
+          <UserAvatar
+            avatar={avatar}
+            name={name}
+          />
+          <ThreadInfo
+            category={thread.category}
+            name={name}
+            createdAt={thread.createdAt}
+          />
         </div>
-        <ThreadContent title={thread.title} body={thread.body} id={thread.id} />
-        <div className='response-section'>
-          <VoteInfo users={users} detail={thread} />
+        <ThreadContent
+          title={thread.title}
+          body={thread.body}
+          id={thread.id}
+        />
+        <div>
+          <VoteInfo
+            users={users}
+            detail={thread}
+          />
           {
-                        thread.totalComments > 1
-                          ? <p>{thread.totalComments} comments</p>
-                          : <p>{thread.totalComments} comment</p>
-                    }
+            thread.totalComments > 1
+              ? <p>{thread.totalComments} comments</p>
+              : <p>{thread.totalComments} comment</p>
+          }
         </div>
       </div>
       <div>
-        <div className='interactive-section'>
-          <div className='buttons-section'>
-            <button type='button' onClick={() => toggleShowSection(true)} data-testid='open-votes-button'>
+        <div>
+          <div>
+            <button
+              type='button'
+              onClick={() => toggleShowSection(true)}
+              data-testid='open-votes-button'
+            >
               <span>Vote</span>
-              <TbSquarePlus className='icons' />
+              <TbSquarePlus/>
             </button>
-            <button type='button' onClick={() => toggleShowSection(false)}>
+            <button
+              type='button'
+              onClick={() => toggleShowSection(false)}
+            >
               <span>Comment</span>
-              <TbMessage2 className='icons' />
+              <TbMessage2/>
             </button>
             <Link to={`/threads/${thread.id}`}>
               <span>More</span>
-              <TbListDetails className='icons' />
+              <TbListDetails/>
             </Link>
           </div>
-          <div className='add-response-section'>
+          <div>
             {
-                            showVoteSection || showCommentSection
-                              ? <div className='user-section'>
-                                <img src={authUser.avatar} alt={authUser.name} title={authUser.name} />
-                              </div>
-                              : null
-                        }
+              showVoteSection || showCommentSection
+                ? <div>
+                  <img
+                    src={authUser.avatar}
+                    alt={authUser.name}
+                    title={authUser.name}
+                  />
+                </div>
+                : null
+            }
             {
-                            showVoteSection &&
-                            <div className='vote-section'>
-                              <span>Vote</span>
-                              <button type='button' onClick={() => onGiveUpVote(thread.id)} disabled={thread.upVotesBy.includes(authUser.id)} data-testid='up-vote-button'>
-                                <TbMoodSmile className='icons' />
-                              </button>
-                              <span data-testid='up-vote-total'>{thread.upVotesBy.length}</span>
-                              <button type='button' onClick={() => onGiveDownVote(thread.id)} disabled={thread.downVotesBy.includes(authUser.id)} data-testid='down-vote-button'>
-                                <TbMoodSad className='icons' />
-                              </button>
-                              <span data-testid='down-vote-total'>{thread.downVotesBy.length}</span>
-                            </div>
-                        }
+              showVoteSection &&
+              <div>
+                <span>Vote</span>
+                <button
+                  type='button'
+                  onClick={() => onGiveUpVote(thread.id)}
+                  disabled={thread.upVotesBy.includes(authUser.id)}
+                  data-testid='up-vote-button'
+                >
+                  <TbMoodSmile/>
+                </button>
+                <span data-testid='up-vote-total'>{thread.upVotesBy.length}</span>
+                <button
+                  type='button'
+                  onClick={() => onGiveDownVote(thread.id)}
+                  disabled={thread.downVotesBy.includes(authUser.id)}
+                  data-testid='down-vote-button'
+                >
+                  <TbMoodSad/>
+                </button>
+                <span data-testid='down-vote-total'>{thread.downVotesBy.length}</span>
+              </div>
+            }
             {
-                            showCommentSection &&
-                            <div className='comment-section'>
-                              <form className='form-section'>
-                                <TextInput
-                                        props={{
-                                          value: comment,
-                                          type: 'text',
-                                          id: 'comment',
-                                          placeholder: 'Your thought',
-                                          label: 'Comment',
-                                          setValue: setComment
-                                        }}
-                                    />
-                                <button type='button' onClick={() => addCommentHandler(comment, thread.id)} disabled={!comment}>Send</button>
-                              </form>
-                            </div>
-                        }
+              showCommentSection &&
+              <div>
+                <form>
+                  <TextInput
+                    props={{
+                      value: comment,
+                      type: 'text',
+                      id: 'comment',
+                      placeholder: 'Your thought',
+                      label: 'Comment',
+                      setValue: setComment
+                    }}
+                  />
+                  <button
+                    type='button'
+                    onClick={() => addCommentHandler(comment, thread.id)}
+                    disabled={!comment}
+                  >
+                    Send
+                  </button>
+                </form>
+              </div>
+            }
           </div>
         </div>
       </div>

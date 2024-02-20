@@ -21,6 +21,7 @@
   ],
   "ignorePatterns": ["**.scss"],
   "rules": {
+    "indent": ["error", 2],
     "react/jsx-uses-react": "off",
     "react/jsx-indent": ["error", 2],
     "react/react-in-jsx-scope": "off",
