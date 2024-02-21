@@ -1,4 +1,5 @@
 import api from '../../utils/api'
+import { setMessageActionCreator } from '../message/action'
 
 const ActionType = {
   RECEIVE_THREADS: 'RECEIVE_THREADS',
@@ -57,10 +58,15 @@ const giveDownVoteActionCreator = (vote) => {
 const asyncCreateThread = ({ title, body, category }) => {
   return async (dispatch) => {
     try {
-      const thread = await api.createThread({ title, body, category })
-      dispatch(createThreadActionCreator(thread))
+      const { status = 'fail', message = '', data = null } = await api.createThread({ title, body, category })
+
+      if (status !== 'fail') {
+        dispatch(createThreadActionCreator(data.thread))
+      }
+
+      dispatch(setMessageActionCreator({ error: status === 'fail', text: message }))
     } catch (error) {
-      alert(error.message)
+      return api.handleError(error)
     }
   }
 }
@@ -71,7 +77,7 @@ const asyncCreateComment = ({ content, id }) => {
       const comment = await api.createCommentThread({ content, id })
       dispatch(createCommentActionCreator(comment, id))
     } catch (error) {
-      alert(error.message)
+      console.error(error.message)
     }
   }
 }
@@ -82,7 +88,7 @@ const asyncGiveUpVote = (id) => {
       const vote = await api.giveUpVoteThread(id)
       dispatch(giveUpVoteActionCreator(vote))
     } catch (error) {
-      alert(error.message)
+      console.error(error.message)
     }
   }
 }
@@ -93,7 +99,7 @@ const asyncGiveDownVote = (id) => {
       const vote = await api.giveDownVoteThread(id)
       dispatch(giveDownVoteActionCreator(vote))
     } catch (error) {
-      alert(error.message)
+      console.error(error.message)
     }
   }
 }

@@ -68,7 +68,8 @@ const api = (() => {
   const getOwnProfile = async () => {
     const response = await _fetchWithAuth(`${BASE_URL}/users/me`)
     const responseJson = await response.json()
-    return responseJson
+    const { data: { user } } = responseJson
+    return user
   }
 
   const createThread = async ({ title, body, category = '' }) => {
@@ -85,14 +86,7 @@ const api = (() => {
     })
 
     const responseJson = await response.json()
-    const { status, message } = responseJson
-
-    if (status !== 'success') {
-      console.log(message)
-    }
-
-    const { data: { thread } } = responseJson
-    return thread
+    return responseJson
   }
 
   const getAllThreads = async () => {
