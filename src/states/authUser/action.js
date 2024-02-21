@@ -1,4 +1,5 @@
 import api from '../../utils/api'
+import { setMessageActionCreator } from '../message/action'
 
 const ActionType = {
   SET_AUTH_USER: 'SET_AUTH_USER',
@@ -26,12 +27,17 @@ const unsetAuthUserActionCreator = () => {
 const asyncSetAuthUser = ({ email, password }) => {
   return async (dispatch) => {
     try {
-      const token = await api.login({ email, password })
-      api.putAccessToken(token)
-      const authUser = await api.getOwnProfile()
-      dispatch(setAuthUserActionCreator(authUser))
+      const { status = 'fail', message = '', data = null } = await api.login({ email, password })
+
+      if (status !== 'fail') {
+        api.putAccessToken(data.token)
+        const authUser = await api.getOwnProfile()
+        dispatch(setAuthUserActionCreator(authUser))
+      }
+
+      dispatch(setMessageActionCreator({ error: status === 'fail', text: message }))
     } catch (error) {
-      alert(error.message)
+      return api.handleError(error)
     }
   }
 }

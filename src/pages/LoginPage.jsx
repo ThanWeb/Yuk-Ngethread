@@ -7,6 +7,7 @@ import { checkEmailIsValid } from '../utils'
 import TextInput from '../components/TextInput'
 import PasswordInput from '../components/PasswordInput'
 import { asyncSetAuthUser } from '../states/authUser/action'
+import { setMessageActionCreator } from '../states/message/action'
 
 const LoginPage = () => {
   const dispatch = useDispatch()
@@ -15,8 +16,9 @@ const LoginPage = () => {
   const [email, setEmail] = useInput()
   const [password, setPassword] = useInput()
 
-  const onLoginHandler = ({ email, password }) => {
-    dispatch(asyncSetAuthUser({ email, password }))
+  const onLoginHandler = async ({ email, password }) => {
+    const { status = 'fail', message = '' } = await dispatch(asyncSetAuthUser({ email, password }))
+    dispatch(setMessageActionCreator({ error: status === 'fail', text: message }))
   }
 
   useEffect(() => {
