@@ -12,7 +12,7 @@ import UserAvatar from './components/UserAvatar'
 import Message from './components/Message'
 import { asyncPreloadProcess } from './states/isPreload/action'
 import { asyncUnsetAuthUser } from './states/authUser/action'
-import { unsetMessageActionCreator } from './states/message/action'
+import { setMessageActionCreator, unsetMessageActionCreator } from './states/message/action'
 import { TbArrowBigUpLine } from 'react-icons/tb'
 
 const App = () => {
@@ -42,6 +42,7 @@ const App = () => {
 
   const onSignOut = () => {
     dispatch(asyncUnsetAuthUser())
+    dispatch(setMessageActionCreator({ error: false, text: 'terima kasih' }))
     navigate('/')
   }
 
