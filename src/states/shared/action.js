@@ -10,7 +10,7 @@ const asyncPopulateUsersAndThreads = () => {
       dispatch(receiveUsersActionCreator(users))
       dispatch(receiveThreadsActionCreator(threads))
     } catch (error) {
-      console.error(error.message)
+      return api.handleError(error)
     }
   }
 }

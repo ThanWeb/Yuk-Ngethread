@@ -90,10 +90,15 @@ const asyncCreateComment = ({ content, id }) => {
 const asyncGiveUpVote = (id) => {
   return async (dispatch) => {
     try {
-      const vote = await api.giveUpVoteThread(id)
-      dispatch(giveUpVoteActionCreator(vote))
+      const { status = 'fail', message = '', data = null } = await api.giveUpVoteThread(id)
+
+      if (status !== 'fail') {
+        dispatch(giveUpVoteActionCreator(data.vote))
+      }
+
+      dispatch(setMessageActionCreator({ error: status === 'fail', text: message }))
     } catch (error) {
-      console.error(error.message)
+      return api.handleError(error)
     }
   }
 }
@@ -101,10 +106,15 @@ const asyncGiveUpVote = (id) => {
 const asyncGiveDownVote = (id) => {
   return async (dispatch) => {
     try {
-      const vote = await api.giveDownVoteThread(id)
-      dispatch(giveDownVoteActionCreator(vote))
+      const { status = 'fail', message = '', data = null } = await api.giveDownVoteThread(id)
+
+      if (status !== 'fail') {
+        dispatch(giveUpVoteActionCreator(data.vote))
+      }
+
+      dispatch(setMessageActionCreator({ error: status === 'fail', text: message }))
     } catch (error) {
-      console.error(error.message)
+      return api.handleError(error)
     }
   }
 }

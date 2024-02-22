@@ -19,7 +19,7 @@ const asyncReceiveLeaderboards = () => {
       const leaderboards = await api.getLeaderboards()
       dispatch(receiveLeaderboardsActionCreator(leaderboards))
     } catch (error) {
-      console.error(error.message)
+      return api.handleError(error)
     }
   }
 }
