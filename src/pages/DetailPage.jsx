@@ -72,7 +72,7 @@ const DetailPage = () => {
   }
 
   return (
-    <div id='detail-page'>
+    <div>
       <div>
         <UserAvatar
           avatar={threadDetail.owner.avatar}

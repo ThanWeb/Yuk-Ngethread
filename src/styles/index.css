@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=PT+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -6,9 +8,76 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: sans-serif;
+  letter-spacing: 0.025em;
 }
 
 textarea:focus, input:focus {
   outline: none;
+}
+
+.pt-sans-regular {
+  font-family: "PT Sans", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.pt-sans-bold {
+  font-family: "PT Sans", sans-serif;
+  font-weight: 700;
+  font-style: normal;
+}
+
+.pt-sans-regular-italic {
+  font-family: "PT Sans", sans-serif;
+  font-weight: 400;
+  font-style: italic;
+}
+
+.pt-sans-bold-italic {
+  font-family: "PT Sans", sans-serif;
+  font-weight: 700;
+  font-style: italic;
+}
+
+.line-animation { 
+  bottom: -10px;
+  position: absolute;
+  width: 100%; 
+  height: 2px; 
+  animation: animate 2s linear infinite;
+}
+
+@keyframes animate { 
+  0% { 
+    left: -15%;
+    background-color: aqua;
+  } 
+
+  25% {
+    background-color: lightblue;
+  }
+
+  50% { 
+    left: 15%;
+    background-color: aqua;
+  } 
+
+  75% {
+    background-color: lightblue;
+  }
+
+  100% { 
+    left: -15%;
+    background-color: aqua;
+  }
+}
+
+.short-message {
+  top: .5rem;
+  transition: all;
+  transition-duration: .5s;
+}
+
+.short-message.hide {
+  top: -5rem;
 }

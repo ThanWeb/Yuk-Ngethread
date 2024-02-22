@@ -2,6 +2,7 @@ import { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { asyncReceiveLeaderboards } from '../states/leaderboard/action'
 import LeaderboardItem from '../components/LeaderboardItem'
+import PreloadLoading from '../components/PreloadLoading'
 
 const LeaderboardPage = () => {
   const { leaderboards = [] } = useSelector((states) => states)
@@ -11,8 +12,12 @@ const LeaderboardPage = () => {
     dispatch(asyncReceiveLeaderboards())
   }, [dispatch])
 
+  if (leaderboards.length === 0) {
+    return <PreloadLoading />
+  }
+
   return (
-    <div id='leaderboard-page'>
+    <div>
       <h2>Leaderboard</h2>
       <div>
         {

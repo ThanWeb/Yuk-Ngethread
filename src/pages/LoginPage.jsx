@@ -24,7 +24,7 @@ const LoginPage = () => {
   }, [email])
 
   return (
-    <div id='login-page'>
+    <div>
       <div>
         <header>
           <h1>Almost there!</h1>

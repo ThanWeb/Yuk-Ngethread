@@ -4,7 +4,7 @@ const NotFoundPage = () => {
   const navigate = useNavigate()
 
   return (
-    <div id='not-found-page'>
+    <div>
       <p>
         <span>404</span><span>|</span><span>Not Found</span>
       </p>

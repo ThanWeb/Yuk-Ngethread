@@ -67,7 +67,7 @@ const HomePage = () => {
   }
 
   return (
-    <div id='home-page'>
+    <div>
       <div>
         <div>
           <h3>What is going on inside your head?</h3>

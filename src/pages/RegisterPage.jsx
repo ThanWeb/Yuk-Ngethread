@@ -12,6 +12,7 @@ import { setMessageActionCreator } from '../states/message/action'
 const RegisterPage = () => {
   const navigate = useNavigate()
   const dispatch = useDispatch()
+
   const [isPasswordShowed, setIsPasswordShowed] = useState(false)
   const [isEmailValid, setIsEmailValid] = useState(false)
   const [email, setEmail] = useInput()
@@ -34,7 +35,7 @@ const RegisterPage = () => {
   }, [email])
 
   return (
-    <div id='register-page'>
+    <div>
       <div>
         <header>
           <h1>Let&apos;s get started!</h1>
