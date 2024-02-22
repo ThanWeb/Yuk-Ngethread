@@ -77,9 +77,8 @@ const asyncReceiveThreadDetail = (threadId) => {
   return async (dispatch) => {
     dispatch(clearThreadDetailActionCreator())
     try {
-      const threadDetail = await api.getDetailThread(threadId)
-      console.log(threadDetail)
-      dispatch(receiveThreadDetailActionCreator(threadDetail))
+      const response = await api.getDetailThread(threadId)
+      return response
     } catch (error) {
       return api.handleError(error)
     }

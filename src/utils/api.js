@@ -105,14 +105,7 @@ const api = (() => {
   const getDetailThread = async (id) => {
     const response = await fetch(`${BASE_URL}/threads/${id}`)
     const responseJson = await response.json()
-    const { status, message } = responseJson
-
-    if (status !== 'success') {
-      console.log(message)
-    }
-
-    const { data: { detailThread } } = responseJson
-    return detailThread
+    return responseJson
   }
 
   const createCommentThread = async ({ content, id }) => {

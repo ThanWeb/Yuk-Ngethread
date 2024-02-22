@@ -1,7 +1,15 @@
 import { useEffect } from 'react'
-import { useParams } from 'react-router-dom'
+import { useParams, useNavigate } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
-import { asyncReceiveThreadDetail, asyncCreateComment, asyncGiveUpVoteDetail, asyncGiveDownVoteDetail, asyncGiveUpVoteComment, asyncGiveDownVoteComment } from '../states/threadDetail/action'
+import {
+  asyncReceiveThreadDetail,
+  asyncCreateComment,
+  asyncGiveUpVoteDetail,
+  asyncGiveDownVoteDetail,
+  asyncGiveUpVoteComment,
+  asyncGiveDownVoteComment,
+  receiveThreadDetailActionCreator
+} from '../states/threadDetail/action'
 import { asyncPopulateUsersAndThreads } from '../states/shared/action'
 import { TbMoodSmile, TbMoodSad } from 'react-icons/tb'
 import useInput from '../hooks/useInput'
@@ -11,17 +19,32 @@ import ThreadContent from '../components/ThreadContent'
 import VoteInfo from '../components/VoteInfo'
 import CommentDetail from '../components/CommentDetail'
 import TextInput from '../components/TextInput'
+import PreloadLoading from '../components/PreloadLoading'
+import { setMessageActionCreator } from '../states/message/action'
 
 const DetailPage = () => {
-  const { id } = useParams()
-  const { threadDetail = null, users = [], authUser } = useSelector((states) => states)
   const dispatch = useDispatch()
+  const navigate = useNavigate()
+  const { id } = useParams()
+
   const [comment, setComment] = useInput()
+  const { threadDetail = null, users = [], authUser } = useSelector((states) => states)
 
   useEffect(() => {
-    dispatch(asyncReceiveThreadDetail(id))
-    dispatch(asyncPopulateUsersAndThreads())
+    init()
   }, [id, dispatch])
+
+  const init = async () => {
+    await dispatch(asyncPopulateUsersAndThreads())
+    const { status = 'fail', message = '', data = null } = await dispatch(asyncReceiveThreadDetail(id))
+
+    if (status !== 'fail') {
+      dispatch(receiveThreadDetailActionCreator(data.detailThread))
+    } else {
+      dispatch(setMessageActionCreator({ error: true, text: message }))
+      setTimeout(() => { navigate('/') }, 2000)
+    }
+  }
 
   const onAddComment = (comment, id) => {
     dispatch(asyncCreateComment({ content: comment, id }))
@@ -42,6 +65,10 @@ const DetailPage = () => {
 
   const onGiveDownVoteComment = ({ threadId, commentId }) => {
     dispatch(asyncGiveDownVoteComment({ threadId, commentId }))
+  }
+
+  if (threadDetail === null) {
+    return <PreloadLoading />
   }
 
   return (
