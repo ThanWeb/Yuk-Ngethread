@@ -1,4 +1,5 @@
 import api from '../../utils/api'
+import { setMessageActionCreator } from '../message/action'
 
 const ActionType = {
   RECEIVE_THREAD_DETAIL: 'RECEIVE_THREAD_DETAIL',
@@ -77,9 +78,10 @@ const asyncReceiveThreadDetail = (threadId) => {
     dispatch(clearThreadDetailActionCreator())
     try {
       const threadDetail = await api.getDetailThread(threadId)
+      console.log(threadDetail)
       dispatch(receiveThreadDetailActionCreator(threadDetail))
     } catch (error) {
-      alert(error.message)
+      console.error(error.message)
     }
   }
 }
@@ -87,10 +89,15 @@ const asyncReceiveThreadDetail = (threadId) => {
 const asyncCreateComment = ({ content, id }) => {
   return async (dispatch) => {
     try {
-      const comment = await api.createCommentThread({ content, id })
-      dispatch(createCommentActionCreator(comment))
+      const { status = 'fail', message = '', data = null } = await api.createCommentThread({ content, id })
+
+      if (status !== 'fail') {
+        dispatch(createCommentActionCreator(data.comment, id))
+      }
+
+      dispatch(setMessageActionCreator({ error: status === 'fail', text: message }))
     } catch (error) {
-      alert(error.message)
+      return api.handleError(error)
     }
   }
 }
@@ -101,7 +108,7 @@ const asyncGiveUpVoteDetail = (id) => {
       const vote = await api.giveUpVoteThread(id)
       dispatch(giveUpVoteDetailActionCreator(vote))
     } catch (error) {
-      alert(error.message)
+      console.error(error.message)
     }
   }
 }
@@ -112,7 +119,7 @@ const asyncGiveDownVoteDetail = (id) => {
       const vote = await api.giveDownVoteThread(id)
       dispatch(giveDownVoteDetailActionCreator(vote))
     } catch (error) {
-      alert(error.message)
+      console.error(error.message)
     }
   }
 }
@@ -123,7 +130,7 @@ const asyncGiveUpVoteComment = ({ threadId, commentId }) => {
       const vote = await api.giveUpVoteComment({ threadId, commentId })
       dispatch(giveUpVoteCommentActionCreator({ commentId, vote }))
     } catch (error) {
-      alert(error.message)
+      console.error(error.message)
     }
   }
 }
@@ -134,7 +141,7 @@ const asyncGiveDownVoteComment = ({ threadId, commentId }) => {
       const vote = await api.giveDownVoteComment({ threadId, commentId })
       dispatch(giveDownVoteCommentActionCreator({ commentId, vote }))
     } catch (error) {
-      alert(error.message)
+      console.error(error.message)
     }
   }
 }

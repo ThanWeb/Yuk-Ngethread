@@ -127,14 +127,7 @@ const api = (() => {
     })
 
     const responseJson = await response.json()
-    const { status, message } = responseJson
-
-    if (status !== 'success') {
-      console.log(message)
-    }
-
-    const { data: { comment } } = responseJson
-    return comment
+    return responseJson
   }
 
   const giveUpVoteThread = async (id) => {
@@ -143,14 +136,7 @@ const api = (() => {
     })
 
     const responseJson = await response.json()
-    const { status, message } = responseJson
-
-    if (status !== 'success') {
-      console.log(message)
-    }
-
-    const { data: { vote } } = responseJson
-    return vote
+    return responseJson
   }
 
   const giveDownVoteThread = async (id) => {
@@ -159,14 +145,7 @@ const api = (() => {
     })
 
     const responseJson = await response.json()
-    const { status, message } = responseJson
-
-    if (status !== 'success') {
-      console.log(message)
-    }
-
-    const { data: { vote } } = responseJson
-    return vote
+    return responseJson
   }
 
   const giveUpVoteComment = async ({ threadId, commentId }) => {
@@ -175,14 +154,7 @@ const api = (() => {
     })
 
     const responseJson = await response.json()
-    const { status, message } = responseJson
-
-    if (status !== 'success') {
-      console.log(message)
-    }
-
-    const { data: { vote } } = responseJson
-    return vote
+    return responseJson
   }
 
   const giveDownVoteComment = async ({ threadId, commentId }) => {
@@ -191,14 +163,7 @@ const api = (() => {
     })
 
     const responseJson = await response.json()
-    const { status, message } = responseJson
-
-    if (status !== 'success') {
-      console.log(message)
-    }
-
-    const { data: { vote } } = responseJson
-    return vote
+    return responseJson
   }
 
   const getLeaderboards = async () => {

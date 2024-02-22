@@ -74,10 +74,15 @@ const asyncCreateThread = ({ title, body, category }) => {
 const asyncCreateComment = ({ content, id }) => {
   return async (dispatch) => {
     try {
-      const comment = await api.createCommentThread({ content, id })
-      dispatch(createCommentActionCreator(comment, id))
+      const { status = 'fail', message = '', data = null } = await api.createCommentThread({ content, id })
+
+      if (status !== 'fail') {
+        dispatch(createCommentActionCreator(data.comment, id))
+      }
+
+      dispatch(setMessageActionCreator({ error: status === 'fail', text: message }))
     } catch (error) {
-      console.error(error.message)
+      return api.handleError(error)
     }
   }
 }
