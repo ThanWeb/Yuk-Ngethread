@@ -75,9 +75,18 @@ textarea:focus, input:focus {
 .short-message {
   top: .5rem;
   transition: all;
-  transition-duration: .25s;
+  transition-duration: .75s;
 }
 
 .short-message.hide {
   top: -5rem;
+}
+
+.auth-page {
+  background-size: cover;
+  background-image: url('/bg-login.jpg');
+}
+
+button:disabled {
+  background-color: grey;
 }
