@@ -10,9 +10,11 @@ import NotFoundPage from './pages/NotFoundPage'
 import Navigation from './components/Navigation'
 import UserAvatar from './components/UserAvatar'
 import Message from './components/Message'
+import PreloadLoading from './components/PreloadLoading'
+import Loading from './components/Loading'
 import { asyncPreloadProcess } from './states/isPreload/action'
 import { asyncUnsetAuthUser } from './states/authUser/action'
-import { setMessageActionCreator, unsetMessageActionCreator } from './states/message/action'
+import { setMessageActionCreator } from './states/message/action'
 import { TbArrowBigUpLine } from 'react-icons/tb'
 
 const App = () => {
@@ -22,7 +24,12 @@ const App = () => {
 
   const [showScrollToTop, setShowScrollToTop] = useState(false)
 
-  const { authUser = null, isPreload = false, message = null } = useSelector((states) => states)
+  const {
+    authUser = null,
+    isPreload = false,
+    message = null,
+    isLoading = false
+  } = useSelector((states) => states)
 
   useEffect(() => {
     dispatch(asyncPreloadProcess())
@@ -33,16 +40,17 @@ const App = () => {
   }, [location])
 
   useEffect(() => {
-    if (message !== null) {
+    if (message.show) {
       setTimeout(() => {
-        dispatch(unsetMessageActionCreator())
+        const { error, text } = message
+        dispatch(setMessageActionCreator({ show: false, error, text }))
       }, 2000)
     }
   }, [message])
 
   const onSignOut = () => {
     dispatch(asyncUnsetAuthUser())
-    dispatch(setMessageActionCreator({ error: false, text: 'terima kasih' }))
+    dispatch(setMessageActionCreator({ show: true, error: false, text: 'See You Soon' }))
     navigate('/')
   }
 
@@ -62,7 +70,7 @@ const App = () => {
   window.addEventListener('scroll', checkScrollPosition)
 
   if (isPreload) {
-    return null
+    return <PreloadLoading />
   }
 
   if (authUser === null) {
@@ -76,17 +84,18 @@ const App = () => {
           </Routes>
         </main>
         <Message message={message} />
+        <Loading isLoading={isLoading} />
       </>
     )
   }
 
   return (
     <>
-      <header className='min-w-screen min-h-screen'>
+      <header>
         <div>
           <div>
             <img
-              src='favicon.png'
+              src='/favicon.png'
               title='Yuk Ngethread'
               alt='Yuk Ngethread'
             />
@@ -117,6 +126,7 @@ const App = () => {
         </button>
       }
       <Message message={message} />
+      <Loading isLoading={isLoading} />
     </>
   )
 }

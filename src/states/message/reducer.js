@@ -1,11 +1,11 @@
 import { ActionType } from './action'
 
-const messageReducer = (message = null, action) => {
+const messageReducer = (message = { show: false, error: false, text: '' }, action) => {
   switch (action.type) {
   case ActionType.SET_MESSAGE:
     return action.payload.message
   case ActionType.UNSET_MESSAGE:
-    return null
+    return { show: false, error: false, text: '' }
   default:
     return message
   }

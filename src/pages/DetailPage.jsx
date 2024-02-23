@@ -41,7 +41,7 @@ const DetailPage = () => {
     if (status !== 'fail') {
       dispatch(receiveThreadDetailActionCreator(data.detailThread))
     } else {
-      dispatch(setMessageActionCreator({ error: true, text: message }))
+      dispatch(setMessageActionCreator({ show: true, error: true, text: message }))
       setTimeout(() => { navigate('/') }, 2000)
     }
   }

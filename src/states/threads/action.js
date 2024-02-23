@@ -64,7 +64,7 @@ const asyncCreateThread = ({ title, body, category }) => {
         dispatch(createThreadActionCreator(data.thread))
       }
 
-      dispatch(setMessageActionCreator({ error: status === 'fail', text: message }))
+      dispatch(setMessageActionCreator({ show: true, error: status === 'fail', text: message }))
     } catch (error) {
       return api.handleError(error)
     }
@@ -80,7 +80,7 @@ const asyncCreateComment = ({ content, id }) => {
         dispatch(createCommentActionCreator(data.comment, id))
       }
 
-      dispatch(setMessageActionCreator({ error: status === 'fail', text: message }))
+      dispatch(setMessageActionCreator({ show: true, error: status === 'fail', text: message }))
     } catch (error) {
       return api.handleError(error)
     }
@@ -96,7 +96,7 @@ const asyncGiveUpVote = (id) => {
         dispatch(giveUpVoteActionCreator(data.vote))
       }
 
-      dispatch(setMessageActionCreator({ error: status === 'fail', text: message }))
+      dispatch(setMessageActionCreator({ show: true, error: status === 'fail', text: message }))
     } catch (error) {
       return api.handleError(error)
     }
@@ -112,7 +112,7 @@ const asyncGiveDownVote = (id) => {
         dispatch(giveUpVoteActionCreator(data.vote))
       }
 
-      dispatch(setMessageActionCreator({ error: status === 'fail', text: message }))
+      dispatch(setMessageActionCreator({ show: true, error: status === 'fail', text: message }))
     } catch (error) {
       return api.handleError(error)
     }

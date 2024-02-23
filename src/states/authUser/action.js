@@ -35,7 +35,7 @@ const asyncSetAuthUser = ({ email, password }) => {
         dispatch(setAuthUserActionCreator(authUser))
       }
 
-      dispatch(setMessageActionCreator({ error: status === 'fail', text: message }))
+      dispatch(setMessageActionCreator({ show: true, error: status === 'fail', text: message }))
     } catch (error) {
       return api.handleError(error)
     }

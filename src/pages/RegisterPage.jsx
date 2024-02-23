@@ -23,10 +23,10 @@ const RegisterPage = () => {
     const { status = 'fail', message = '', data = null } = await dispatch(asyncRegisterUser({ name, email, password }))
 
     if (status !== 'fail') {
-      dispatch(setMessageActionCreator({ error: false, text: `welcome ${data.name}` }))
+      dispatch(setMessageActionCreator({ show: true, error: false, text: `welcome ${data.name}` }))
       navigate('/')
     } else {
-      dispatch(setMessageActionCreator({ error: true, text: message }))
+      dispatch(setMessageActionCreator({ show: true, error: true, text: message }))
     }
   }
 
