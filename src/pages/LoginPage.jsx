@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
-import { VscAccount } from 'react-icons/vsc'
 import useInput from '../hooks/useInput'
 import { checkEmailIsValid } from '../utils'
 import TextInput from '../components/TextInput'
@@ -30,9 +29,9 @@ const LoginPage = () => {
 
   return (
     <div className='min-w-screen min-h-screen flex auth-page'>
-      <div className='m-auto flex flex-col gap-y-6 items-center justify-between bg-white bg-opacity-80 border w-4/5 md:w-3/5 lg:w-4/12 p-6 rounded-3xl shadow-sm shadow-emerald-600'>
+      <div className='m-auto flex flex-col gap-y-6 items-center justify-between bg-white bg-opacity-80 border w-4/5 md:w-6/12 lg:w-4/12 xl:w-3/12 p-6 rounded-3xl shadow-sm shadow-emerald-600'>
         <header className='flex flex-col gap-y-3 items-center text-center'>
-          <VscAccount className='w-16 h-16 text-black'/>
+          <img src='/favicon.png' alt='Yuk Ngethread' className='h-16 w-16'/>
           <h1 className='text-xl font-semibold'>Almost there!</h1>
         </header>
         <div className='w-full'>
@@ -42,7 +41,7 @@ const LoginPage = () => {
                 value: email,
                 type: 'email',
                 id: 'email',
-                placeholder: 'yourname@gmail.com',
+                placeholder: 'name@gmail.com',
                 label: 'E-mail Address',
                 setValue: setEmail,
                 isEmailValid

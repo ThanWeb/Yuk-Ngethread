@@ -33,9 +33,10 @@ const asyncSetAuthUser = ({ email, password }) => {
         api.putAccessToken(data.token)
         const authUser = await api.getOwnProfile()
         dispatch(setAuthUserActionCreator(authUser))
+        dispatch(setMessageActionCreator({ show: true, error: status === 'fail', text: `welcome ${authUser.name}` }))
+      } else {
+        dispatch(setMessageActionCreator({ show: true, error: status === 'fail', text: message }))
       }
-
-      dispatch(setMessageActionCreator({ show: true, error: status === 'fail', text: message }))
     } catch (error) {
       return api.handleError(error)
     }
