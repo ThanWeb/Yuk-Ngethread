@@ -76,7 +76,7 @@ const App = () => {
   if (authUser === null) {
     return (
       <>
-        <main className='min-w-screen min-h-screen'>
+        <main>
           <Routes>
             <Route path='/' element={<LoginPage />} />
             <Route path='/register' element={<RegisterPage />} />

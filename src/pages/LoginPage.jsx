@@ -1,22 +1,27 @@
 import { useState, useEffect } from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
-import { TbUserCheck } from 'react-icons/tb'
+import { VscAccount } from 'react-icons/vsc'
 import useInput from '../hooks/useInput'
 import { checkEmailIsValid } from '../utils'
 import TextInput from '../components/TextInput'
 import PasswordInput from '../components/PasswordInput'
 import { asyncSetAuthUser } from '../states/authUser/action'
+import { setLoadingFalseActionCreator, setLoadingTrueActionCreator } from '../states/isLoading/action'
 
 const LoginPage = () => {
   const dispatch = useDispatch()
+  const { message = [] } = useSelector((states) => states)
+
   const [isPasswordShowed, setIsPasswordShowed] = useState(false)
   const [isEmailValid, setIsEmailValid] = useState(false)
   const [email, setEmail] = useInput()
   const [password, setPassword] = useInput()
 
   const onLoginHandler = async ({ email, password }) => {
+    dispatch(setLoadingTrueActionCreator())
     await dispatch(asyncSetAuthUser({ email, password }))
+    dispatch(setLoadingFalseActionCreator())
   }
 
   useEffect(() => {
@@ -24,13 +29,14 @@ const LoginPage = () => {
   }, [email])
 
   return (
-    <div>
-      <div>
-        <header>
-          <h1>Almost there!</h1>
+    <div className='min-w-screen min-h-screen flex auth-page'>
+      <div className='m-auto flex flex-col gap-y-6 items-center justify-between bg-white bg-opacity-80 border w-4/5 md:w-3/5 lg:w-4/12 p-6 rounded-3xl shadow-sm shadow-emerald-600'>
+        <header className='flex flex-col gap-y-3 items-center text-center'>
+          <VscAccount className='w-16 h-16 text-black'/>
+          <h1 className='text-xl font-semibold'>Almost there!</h1>
         </header>
-        <div>
-          <form>
+        <div className='w-full'>
+          <form className='flex flex-col gap-y-2'>
             <TextInput
               props={{
                 value: email,
@@ -38,14 +44,15 @@ const LoginPage = () => {
                 id: 'email',
                 placeholder: 'yourname@gmail.com',
                 label: 'E-mail Address',
-                setValue: setEmail
+                setValue: setEmail,
+                isEmailValid
               }}
             />
             <PasswordInput
               props={{
                 password,
                 setPassword,
-                placeholder: 'yourpassword',
+                placeholder: '',
                 isShowed: isPasswordShowed,
                 setShowed: setIsPasswordShowed
               }}
@@ -54,15 +61,15 @@ const LoginPage = () => {
               <button
                 type='button'
                 onClick={() => onLoginHandler({ email, password })}
-                disabled={!isEmailValid || password.length < 6}
+                disabled={!isEmailValid || password.length < 6 || message.show}
+                className='w-full bg-emerald-500 text-white rounded-xl mt-3 py-2 font-bold'
               >
                 <span>Sign in</span>
-                <TbUserCheck/>
               </button>
             </div>
           </form>
         </div>
-        <p>Doesn&apos;t have an account?<br></br>Please <Link to='/register'>Sign Up</Link></p>
+        <p className='text-center'>Don&apos;t have an account? <Link to='/register' className='font-semibold underline underline-offset-2'>Sign Up</Link></p>
       </div>
     </div>
   )
