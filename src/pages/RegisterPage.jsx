@@ -29,6 +29,7 @@ const RegisterPage = () => {
     } else {
       dispatch(setMessageActionCreator({ show: true, error: true, text: message }))
     }
+
     dispatch(setLoadingFalseActionCreator())
   }
 

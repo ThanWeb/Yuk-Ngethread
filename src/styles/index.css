@@ -90,3 +90,8 @@ textarea:focus, input:focus {
 button:disabled {
   background-color: grey;
 }
+
+input::-ms-reveal,
+input::-ms-clear {
+  display: none;
+}

@@ -2,7 +2,7 @@ import PropTypes from 'prop-types'
 
 const UserAvatar = ({ avatar, name }) => {
   return (
-    <div>
+    <div className='rounded-full overflow-hidden w-10 h-10'>
       <img
         src={avatar}
         alt={name}

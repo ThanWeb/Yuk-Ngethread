@@ -1,24 +1,44 @@
 import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
-import { TbLogout, TbStars, TbStack2 } from 'react-icons/tb'
+import { HiOutlineHome, HiOutlineUser, HiMiniArrowRightOnRectangle, HiOutlinePlus, HiOutlineChartBar } from 'react-icons/hi2'
 
 const Navigation = ({ signOut }) => {
   return (
-    <nav>
-      <Link to='/'>
-        <span>Home</span>
-        <TbStack2/>
+    <nav className='fixed bottom-0 left-0 w-screen bg-white grid grid-cols-5 py-2 px-3 gap-x-2'>
+      <Link
+        to='/' className='flex flex-col gap-y-1 justify-center items-center'
+      >
+        <HiOutlineHome className='w-7 h-7 text-gray-500'/>
+        <span className='text-sm'>Home</span>
       </Link>
-      <Link to='/leaderboard'>
-        <span>Leaderboard</span>
-        <TbStars/>
+      <Link
+        to='/leaderboard'
+        className='flex flex-col gap-y-1 justify-center items-center'
+      >
+        <HiOutlineChartBar className='w-7 h-7 text-gray-500'/>
+        <span className='text-sm'>Lead</span>
+      </Link>
+      <div className='relative mx-auto w-12 h-12'>
+        <div className='absolute -top-6 -left-2 flex bg-white p-2 rounded-full'>
+          <button className='flex justify-center items-center bg-teal-600 rounded-full w-12 h-12'>
+            <HiOutlinePlus className='text-white w-7 h-7'/>
+          </button>
+        </div>
+      </div>
+      <Link
+        to='/profile'
+        className='flex flex-col gap-y-1 justify-center items-center'
+      >
+        <HiOutlineUser className='w-7 h-7 text-gray-500'/>
+        <span className='text-sm'>Profile</span>
       </Link>
       <button
         type='button'
         onClick={signOut}
+        className='flex flex-col gap-y-1 justify-center items-center'
       >
-        <span>Sign Out</span>
-        <TbLogout/>
+        <HiMiniArrowRightOnRectangle className='w-7 h-7 text-gray-500'/>
+        <span className='text-sm'>Sign Out</span>
       </button>
     </nav>
   )
