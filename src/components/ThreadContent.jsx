@@ -1,5 +1,4 @@
 import PropTypes from 'prop-types'
-import parse from 'html-react-parser'
 import { Link } from 'react-router-dom'
 
 const ThreadContent = ({ title, body, id }) => {
@@ -12,7 +11,7 @@ const ThreadContent = ({ title, body, id }) => {
             : `${title}`
         }
       </h3>
-      <div>{parse(body)}</div>
+      <div>{body}</div>
     </div>
   )
 }
