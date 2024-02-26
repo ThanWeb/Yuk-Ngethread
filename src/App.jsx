@@ -104,9 +104,9 @@ const App = () => {
 
   return (
     <>
-      <header className='sticky top-0 left-0'>
-        <div className='w-screen flex justify-between gap-x-4 px-4 py-2 items-center bg-white shadow-md md:px-8 md:py-3'>
-          <div>
+      <header className='sticky top-0 left-0 lg:fixed lg:w-2/12 lg:h-screen lg:shadow-2xl lg:bg-white lg:overflow-hidden lg:flex lg:flex-col lg:gap-y-6 lg:px-6 lg:py-4'>
+        <div className='w-screen lg:w-full flex lg:flex-col justify-between lg:justify-center lg:gap-y-4 gap-x-4 px-4 py-3 items-center bg-white shadow-md lg:shadow-none md:px-8 lg:px-0'>
+          <div className='lg:hidden'>
             <img
               src='/favicon.png'
               title='Yuk Ngethread'
@@ -118,10 +118,20 @@ const App = () => {
             avatar={authUser.avatar}
             name={authUser.name}
           />
+          <span className='hidden lg:block whitespace-nowrap text-ellipsis w-full text-center'>{authUser.name}</span>
         </div>
         <Navigation signOut={onSignOut} />
+        <div className='hidden lg:flex flex-col w-full gap-y-3 items-center justify-start mt-auto py-3'>
+          <img
+            src='/favicon.png'
+            title='Yuk Ngethread'
+            alt='Yuk Ngethread'
+            className='w-12 h-12'
+          />
+          <span className='font-bold whitespace-nowrap text-ellipsis w-full text-center'>Yuk Ngethread</span>
+        </div>
       </header>
-      <main className='min-w-screen min-h-screen flex bg-gray-200 overflow-x-auto'>
+      <main className='min-w-screen min-h-screen flex bg-gray-200 overflow-x-auto lg:w-10/12 lg:ml-auto'>
         <Routes>
           <Route path='/' element={<HomePage />} />
           <Route path='/threads/:id' element={<DetailPage />} />
