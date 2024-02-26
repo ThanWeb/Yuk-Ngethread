@@ -9,7 +9,7 @@ import ThreadInfo from '../components/ThreadInfo'
 import ThreadContent from '../components/ThreadContent'
 import VoteInfo from '../components/VoteInfo'
 
-const ThreadPreview = ({ thread, users, authUser, onAddComment, filterQuery, onGiveUpVote, onGiveDownVote }) => {
+const ThreadPreview = ({ thread, users, authUser, onAddComment, onGiveUpVote, onGiveDownVote }) => {
   const [avatar, setAvatar] = useState('')
   const [name, setName] = useState('')
   const [showCommentSection, setShowCommentSection] = useState(false)
