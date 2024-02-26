@@ -134,7 +134,7 @@ const App = () => {
           <span className='font-bold whitespace-nowrap text-ellipsis w-full text-center'>Yuk Ngethread</span>
         </div>
       </header>
-      <main className='min-w-screen min-h-screen flex bg-gray-200 overflow-x-auto lg:w-10/12 lg:ml-auto pb-20 lg:pb-0'>
+      <main className='min-w-screen min-h-screen flex bg-gray-100 overflow-x-auto lg:w-10/12 lg:ml-auto pb-20 lg:pb-0'>
         <Routes>
           <Route path='/' element={<HomePage />} />
           <Route path='/threads/:id' element={<DetailPage />} />
