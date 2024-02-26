@@ -4,7 +4,7 @@ import { HiOutlineHome, HiOutlineUser, HiMiniArrowRightOnRectangle, HiOutlinePlu
 
 const Navigation = ({ signOut }) => {
   return (
-    <div className='fixed lg:static bottom-0 left-0 w-screen bg-white flex justify-center lg:w-full'>
+    <div className='fixed lg:static h-20 lg:h-fit bottom-0 left-0 w-screen bg-white flex justify-center lg:w-full'>
       <nav className='w-full md:w-fit grid grid-cols-5 lg:flex lg:flex-col lg:gap-y-3 py-3 px-3 gap-x-2 md:gap-x-6 lg:w-full lg:p-0'>
         <button className='hidden lg:flex gap-x-5 justify-start items-center bg-teal-600 text-white rounded-lg px-2 py-1'>
           <HiOutlinePlus className='w-7 h-7'/>
