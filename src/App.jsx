@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { Routes, Route, useLocation, useNavigate } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
+import { TbArrowBigUpLine } from 'react-icons/tb'
 import LoginPage from './pages/LoginPage'
 import HomePage from './pages/HomePage'
 import LeaderboardPage from './pages/LeaderboardPage'
@@ -18,7 +19,7 @@ import { asyncCreateThread } from './states/threads/action'
 import { asyncPreloadProcess } from './states/isPreload/action'
 import { asyncUnsetAuthUser } from './states/authUser/action'
 import { setMessageActionCreator } from './states/message/action'
-import { TbArrowBigUpLine } from 'react-icons/tb'
+import { setLoadingFalseActionCreator, setLoadingTrueActionCreator } from './states/isLoading/action'
 
 const App = () => {
   const dispatch = useDispatch()
@@ -55,9 +56,11 @@ const App = () => {
   }, [message])
 
   const onSignOut = () => {
+    dispatch(setLoadingTrueActionCreator())
     dispatch(asyncUnsetAuthUser())
     dispatch(setMessageActionCreator({ show: true, error: false, text: 'See You Soon' }))
     navigate('/')
+    dispatch(setLoadingFalseActionCreator())
   }
 
   const scrollToTop = () => {
