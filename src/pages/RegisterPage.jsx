@@ -19,7 +19,8 @@ const RegisterPage = () => {
   const [name, setName] = useInput()
   const [password, setPassword] = useInput()
 
-  const onRegisterHandler = async ({ name, email, password }) => {
+  const onRegisterHandler = async (event, { name, email, password }) => {
+    event.preventDefault()
     dispatch(setLoadingTrueActionCreator())
     const { status = 'fail', message = '', data = null } = await dispatch(asyncRegisterUser({ name, email, password }))
 
@@ -45,7 +46,7 @@ const RegisterPage = () => {
           <h1 className='text-xl font-semibold'>Let&apos;s get started!</h1>
         </header>
         <div className='w-full'>
-          <form className='flex flex-col gap-y-2'>
+          <form className='flex flex-col gap-y-2' onSubmit={(event) => { onRegisterHandler(event, { name, email, password }) } }>
             <TextInput
               props={{
                 value: name,
@@ -79,8 +80,7 @@ const RegisterPage = () => {
             />
             <div>
               <button
-                type='button'
-                onClick={() => onRegisterHandler({ name, email, password })}
+                type='submit'
                 disabled={!name || !isEmailValid || password.length < 6}
                 className='w-full bg-emerald-500 text-white rounded-xl mt-3 py-2 font-bold'
               >

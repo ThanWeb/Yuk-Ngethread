@@ -17,7 +17,8 @@ const LoginPage = () => {
   const [email, setEmail] = useInput()
   const [password, setPassword] = useInput()
 
-  const onLoginHandler = async ({ email, password }) => {
+  const onLoginHandler = async (event, { email, password }) => {
+    event.preventDefault()
     dispatch(setLoadingTrueActionCreator())
     await dispatch(asyncSetAuthUser({ email, password }))
     dispatch(setLoadingFalseActionCreator())
@@ -35,7 +36,7 @@ const LoginPage = () => {
           <h1 className='text-xl font-semibold'>Almost there!</h1>
         </header>
         <div className='w-full'>
-          <form className='flex flex-col gap-y-2'>
+          <form className='flex flex-col gap-y-2' onSubmit={(event) => onLoginHandler(event, { email, password })}>
             <TextInput
               props={{
                 value: email,
@@ -58,8 +59,7 @@ const LoginPage = () => {
             />
             <div>
               <button
-                type='button'
-                onClick={() => onLoginHandler({ email, password })}
+                type='submit'
                 disabled={!isEmailValid || password.length < 6 || message.show}
                 className='w-full bg-emerald-500 text-white rounded-xl mt-3 py-2 font-bold'
               >
