@@ -66,6 +66,28 @@ const threadsReducer = (threads = [], action = {}) => {
 
       return thread
     })
+  case ActionType.UNDO_GIVE_VOTE_THREAD:
+    return threads.map((thread) => {
+      if (thread.id === action.payload.threadId) {
+        if (action.payload.isVoteUp) {
+          const newUpVotes = thread.upVotesBy.filter((item) => item !== action.payload.userId)
+
+          return {
+            ...thread,
+            upVotesBy: newUpVotes
+          }
+        } else {
+          const newDownVotes = thread.downVotesBy.filter((item) => item !== action.payload.userId)
+
+          return {
+            ...thread,
+            downVotesBy: newDownVotes
+          }
+        }
+      }
+
+      return thread
+    })
   default:
     return threads
   }

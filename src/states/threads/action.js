@@ -6,7 +6,8 @@ const ActionType = {
   CREATE_THREAD: 'CREATE_THREAD',
   GIVE_UP_VOTE_THREAD: 'GIVE_UP_VOTE_THREAD',
   GIVE_DOWN_VOTE_THREAD: 'GIVE_DOWN_VOTE_THREAD',
-  CREATE_COMMENT_THREAD: 'CREATE_COMMENT_THREAD'
+  CREATE_COMMENT_THREAD: 'CREATE_COMMENT_THREAD',
+  UNDO_GIVE_VOTE_THREAD: 'UNDO_GIVE_VOTE_THREAD'
 }
 
 const receiveThreadsActionCreator = (threads) => {
@@ -55,6 +56,17 @@ const giveDownVoteActionCreator = (vote) => {
   }
 }
 
+const undoGiveVoteActionCreator = (isVoteUp, threadId, userId) => {
+  return {
+    type: ActionType.UNDO_GIVE_VOTE_THREAD,
+    payload: {
+      isVoteUp,
+      threadId,
+      userId
+    }
+  }
+}
+
 const asyncCreateThread = ({ title, body, category }) => {
   return async (dispatch) => {
     try {
@@ -87,32 +99,32 @@ const asyncCreateComment = ({ content, id }) => {
   }
 }
 
-const asyncGiveUpVote = (id) => {
+const asyncGiveUpVote = (threadId, userId) => {
   return async (dispatch) => {
     try {
-      const { status = 'fail', message = '', data = null } = await api.giveUpVoteThread(id)
+      dispatch(giveUpVoteActionCreator({ threadId, userId }))
+      const { status = 'fail', message = '' } = await api.giveUpVoteThread(threadId)
 
-      if (status !== 'fail') {
-        dispatch(giveUpVoteActionCreator(data.vote))
+      if (status === 'fail') {
+        dispatch(setMessageActionCreator({ show: true, error: true, text: message }))
+        dispatch(undoGiveVoteActionCreator(true, threadId, userId))
       }
-
-      dispatch(setMessageActionCreator({ show: true, error: status === 'fail', text: message }))
     } catch (error) {
       return api.handleError(error)
     }
   }
 }
 
-const asyncGiveDownVote = (id) => {
+const asyncGiveDownVote = (threadId, userId) => {
   return async (dispatch) => {
     try {
-      const { status = 'fail', message = '', data = null } = await api.giveDownVoteThread(id)
+      dispatch(giveDownVoteActionCreator({ threadId, userId }))
+      const { status = 'fail', message = '' } = await api.giveDownVoteThread(threadId)
 
-      if (status !== 'fail') {
-        dispatch(giveUpVoteActionCreator(data.vote))
+      if (status === 'fail') {
+        dispatch(setMessageActionCreator({ show: true, error: true, text: message }))
+        dispatch(undoGiveVoteActionCreator(false, threadId, userId))
       }
-
-      dispatch(setMessageActionCreator({ show: true, error: status === 'fail', text: message }))
     } catch (error) {
       return api.handleError(error)
     }

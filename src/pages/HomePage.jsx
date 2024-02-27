@@ -5,6 +5,7 @@ import { asyncCreateComment, asyncGiveUpVote, asyncGiveDownVote } from '../state
 import useInput from '../hooks/useInput'
 import { asyncPopulateUsersAndThreads } from '../states/shared/action'
 import ThreadPreview from '../components/ThreadPreview'
+// import { setLoadingFalseActionCreator, setLoadingTrueActionCreator } from '../states/isLoading/action'
 
 const HomePage = () => {
   const dispatch = useDispatch()
@@ -20,12 +21,12 @@ const HomePage = () => {
     dispatch(asyncPopulateUsersAndThreads())
   }, [dispatch])
 
-  const onGiveUpVote = (id) => {
-    dispatch(asyncGiveUpVote(id))
+  const onGiveUpVote = async (id) => {
+    await dispatch(asyncGiveUpVote(id, authUser.id))
   }
 
-  const onGiveDownVote = (id) => {
-    dispatch(asyncGiveDownVote(id))
+  const onGiveDownVote = async (id) => {
+    await dispatch(asyncGiveDownVote(id, authUser.id))
   }
 
   const collectCategories = () => {
