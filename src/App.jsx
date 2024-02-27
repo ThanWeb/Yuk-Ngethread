@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { Routes, Route, useLocation, useNavigate } from 'react-router-dom'
+import { Routes, Route, useLocation, useNavigate, Link } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import { TbArrowBigUpLine } from 'react-icons/tb'
 import LoginPage from './pages/LoginPage'
@@ -109,13 +109,19 @@ const App = () => {
     <>
       <header className='sticky top-0 left-0 lg:fixed lg:w-2/12 lg:h-screen lg:shadow-2xl lg:bg-white lg:overflow-hidden lg:flex lg:flex-col lg:gap-y-6 lg:px-6 lg:py-4'>
         <div className='w-screen lg:w-full flex lg:flex-col justify-between lg:justify-center lg:gap-y-4 gap-x-4 px-4 py-3 items-center bg-white shadow-md lg:shadow-none md:px-8 lg:px-0'>
-          <div className='lg:hidden'>
-            <img
-              src='/favicon.png'
-              title='Yuk Ngethread'
-              alt='Yuk Ngethread'
-              className='w-12 h-12'
-            />
+          <div className='block lg:hidden'>
+            <Link
+              to='/'
+              className='flex gap-x-3 items-center'
+            >
+              <img
+                src='/favicon.png'
+                title='Yuk Ngethread'
+                alt='Yuk Ngethread'
+                className='w-12 h-12'
+              />
+              <span className='text-xl font-semibold'>Yuk Ngthread</span>
+            </Link>
           </div>
           <UserAvatar
             avatar={authUser.avatar}
@@ -124,14 +130,19 @@ const App = () => {
           <span className='hidden lg:block whitespace-nowrap text-ellipsis w-full text-center'>{authUser.name}</span>
         </div>
         <Navigation signOut={onSignOut} />
-        <div className='hidden lg:flex flex-col w-full gap-y-3 items-center justify-start mt-auto py-3'>
-          <img
-            src='/favicon.png'
-            title='Yuk Ngethread'
-            alt='Yuk Ngethread'
-            className='w-12 h-12'
-          />
-          <span className='font-bold whitespace-nowrap text-ellipsis w-full text-center'>Yuk Ngethread</span>
+        <div className='hidden lg:block mt-auto'>
+          <Link
+            to='/'
+            className='flex flex-col w-full gap-y-3 items-center justify-start py-3'
+          >
+            <img
+              src='/favicon.png'
+              title='Yuk Ngethread'
+              alt='Yuk Ngethread'
+              className='w-12 h-12'
+            />
+            <span className='font-bold whitespace-nowrap text-ellipsis w-full text-center'>Yuk Ngethread</span>
+          </Link>
         </div>
       </header>
       <main className='min-w-screen min-h-screen flex bg-gray-100 overflow-x-auto lg:w-10/12 lg:ml-auto pb-20 lg:pb-0'>
