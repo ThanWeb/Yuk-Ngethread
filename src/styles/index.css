@@ -87,7 +87,7 @@ textarea:focus, input:focus {
   background-image: url('/bg-login.jpg');
 }
 
-button:disabled {
+.auth-page button:disabled {
   background-color: grey;
 }
 

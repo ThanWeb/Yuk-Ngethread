@@ -1,7 +1,6 @@
 
 import { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { TbFilter } from 'react-icons/tb'
 import { asyncCreateComment, asyncGiveUpVote, asyncGiveDownVote } from '../states/threads/action'
 import useInput from '../hooks/useInput'
 import { asyncPopulateUsersAndThreads } from '../states/shared/action'
@@ -61,27 +60,22 @@ const HomePage = () => {
 
   return (
     <div className='container mx-auto'>
-      <div>
-        <div>
-          <button>
-            <TbFilter/>
-            <h3>Filter</h3>
-          </button>
-        </div>
-        <div>
+      <div className='px-6 pt-6'>
+        <div className='flex flex-wrap gap-3'>
           {
             categoryList.map((category, index) =>
               <button
                 key={index}
                 onClick={() => changeCategory(category)}
+                className='bg-white p-2 rounded-xl shadow-md'
               >
-                {category}
+                #{category}
               </button>
             )
           }
         </div>
       </div>
-      <div>
+      <div className='flex flex-col gap-y-6 p-6'>
         {
           filterCategory(threads).map((thread, index) =>
             <ThreadPreview

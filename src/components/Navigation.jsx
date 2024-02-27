@@ -4,7 +4,7 @@ import { HiOutlineHome, HiOutlineUser, HiMiniArrowRightOnRectangle, HiOutlinePlu
 
 const Navigation = ({ signOut }) => {
   return (
-    <div className='fixed lg:static h-20 lg:h-fit bottom-0 left-0 w-screen bg-white flex justify-center lg:w-full'>
+    <div className='fixed lg:static h-20 lg:h-fit bottom-0 left-0 w-screen bg-white flex justify-center lg:w-full border-2 lg:border-0 lg:font-semibold'>
       <nav className='w-full md:w-fit grid grid-cols-5 lg:flex lg:flex-col lg:gap-y-3 py-3 px-3 gap-x-2 md:gap-x-6 lg:w-full lg:p-0'>
         <button className='hidden lg:flex gap-x-5 justify-start items-center bg-teal-600 text-white rounded-lg px-2 py-1'>
           <HiOutlinePlus className='w-7 h-7'/>
@@ -24,7 +24,7 @@ const Navigation = ({ signOut }) => {
           <span className='text-sm'>Lead</span>
         </Link>
         <div className='relative mx-auto w-12 h-12 lg:hidden'>
-          <div className='absolute -top-6 -left-2 flex bg-white p-2 rounded-full'>
+          <div className='absolute -top-6 -left-2 flex bg-white p-2 rounded-full border-2'>
             <button className='flex justify-center items-center bg-teal-600 rounded-full w-12 h-12'>
               <HiOutlinePlus className='text-white w-7 h-7'/>
             </button>

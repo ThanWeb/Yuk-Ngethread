@@ -1,20 +1,17 @@
 import PropTypes from 'prop-types'
-import { getFormattedDateString } from '../utils'
 
-const ThreadInfo = ({ category, name, createdAt }) => {
+const ThreadInfo = ({ category, name }) => {
   return (
     <div>
-      <h3>{name}</h3>
-      <p>{getFormattedDateString(createdAt)}</p>
-      <p>#{category}</p>
+      <h3 className='capitalize'>{name}</h3>
+      <p className='text-sm text-gray-500 italic'>#{category}</p>
     </div>
   )
 }
 
 ThreadInfo.propTypes = {
   category: PropTypes.string,
-  name: PropTypes.string,
-  createdAt: PropTypes.string
+  name: PropTypes.string
 }
 
 export default ThreadInfo
