@@ -107,7 +107,7 @@ const App = () => {
 
   return (
     <>
-      <header className='sticky top-0 left-0 lg:fixed lg:w-2/12 lg:h-screen lg:shadow-2xl lg:bg-white lg:overflow-hidden lg:flex lg:flex-col lg:gap-y-6 lg:px-6 lg:py-4'>
+      <header className='sticky top-0 left-0 z-20 lg:z-0 lg:fixed lg:w-2/12 lg:h-screen lg:shadow-2xl lg:bg-white lg:overflow-hidden lg:flex lg:flex-col lg:gap-y-6 lg:px-6 lg:py-4'>
         <div className='w-screen lg:w-full flex lg:flex-col justify-between lg:justify-center lg:gap-y-4 gap-x-4 px-4 py-3 items-center bg-white shadow-md lg:shadow-none md:px-8 lg:px-0'>
           <div className='block lg:hidden'>
             <Link

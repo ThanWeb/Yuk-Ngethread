@@ -17,19 +17,62 @@ const LeaderboardPage = () => {
   }
 
   return (
-    <div>
-      <h2>Leaderboard</h2>
-      <div>
-        {
-          leaderboards.map((leaderboard, index, positon) =>
-            <LeaderboardItem
-              key={index}
-              position={index}
-              user={leaderboard.user}
-              score={leaderboard.score}
-            />
-          )
-        }
+    <div className='container mx-auto'>
+      <div className='px-6 py-6'>
+        {/* <h2 className='bg-white w-full text-center py-2 text-xl rounded-b-xl text-teal-600 font-semibold shadow-md'>Leaderboard</h2> */}
+        <div className='flex flex-col gap-y-3'>
+          <div className='grid grid-cols-3 gap-x-3 mb-6'>
+            <div className='order-2 flex flex-col items-center'>
+              <div className='flex flex-col items-center rounded-full relative bg-emerald-500 p-2'>
+                <img
+                  src={leaderboards[0].user.avatar}
+                  alt={leaderboards[0].user.name}
+                  title={leaderboards[0].user.name}
+                  className='rounded-full'
+                />
+                <p className='absolute -bottom-3 text-center bg-emerald-500 w-10 h-10 leading-10 text-white rounded-full font-bold text-2xl'>1</p>
+              </div>
+              <p className='capitalize text-xl line-clamp-1 text-ellipsis pt-4 font-semibold text-center'>{leaderboards[0].user.name}</p>
+              <p className='text-2xl font-semibold'>{leaderboards[0].score}</p>
+            </div>
+            <div className='order-1 flex flex-col items-center mt-4'>
+              <div className='flex flex-col items-center rounded-full relative bg-blue-500 p-2'>
+                <img
+                  src={leaderboards[1].user.avatar}
+                  alt={leaderboards[1].user.name}
+                  title={leaderboards[1].user.name}
+                  className='rounded-full'
+                />
+                <p className='absolute -bottom-3 text-center bg-blue-500 w-10 h-10 leading-10 text-white rounded-full font-bold text-2xl'>2</p>
+              </div>
+              <p className='capitalize text-xl line-clamp-1 text-ellipsis pt-4 font-semibold text-center'>{leaderboards[1].user.name}</p>
+              <p className='text-2xl font-semibold'>{leaderboards[1].score}</p>
+            </div>
+            <div className='order-3 flex flex-col items-center mt-8'>
+              <div className='flex flex-col items-center rounded-full relative bg-rose-500 p-2'>
+                <img
+                  src={leaderboards[2].user.avatar}
+                  alt={leaderboards[2].user.name}
+                  title={leaderboards[2].user.name}
+                  className='rounded-full'
+                />
+                <p className='absolute -bottom-3 text-center bg-rose-500 w-10 h-10 leading-10 text-white rounded-full font-bold text-2xl'>3</p>
+              </div>
+              <p className='capitalize text-xl line-clamp-1 text-ellipsis pt-4 font-semibold text-center'>{leaderboards[2].user.name}</p>
+              <p className='text-2xl font-semibold'>{leaderboards[2].score}</p>
+            </div>
+          </div>
+          {
+            leaderboards.slice(3).map((leaderboard, index) =>
+              <LeaderboardItem
+                key={index}
+                position={index + 1}
+                user={leaderboard.user}
+                score={leaderboard.score}
+              />
+            )
+          }
+        </div>
       </div>
     </div>
   )
