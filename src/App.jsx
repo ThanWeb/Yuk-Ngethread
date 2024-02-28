@@ -127,7 +127,11 @@ const App = () => {
             avatar={authUser.avatar}
             name={authUser.name}
           />
-          <span className='hidden lg:block whitespace-nowrap text-ellipsis w-full text-center'>{authUser.name}</span>
+          <p
+            title={authUser.name}
+            className='hidden lg:block whitespace-nowrap text-ellipsis w-full text-center line-clamp-1'>
+            Hi, <span className='font-semibold'>{authUser.name}</span>
+          </p>
         </div>
         <Navigation signOut={onSignOut} />
         <div className='hidden lg:block mt-auto'>

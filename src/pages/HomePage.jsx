@@ -1,14 +1,17 @@
 
 import { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
 import { asyncCreateComment, asyncGiveUpVote, asyncGiveDownVote } from '../states/threads/action'
 import useInput from '../hooks/useInput'
 import { asyncPopulateUsersAndThreads } from '../states/shared/action'
 import ThreadPreview from '../components/ThreadPreview'
-// import { setLoadingFalseActionCreator, setLoadingTrueActionCreator } from '../states/isLoading/action'
+import { setLoadingFalseActionCreator, setLoadingTrueActionCreator } from '../states/isLoading/action'
 
 const HomePage = () => {
   const dispatch = useDispatch()
+  const navigate = useNavigate()
+
   const { threads = [], users = [], authUser } = useSelector((states) => states)
   const [filterQuery, setFilterQuery] = useInput()
   const [categoryList, setCategoryList] = useState([])
@@ -18,7 +21,9 @@ const HomePage = () => {
   }, [threads])
 
   useEffect(() => {
+    dispatch(setLoadingTrueActionCreator())
     dispatch(asyncPopulateUsersAndThreads())
+    dispatch(setLoadingFalseActionCreator())
   }, [dispatch])
 
   const onGiveUpVote = async (id) => {
@@ -43,8 +48,15 @@ const HomePage = () => {
     setCategoryList(tempCategoryList)
   }
 
-  const onAddComment = (comment, id) => {
-    dispatch(asyncCreateComment({ content: comment, id }))
+  const onAddComment = async (comment, id) => {
+    dispatch(setLoadingTrueActionCreator())
+    const status = await dispatch(asyncCreateComment({ content: comment, id }))
+
+    if (status === 'success') {
+      navigate(`/threads/${id}`)
+    }
+
+    dispatch(setLoadingFalseActionCreator())
   }
 
   const changeCategory = (category) => {

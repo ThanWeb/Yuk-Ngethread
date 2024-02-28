@@ -29,6 +29,7 @@ const ThreadPreview = ({ thread, users, authUser, onAddComment, onGiveUpVote, on
     event.preventDefault()
     onAddComment(comment, id)
     setComment('')
+    setShowCommentSection(false)
   }
 
   return (
@@ -93,7 +94,7 @@ const ThreadPreview = ({ thread, users, authUser, onAddComment, onGiveUpVote, on
             type='button'
             onClick={() => setShowCommentSection(!showCommentSection)}
           >
-            <AiOutlineMessage className='w-6 h-6 text-slate-700'/>
+            <AiOutlineMessage className={`w-6 h-6 ${showCommentSection ? 'text-blue-600' : 'text-slate-700'}`}/>
           </button>
           <Link to={`/threads/${thread.id}`} className='ml-auto'>
             <AiOutlineMore className='w-6 h-6 text-slate-700'/>
@@ -120,7 +121,7 @@ const ThreadPreview = ({ thread, users, authUser, onAddComment, onGiveUpVote, on
             disabled={!comment}
             className='w-8 h-8'
           >
-            <AiOutlineSend className='w-8 h-8 text-slate-700'/>
+            <AiOutlineSend className='w-7 h-7 text-slate-700'/>
           </button>
         </form>
       </div>
