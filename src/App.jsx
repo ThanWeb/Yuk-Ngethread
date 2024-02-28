@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { Routes, Route, useLocation, useNavigate, Link } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
-import { TbArrowBigUpLine } from 'react-icons/tb'
+import { LuArrowUpToLine } from 'react-icons/lu'
 import LoginPage from './pages/LoginPage'
 import HomePage from './pages/HomePage'
 import LeaderboardPage from './pages/LeaderboardPage'
@@ -159,8 +159,8 @@ const App = () => {
       </main>
       {
         showScrollToTop &&
-        <button onClick={scrollToTop} className='hidden'>
-          <TbArrowBigUpLine/>
+        <button onClick={scrollToTop} className='fixed bottom-24 lg:bottom-4 right-3 flex items-center justify-center p-1 w-10 h-10 bg-white rounded-full z-20 border border-gray-500 shadow-md'>
+          <LuArrowUpToLine className='w-8 h-8'/>
         </button>
       }
       <CreateThreadModal props={{ title, body, category, setTitle, setBody, setCategory, onCreateThread }} />

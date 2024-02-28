@@ -11,6 +11,10 @@
   letter-spacing: 0.025em;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 textarea:focus, input:focus {
   outline: none;
 }
