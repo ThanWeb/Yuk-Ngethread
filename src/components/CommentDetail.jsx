@@ -6,7 +6,7 @@ import { getFormattedDateString } from '../utils'
 const CommentDetail = ({ comment }) => {
   return (
     <>
-      <div>
+      <div className='flex gap-x-4 items-center pb-1'>
         <UserAvatar
           avatar={comment.owner.avatar}
           name={comment.owner.name}

@@ -71,24 +71,28 @@ const ThreadPreview = ({ thread, users, authUser, onAddComment, onGiveUpVote, on
             onClick={() => onGiveUpVote(thread.id)}
             disabled={thread.upVotesBy.includes(authUser.id)}
             data-testid='up-vote-button'
+            className='flex gap-x-1 items-center'
           >
             {
               thread.upVotesBy.includes(authUser.id)
                 ? <AiFillLike className='w-6 h-6 text-slate-700'/>
                 : <AiOutlineLike className='w-6 h-6 text-slate-700'/>
             }
+            <span className='text-slate-700'>{thread.upVotesBy.length}</span>
           </button>
           <button
             type='button'
             onClick={() => onGiveDownVote(thread.id)}
             disabled={thread.downVotesBy.includes(authUser.id)}
             data-testid='down-vote-button'
+            className='flex gap-x-1 items-center'
           >
             {
               thread.downVotesBy.includes(authUser.id)
                 ? <AiFillDislike className='w-6 h-6 text-slate-700'/>
                 : <AiOutlineDislike className='w-6 h-6 text-slate-700'/>
             }
+            <span className='text-slate-700'>{thread.downVotesBy.length}</span>
           </button>
           <button
             type='button'

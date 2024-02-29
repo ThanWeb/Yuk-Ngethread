@@ -13,6 +13,7 @@
 
 html {
   scroll-behavior: smooth;
+  background-color: whitesmoke;
 }
 
 textarea:focus, input:focus {
