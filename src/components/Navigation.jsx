@@ -6,19 +6,19 @@ const Navigation = ({ signOut, setShowCreateThreadModal }) => {
   return (
     <div className='fixed lg:static h-20 lg:h-fit bottom-0 left-0 w-screen bg-white flex justify-center lg:w-full border-2 lg:border-0 lg:font-semibold'>
       <nav className='w-full md:w-fit grid grid-cols-5 lg:flex lg:flex-col lg:gap-y-3 py-3 px-3 gap-x-2 md:gap-x-6 lg:w-full lg:p-0'>
-        <button className='hidden lg:flex gap-x-5 justify-start items-center bg-teal-600 text-white rounded-full pl-6 pr-2 py-2' onClick={() => { setShowCreateThreadModal(true) }}>
+        <button className='hidden lg:flex gap-x-5 justify-start items-center bg-teal-600 text-white rounded-full lg:pl-2 xl:pl-6 pr-2 py-2' onClick={() => { setShowCreateThreadModal(true) }}>
           <HiOutlinePlus className='w-7 h-7'/>
           <span className='text-md'>Create</span>
         </button>
         <Link
-          to='/' className='flex flex-col gap-y-1 justify-center items-center lg:flex-row lg:gap-x-5 lg:justify-start lg:pl-6 lg:pr-2 lg:py-1'
+          to='/' className='flex flex-col gap-y-1 justify-center items-center lg:flex-row lg:gap-x-5 lg:justify-start lg:pl-2 xl:pl-6 lg:pr-2 lg:py-1'
         >
           <HiOutlineHome className='w-7 h-7 text-gray-700'/>
           <span className='text-sm lg:text-md'>Home</span>
         </Link>
         <Link
           to='/leaderboard'
-          className='flex flex-col gap-y-1 justify-center items-center lg:flex-row lg:gap-x-5 lg:justify-start lg:pl-6 lg:pr-2 lg:py-1'
+          className='flex flex-col gap-y-1 justify-center items-center lg:flex-row lg:gap-x-5 lg:justify-start lg:pl-2 xl:pl-6 lg:pr-2 lg:py-1'
         >
           <HiOutlineChartBar className='w-7 h-7 text-gray-700'/>
           <span className='text-sm lg:text-md'>Lead</span>
@@ -32,7 +32,7 @@ const Navigation = ({ signOut, setShowCreateThreadModal }) => {
         </div>
         <Link
           to='/profile'
-          className='flex flex-col gap-y-1 justify-center items-center lg:flex-row lg:gap-x-5 lg:justify-start lg:pl-6 lg:pr-2 lg:py-1'
+          className='flex flex-col gap-y-1 justify-center items-center lg:flex-row lg:gap-x-5 lg:justify-start lg:pl-2 xl:pl-6 lg:pr-2 lg:py-1'
         >
           <HiOutlineUser className='w-7 h-7 text-gray-700'/>
           <span className='text-sm lg:text-md'>Profile</span>
@@ -40,7 +40,7 @@ const Navigation = ({ signOut, setShowCreateThreadModal }) => {
         <button
           type='button'
           onClick={signOut}
-          className='flex flex-col gap-y-1 justify-center items-center lg:flex-row lg:gap-x-5 lg:justify-start lg:pl-6 lg:pr-2 lg:py-1'
+          className='flex flex-col gap-y-1 justify-center items-center lg:flex-row lg:gap-x-5 lg:justify-start lg:pl-2 xl:pl-6 lg:pr-2 lg:py-1'
         >
           <HiMiniArrowRightOnRectangle className='w-7 h-7 text-gray-700'/>
           <span className='text-sm lg:text-md'>Sign Out</span>
