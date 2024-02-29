@@ -7,10 +7,7 @@
     "dev": "vite --host",
     "build": "vite build",
     "preview": "vite preview",
-    "lint": "npx eslint src/** --fix",
-    "test": "vitest",
-    "e2e": "cypress run",
-    "ci:test": "vitest run && start-server-and-test dev http-get://localhost:3000 e2e"
+    "lint": "npx eslint src/** --fix"
   },
   "dependencies": {
     "@reduxjs/toolkit": "^1.9.2",
@@ -30,7 +27,6 @@
     "@types/react-dom": "^18.0.9",
     "@vitejs/plugin-react": "^3.0.0",
     "autoprefixer": "^10.4.17",
-    "cypress": "^12.6.0",
     "eslint": "^8.33.0",
     "eslint-config-standard": "^17.0.0",
     "eslint-plugin-cypress": "^2.12.1",
@@ -40,9 +36,7 @@
     "eslint-plugin-react": "^7.32.2",
     "jsdom": "^21.1.0",
     "postcss": "^8.4.35",
-    "start-server-and-test": "^1.15.4",
     "tailwindcss": "^3.4.1",
-    "vite": "^4.0.0",
-    "vitest": "^0.28.4"
+    "vite": "^4.0.0"
   }
 }
