@@ -6,6 +6,7 @@ import useInput from '../hooks/useInput'
 import { asyncPopulateUsersAndThreads } from '../states/shared/action'
 import ThreadPreview from '../components/ThreadPreview'
 import { setLoadingFalseActionCreator, setLoadingTrueActionCreator } from '../states/isLoading/action'
+import PreloadLoading from '../components/PreloadLoading'
 
 const HomePage = () => {
   const dispatch = useDispatch()
@@ -61,7 +62,15 @@ const HomePage = () => {
   }
 
   const filterCategory = (threads) => {
-    return threads.filter(item => item.category.toLowerCase().match(filterQuery.replace(/[^a-zA-Z0-9 ]/g, '').toLowerCase()) !== null)
+    if (threads.length > 0) {
+      return threads.filter(item => item.category.toLowerCase().match(filterQuery.replace(/[^a-zA-Z0-9 ]/g, '').toLowerCase()) !== null)
+    }
+
+    return []
+  }
+
+  if (threads.length < 0) {
+    return <PreloadLoading />
   }
 
   return (

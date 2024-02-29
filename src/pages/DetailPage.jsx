@@ -178,7 +178,7 @@ const DetailPage = () => {
               <div key={index} className='p-5 bg-white rounded-xl shadow-md'>
                 <CommentDetail comment={comment} />
                 <div>
-                  <div className='mt-3 text-sm text-gray-600'>
+                  <div className='mt-1 text-sm text-gray-600'>
                     <VoteInfo
                       users={users}
                       detail={comment}
@@ -193,11 +193,11 @@ const DetailPage = () => {
                       className='flex gap-x-1 items-center'
                     >
                       {
-                        threadDetail.upVotesBy.includes(authUser.id)
+                        comment.upVotesBy.includes(authUser.id)
                           ? <AiFillLike className='w-6 h-6 text-slate-700'/>
                           : <AiOutlineLike className='w-6 h-6 text-slate-700'/>
                       }
-                      <span className='text-slate-700'>{threadDetail.upVotesBy.length}</span>
+                      <span className='text-slate-700'>{comment.upVotesBy.length}</span>
                     </button>
                     <button
                       type='button'
@@ -207,11 +207,11 @@ const DetailPage = () => {
                       className='flex gap-x-1 items-center'
                     >
                       {
-                        threadDetail.downVotesBy.includes(authUser.id)
+                        comment.downVotesBy.includes(authUser.id)
                           ? <AiFillDislike className='w-6 h-6 text-slate-700'/>
                           : <AiOutlineDislike className='w-6 h-6 text-slate-700'/>
                       }
-                      <span className='text-slate-700'>{threadDetail.downVotesBy.length}</span>
+                      <span className='text-slate-700'>{comment.downVotesBy.length}</span>
                     </button>
                   </div>
                 </div>

@@ -16,7 +16,7 @@ const CommentDetail = ({ comment }) => {
           <p>{getFormattedDateString(comment.createdAt)}</p>
         </div>
       </div>
-      <div>{parse(comment.content)}</div>
+      <div className='pt-2'>{parse(comment.content)}</div>
     </>
   )
 }
