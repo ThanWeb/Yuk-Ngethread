@@ -11,6 +11,7 @@ const LeaderboardItem = ({ position, user, score }) => {
           src={user.avatar}
           alt={user.name}
           title={user.name}
+          className='w-fit h-full'
         />
         <p className='capitalize text-xl line-clamp-1 text-ellipsis'>{user.name}</p>
         <p className='ml-auto text-2xl pr-6'>{score}</p>

@@ -12,6 +12,7 @@ import Navigation from './components/Navigation'
 import UserAvatar from './components/UserAvatar'
 import Message from './components/Message'
 import CreateThreadModal from './components/CreateThreadModal'
+import ProfileModal from './components/ProfileModal'
 import PreloadLoading from './components/PreloadLoading'
 import Loading from './components/Loading'
 import useInput from './hooks/useInput'
@@ -36,12 +37,18 @@ const App = () => {
   const [title, setTitle] = useInput()
   const [body, setBody] = useInput()
   const [category, setCategory] = useInput()
+
   const [showScrollToTop, setShowScrollToTop] = useState(false)
   const [showCreateThreadModal, setShowCreateThreadModal] = useState(false)
+  const [showProfileModal, setShowProfileModal] = useState(false)
 
   useEffect(() => {
     dispatch(asyncPreloadProcess())
   }, [dispatch])
+
+  useEffect(() => {
+    console.log(authUser)
+  }, [authUser])
 
   useEffect(() => {
     window.scrollTo(0, 0)
@@ -143,7 +150,7 @@ const App = () => {
             Hi, <span className='font-semibold'>{authUser.name}</span>
           </p>
         </div>
-        <Navigation signOut={onSignOut} setShowCreateThreadModal={setShowCreateThreadModal} />
+        <Navigation signOut={onSignOut} setShowCreateThreadModal={setShowCreateThreadModal} setShowProfileModal={setShowProfileModal}/>
         <div className='hidden lg:block mt-auto'>
           <Link
             to='/'
@@ -173,6 +180,7 @@ const App = () => {
           <LuArrowUpToLine className='w-8 h-8'/>
         </button>
       }
+      <ProfileModal authUser={authUser} showProfileModal={showProfileModal} setShowProfileModal={setShowProfileModal} />
       <CreateThreadModal props={{ authUser, showCreateThreadModal, setShowCreateThreadModal, title, body, category, setTitle, setBody, setCategory, onCreateThread }} />
       <Message message={message} />
       <Loading isLoading={isLoading} />
