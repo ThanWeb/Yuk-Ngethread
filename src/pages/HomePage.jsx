@@ -71,7 +71,7 @@ const HomePage = () => {
               <button
                 key={index}
                 onClick={() => changeCategory(category)}
-                className='bg-white p-2 rounded-xl shadow-md'
+                className={`p-2 rounded-xl shadow-md ${category === filterQuery ? 'bg-cyan-900 text-white' : 'bg-white'}`}
               >
                 #{category}
               </button>

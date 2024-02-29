@@ -33,10 +33,11 @@ const App = () => {
     isLoading = false
   } = useSelector((states) => states)
 
-  const [showScrollToTop, setShowScrollToTop] = useState(false)
   const [title, setTitle] = useInput()
   const [body, setBody] = useInput()
   const [category, setCategory] = useInput()
+  const [showScrollToTop, setShowScrollToTop] = useState(false)
+  const [showCreateThreadModal, setShowCreateThreadModal] = useState(false)
 
   useEffect(() => {
     dispatch(asyncPreloadProcess())
@@ -76,11 +77,20 @@ const App = () => {
     }
   }
 
-  const onCreateThread = (event) => {
-    dispatch(asyncCreateThread({ title, body, category }))
-    setTitle('')
-    setBody('')
-    setCategory('')
+  const onCreateThread = async (event) => {
+    event.preventDefault()
+
+    dispatch(setLoadingTrueActionCreator())
+    const status = await dispatch(asyncCreateThread({ title, body, category }))
+
+    if (status === 'success') {
+      setTitle('')
+      setBody('')
+      setCategory('')
+      setShowCreateThreadModal(false)
+    }
+
+    dispatch(setLoadingFalseActionCreator())
   }
 
   window.addEventListener('scroll', checkScrollPosition)
@@ -133,7 +143,7 @@ const App = () => {
             Hi, <span className='font-semibold'>{authUser.name}</span>
           </p>
         </div>
-        <Navigation signOut={onSignOut} />
+        <Navigation signOut={onSignOut} setShowCreateThreadModal={setShowCreateThreadModal} />
         <div className='hidden lg:block mt-auto'>
           <Link
             to='/'
@@ -159,11 +169,11 @@ const App = () => {
       </main>
       {
         showScrollToTop &&
-        <button onClick={scrollToTop} className='fixed bottom-24 lg:bottom-4 right-3 flex items-center justify-center p-1 w-10 h-10 bg-white rounded-full z-20 border border-gray-500 shadow-md'>
+        <button onClick={scrollToTop} className='fixed bottom-24 lg:bottom-4 right-3 flex items-center justify-center p-2 w-10 h-10 bg-white rounded-full z-20 border border-gray-500 shadow-md'>
           <LuArrowUpToLine className='w-8 h-8'/>
         </button>
       }
-      <CreateThreadModal props={{ title, body, category, setTitle, setBody, setCategory, onCreateThread }} />
+      <CreateThreadModal props={{ authUser, showCreateThreadModal, setShowCreateThreadModal, title, body, category, setTitle, setBody, setCategory, onCreateThread }} />
       <Message message={message} />
       <Loading isLoading={isLoading} />
     </>

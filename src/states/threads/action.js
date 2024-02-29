@@ -74,6 +74,7 @@ const asyncCreateThread = ({ title, body, category }) => {
 
       if (status !== 'fail') {
         dispatch(createThreadActionCreator(data.thread))
+        return status
       }
 
       dispatch(setMessageActionCreator({ show: true, error: status === 'fail', text: message }))

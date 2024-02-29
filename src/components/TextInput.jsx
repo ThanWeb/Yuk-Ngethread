@@ -16,7 +16,7 @@ const TextInput = ({ props }) => {
         onChange={props.setValue}
         placeholder={props.placeholder}
         className={`border rounded-xl py-2 px-3 bg-white ${!props.isEmailValid && props.value !== '' ? 'border-red-600' : ''} `}
-        required
+        required={props.isRequired}
       />
     </div>
   )
@@ -30,7 +30,8 @@ TextInput.propTypes = {
     placeholder: PropTypes.string,
     label: PropTypes.string,
     setValue: PropTypes.func,
-    isEmailValid: PropTypes.bool
+    isEmailValid: PropTypes.bool,
+    isRequired: PropTypes.bool
   })
 }
 

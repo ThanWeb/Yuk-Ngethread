@@ -99,3 +99,7 @@ input::-ms-reveal,
 input::-ms-clear {
   display: none;
 }
+
+.max-h-thread-modal {
+  max-height: 75%;
+}
