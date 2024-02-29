@@ -25,11 +25,12 @@ const ThreadPreview = ({ thread, users, authUser, onAddComment, onGiveUpVote, on
     setName(currentUser.name)
   }
 
-  const addCommentHandler = (event, comment, id) => {
-    event.preventDefault()
-    onAddComment(comment, id)
-    setComment('')
-    setShowCommentSection(false)
+  const addCommentHandler = async (event, comment, id) => {
+    const status = await onAddComment(event, comment, id)
+
+    if (status === 'success') {
+      setComment('')
+    }
   }
 
   return (
@@ -59,8 +60,8 @@ const ThreadPreview = ({ thread, users, authUser, onAddComment, onGiveUpVote, on
           />
           {
             thread.totalComments > 1
-              ? <p><span className='font-semibold'>{thread.totalComments}</span> comments</p>
-              : <p><span className='font-semibold'>{thread.totalComments}</span> comment</p>
+              ? <p className='mt-1'><span className='font-semibold'>{thread.totalComments}</span> comments</p>
+              : <p className='mt-1'><span className='font-semibold'>{thread.totalComments}</span> comment</p>
           }
         </div>
       </div>
@@ -121,7 +122,6 @@ const ThreadPreview = ({ thread, users, authUser, onAddComment, onGiveUpVote, on
           />
           <button
             type='submit'
-            onClick={() => addCommentHandler(comment, thread.id)}
             disabled={!comment}
             className='w-8 h-8'
           >

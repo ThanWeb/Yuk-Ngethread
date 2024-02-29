@@ -20,6 +20,7 @@ import VoteInfo from '../components/VoteInfo'
 import CommentDetail from '../components/CommentDetail'
 import PreloadLoading from '../components/PreloadLoading'
 import { setMessageActionCreator } from '../states/message/action'
+import { setLoadingTrueActionCreator, setLoadingFalseActionCreator } from '../states/isLoading/action'
 import { getFormattedDateString } from '../utils'
 
 const DetailPage = () => {
@@ -48,8 +49,15 @@ const DetailPage = () => {
 
   const onAddComment = async (event, comment, id) => {
     event.preventDefault()
-    await dispatch(asyncCreateComment({ content: comment, id }))
-    setComment('')
+    dispatch(setLoadingTrueActionCreator())
+
+    const status = await dispatch(asyncCreateComment({ content: comment, id }))
+
+    if (status === 'success') {
+      setComment('')
+    }
+
+    dispatch(setLoadingFalseActionCreator())
   }
 
   const onGiveUpVoteThread = async (id) => {
@@ -150,7 +158,7 @@ const DetailPage = () => {
               type='text'
               value={comment}
               onChange={setComment}
-              placeholder='Your thought'
+              placeholder='Comment here'
               className='border rounded-xl py-2 px-3 bg-white w-full'
               required
             />

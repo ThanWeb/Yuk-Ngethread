@@ -92,6 +92,9 @@ const asyncCreateComment = ({ content, id }) => {
 
       if (status !== 'fail') {
         dispatch(createCommentActionCreator(data.comment, id))
+        return status
+      } else if (status === 'fail') {
+        dispatch(setMessageActionCreator({ show: true, error: status === 'fail', text: message }))
       }
 
       dispatch(setMessageActionCreator({ show: true, error: status === 'fail', text: message }))

@@ -44,10 +44,12 @@ const HomePage = () => {
     setCategoryList(tempCategoryList)
   }
 
-  const onAddComment = async (comment, id) => {
+  const onAddComment = async (event, comment, id) => {
+    event.preventDefault()
     dispatch(setLoadingTrueActionCreator())
-    await dispatch(asyncCreateComment({ content: comment, id }))
+    const status = await dispatch(asyncCreateComment({ content: comment, id }))
     dispatch(setLoadingFalseActionCreator())
+    return status
   }
 
   const changeCategory = (category) => {

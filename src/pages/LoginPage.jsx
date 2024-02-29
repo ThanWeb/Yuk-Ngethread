@@ -25,7 +25,7 @@ const LoginPage = () => {
   }
 
   useEffect(() => {
-    setIsEmailValid(checkEmailIsValid(email))
+    setIsEmailValid(checkEmailIsValid(email) !== null)
   }, [email])
 
   return (
