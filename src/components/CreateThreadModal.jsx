@@ -7,7 +7,7 @@ const CreateThreadModal = ({ props }) => {
     <div className={`${props.showCreateThreadModal ? 'fixed z-30' : 'hidden'} w-screen h-screen top-0 left-0`}>
       <div className='w-full h-full relative top-0 left-0 flex'>
         <div
-          className='absolute z-20 bg-slate-300 opacity-70 w-screen h-screen top-0 left-0'
+          className='absolute z-20 bg-slate-300 opacity-70 w-screen h-screen top-0 left-0 cursor-pointer'
           onClick={() => {
             props.setShowCreateThreadModal(false)
           }}
@@ -60,7 +60,14 @@ const CreateThreadModal = ({ props }) => {
                   isRequired: false
                 }}
               />
-              <div className='flex justify-end'>
+              <div className='flex justify-end gap-x-3'>
+                <button
+                  type='button'
+                  onClick={() => { props.setShowCreateThreadModal(false) }}
+                  className='w-fit bg-red-500 text-white rounded-xl px-6 py-2 font-bold mt-6'
+                >
+                  Cancel
+                </button>
                 <button
                   type='submit'
                   disabled={!props.title || !props.body}
