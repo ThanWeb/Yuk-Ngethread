@@ -1,19 +1,17 @@
 
 import { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { TbCircleCheck, TbFilter } from 'react-icons/tb'
-import { asyncCreateThread, asyncCreateComment, asyncGiveUpVote, asyncGiveDownVote } from '../states/threads/action'
+import { asyncCreateComment, asyncGiveUpVote, asyncGiveDownVote } from '../states/threads/action'
 import useInput from '../hooks/useInput'
 import { asyncPopulateUsersAndThreads } from '../states/shared/action'
 import ThreadPreview from '../components/ThreadPreview'
-import TextInput from '../components/TextInput'
+import { setLoadingFalseActionCreator, setLoadingTrueActionCreator } from '../states/isLoading/action'
+import PreloadLoading from '../components/PreloadLoading'
 
 const HomePage = () => {
-  const { threads = [], users = [], authUser } = useSelector((states) => states)
   const dispatch = useDispatch()
-  const [title, setTitle] = useInput()
-  const [body, setBody] = useInput()
-  const [category, setCategory] = useInput()
+
+  const { threads = [], users = [], authUser } = useSelector((states) => states)
   const [filterQuery, setFilterQuery] = useInput()
   const [categoryList, setCategoryList] = useState([])
 
@@ -25,23 +23,17 @@ const HomePage = () => {
     dispatch(asyncPopulateUsersAndThreads())
   }, [dispatch])
 
-  const onCreateThread = (title, body, category) => {
-    dispatch(asyncCreateThread({ title, body, category }))
-    setTitle('')
-    setBody('')
-    setCategory('')
+  const onGiveUpVote = async (id) => {
+    await dispatch(asyncGiveUpVote(id, authUser.id))
   }
 
-  const onGiveUpVote = (id) => {
-    dispatch(asyncGiveUpVote(id))
-  }
-
-  const onGiveDownVote = (id) => {
-    dispatch(asyncGiveDownVote(id))
+  const onGiveDownVote = async (id) => {
+    await dispatch(asyncGiveDownVote(id, authUser.id))
   }
 
   const collectCategories = () => {
     const tempCategoryList = []
+
     threads.forEach(thread => {
       if (!tempCategoryList.includes(thread.category)) {
         if (thread.category !== 'general') {
@@ -49,11 +41,16 @@ const HomePage = () => {
         }
       }
     })
+
     setCategoryList(tempCategoryList)
   }
 
-  const onAddComment = (comment, id) => {
-    dispatch(asyncCreateComment({ content: comment, id }))
+  const onAddComment = async (event, comment, id) => {
+    event.preventDefault()
+    dispatch(setLoadingTrueActionCreator())
+    const status = await dispatch(asyncCreateComment({ content: comment, id }))
+    dispatch(setLoadingFalseActionCreator())
+    return status
   }
 
   const changeCategory = (category) => {
@@ -64,62 +61,49 @@ const HomePage = () => {
     }
   }
 
+  const filterCategory = (threads) => {
+    if (threads.length > 0) {
+      return threads.filter(item => item.category.toLowerCase().match(filterQuery.replace(/[^a-zA-Z0-9 ]/g, '').toLowerCase()) !== null)
+    }
+
+    return []
+  }
+
+  if (threads.length < 0) {
+    return <PreloadLoading />
+  }
+
   return (
-    <div className='home-page'>
-      <div id='create-thread' className='create-thread'>
-        <div className='intro'>
-          <h3>What is going on inside your head?</h3>
-        </div>
-        <div className='form-container'>
-          <form>
-            <TextInput
-                            props={{
-                              value: title,
-                              type: 'text',
-                              id: 'title',
-                              placeholder: 'Title please',
-                              label: 'Title',
-                              setValue: setTitle
-                            }}
-                        />
-            <div className='input-field'>
-              <label htmlFor='body'>Content</label>
-              <textarea id='body' type='text' value={body} onChange={setBody} placeholder='Your thoughts' required/>
-            </div>
-            <div className='input-field'>
-              <label htmlFor='body'>Category</label>
-              <input id='body' type='text' value={category} onChange={setCategory} placeholder='What category'/>
-            </div>
-            <div>
-              <button type='button' onClick={() => onCreateThread(title, body, category)} disabled={!title || !body}>
-                <span>Create</span>
-                <TbCircleCheck className='icons' />
-              </button>
-            </div>
-          </form>
-        </div>
-      </div>
-      <div id='filter-section' className='filter-section'>
-        <div className='filter'>
-          <button>
-            <TbFilter className='icons' />
-            <h3>Filter</h3>
-          </button>
-        </div>
-        <div className='buttons'>
+    <div className='container mx-auto'>
+      <div className='px-6 pt-6'>
+        <div className='flex flex-wrap gap-3'>
           {
-                        categoryList.map((category, index) =>
-                          <button key={index} className={filterQuery === category ? 'selected' : ''} onClick={() => changeCategory(category)}>{category}</button>
-                        )
-                    }
+            categoryList.map((category, index) =>
+              <button
+                key={index}
+                onClick={() => changeCategory(category)}
+                className={`p-2 rounded-xl shadow-md ${category === filterQuery ? 'bg-cyan-900 text-white' : 'bg-white'}`}
+              >
+                #{category}
+              </button>
+            )
+          }
         </div>
       </div>
-      <div className='thread-list'>
+      <div className='flex flex-col gap-y-6 p-6'>
         {
-                    threads.map((thread, index) =>
-                      <ThreadPreview key={index} thread={thread} users={users} authUser={authUser} onAddComment={onAddComment} filterQuery={filterQuery} onGiveUpVote={onGiveUpVote} onGiveDownVote={onGiveDownVote} />
-                    )
-                }
+          filterCategory(threads).map((thread, index) =>
+            <ThreadPreview
+              key={index}
+              thread={thread}
+              users={users}
+              authUser={authUser}
+              onAddComment={onAddComment}
+              onGiveUpVote={onGiveUpVote}
+              onGiveDownVote={onGiveDownVote}
+            />
+          )
+        }
       </div>
     </div>
   )

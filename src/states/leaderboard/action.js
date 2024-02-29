@@ -1,5 +1,4 @@
 import api from '../../utils/api'
-import { showLoading, hideLoading } from '../../utils'
 
 const ActionType = {
   RECEIVE_LEADERBOARDS: 'RECEIVE_LEADERBOARDS'
@@ -16,14 +15,12 @@ const receiveLeaderboardsActionCreator = (leaderboards) => {
 
 const asyncReceiveLeaderboards = () => {
   return async (dispatch) => {
-    showLoading()
     try {
       const leaderboards = await api.getLeaderboards()
       dispatch(receiveLeaderboardsActionCreator(leaderboards))
     } catch (error) {
-      alert(error.message)
+      return api.handleError(error)
     }
-    hideLoading()
   }
 }
 

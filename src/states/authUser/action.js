@@ -1,5 +1,5 @@
 import api from '../../utils/api'
-import { showLoading, hideLoading } from '../../utils'
+import { setMessageActionCreator } from '../message/action'
 
 const ActionType = {
   SET_AUTH_USER: 'SET_AUTH_USER',
@@ -26,25 +26,27 @@ const unsetAuthUserActionCreator = () => {
 
 const asyncSetAuthUser = ({ email, password }) => {
   return async (dispatch) => {
-    showLoading()
     try {
-      const token = await api.login({ email, password })
-      api.putAccessToken(token)
-      const authUser = await api.getOwnProfile()
-      dispatch(setAuthUserActionCreator(authUser))
+      const { status = 'fail', message = '', data = null } = await api.login({ email, password })
+
+      if (status !== 'fail') {
+        api.putAccessToken(data.token)
+        const authUser = await api.getOwnProfile()
+        dispatch(setAuthUserActionCreator(authUser))
+        dispatch(setMessageActionCreator({ show: true, error: status === 'fail', text: `welcome ${authUser.name}` }))
+      } else {
+        dispatch(setMessageActionCreator({ show: true, error: status === 'fail', text: message }))
+      }
     } catch (error) {
-      alert(error.message)
+      return api.handleError(error)
     }
-    hideLoading()
   }
 }
 
 const asyncUnsetAuthUser = () => {
   return (dispatch) => {
-    showLoading()
     dispatch(unsetAuthUserActionCreator())
     api.putAccessToken('')
-    hideLoading()
   }
 }
 

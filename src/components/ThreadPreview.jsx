@@ -2,37 +2,22 @@ import { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
 import useInput from '../hooks/useInput'
-import { TbMessage2, TbSquarePlus, TbMoodSmile, TbMoodSad, TbListDetails } from 'react-icons/tb'
-import TextInput from '../components/TextInput'
+import { AiOutlineLike, AiOutlineDislike, AiFillLike, AiFillDislike, AiOutlineMessage, AiOutlineMore, AiOutlineSend } from 'react-icons/ai'
 import UserAvatar from '../components/UserAvatar'
 import ThreadInfo from '../components/ThreadInfo'
 import ThreadContent from '../components/ThreadContent'
 import VoteInfo from '../components/VoteInfo'
+import { getFormattedDateString } from '../utils'
 
-const ThreadPreview = ({ thread, users, authUser, onAddComment, filterQuery, onGiveUpVote, onGiveDownVote }) => {
+const ThreadPreview = ({ thread, users, authUser, onAddComment, onGiveUpVote, onGiveDownVote }) => {
   const [avatar, setAvatar] = useState('')
   const [name, setName] = useState('')
   const [showCommentSection, setShowCommentSection] = useState(false)
-  const [showVoteSection, setShowVoteSection] = useState(false)
   const [comment, setComment] = useInput()
 
   useEffect(() => {
     findOwnerThread(thread.ownerId)
   }, [thread])
-
-  const toggleShowSection = (voteSection) => {
-    if (voteSection) {
-      setShowVoteSection(true)
-      if (showCommentSection) {
-        setShowCommentSection(false)
-      }
-    } else {
-      setShowCommentSection(true)
-      if (showVoteSection) {
-        setShowVoteSection(false)
-      }
-    }
-  }
 
   const findOwnerThread = (id) => {
     const currentUser = users.find((user) => user.id === id)
@@ -40,92 +25,109 @@ const ThreadPreview = ({ thread, users, authUser, onAddComment, filterQuery, onG
     setName(currentUser.name)
   }
 
-  const addCommentHandler = (comment, id) => {
-    onAddComment(comment, id)
-    setComment('')
-  }
+  const addCommentHandler = async (event, comment, id) => {
+    const status = await onAddComment(event, comment, id)
 
-  if (!avatar || !name) {
-    return (
-      <p>Loading</p>
-    )
+    if (status === 'success') {
+      setComment('')
+    }
   }
 
   return (
-    <div className={!thread.category.toLowerCase().includes(filterQuery.toLowerCase()) ? 'hidden thread-preview' : 'thread-preview'}>
-      <div>
-        <div className='header-section'>
-          <UserAvatar avatar={avatar} name={name} />
-          <ThreadInfo category={thread.category} name={name} createdAt={thread.createdAt} />
+    <div className='bg-white p-5 rounded-xl shadow-md'>
+      <div className='flex flex-col gap-y-2'>
+        <div className='flex gap-x-4 items-center pb-1'>
+          <UserAvatar
+            avatar={avatar}
+            name={name}
+          />
+          <ThreadInfo
+            category={thread.category}
+            name={name}
+          />
         </div>
-        <ThreadContent title={thread.title} body={thread.body} id={thread.id} />
-        <div className='response-section'>
-          <VoteInfo users={users} detail={thread} />
+        <div className='border-b-2'/>
+        <ThreadContent
+          title={thread.title}
+          body={thread.body}
+          id={thread.id}
+        />
+        <p className='text-sm text-gray-500 italic'>{getFormattedDateString(thread.createdAt)}</p>
+        <div className='mt-3 text-sm text-gray-600'>
+          <VoteInfo
+            users={users}
+            detail={thread}
+          />
           {
-                        thread.totalComments > 1
-                          ? <p>{thread.totalComments} comments</p>
-                          : <p>{thread.totalComments} comment</p>
-                    }
+            thread.totalComments > 1
+              ? <p className='mt-1'><span className='font-semibold'>{thread.totalComments}</span> comments</p>
+              : <p className='mt-1'><span className='font-semibold'>{thread.totalComments}</span> comment</p>
+          }
         </div>
       </div>
-      <div>
-        <div className='interactive-section'>
-          <div className='buttons-section'>
-            <button type='button' onClick={() => toggleShowSection(true)} data-testid='open-votes-button'>
-              <span>Vote</span>
-              <TbSquarePlus className='icons' />
-            </button>
-            <button type='button' onClick={() => toggleShowSection(false)}>
-              <span>Comment</span>
-              <TbMessage2 className='icons' />
-            </button>
-            <Link to={`/threads/${thread.id}`}>
-              <span>More</span>
-              <TbListDetails className='icons' />
-            </Link>
-          </div>
-          <div className='add-response-section'>
+      <div className='pt-5'>
+        <div className={`flex justify-start gap-x-6 ${showCommentSection ? 'mb-5' : ''}`}>
+          <button
+            type='button'
+            onClick={() => onGiveUpVote(thread.id)}
+            disabled={thread.upVotesBy.includes(authUser.id)}
+            data-testid='up-vote-button'
+            className='flex gap-x-1 items-center'
+          >
             {
-                            showVoteSection || showCommentSection
-                              ? <div className='user-section'>
-                                <img src={authUser.avatar} alt={authUser.name} title={authUser.name} />
-                              </div>
-                              : null
-                        }
+              thread.upVotesBy.includes(authUser.id)
+                ? <AiFillLike className='w-6 h-6 text-slate-700'/>
+                : <AiOutlineLike className='w-6 h-6 text-slate-700'/>
+            }
+            <span className='text-slate-700'>{thread.upVotesBy.length}</span>
+          </button>
+          <button
+            type='button'
+            onClick={() => onGiveDownVote(thread.id)}
+            disabled={thread.downVotesBy.includes(authUser.id)}
+            data-testid='down-vote-button'
+            className='flex gap-x-1 items-center'
+          >
             {
-                            showVoteSection &&
-                            <div className='vote-section'>
-                              <span>Vote</span>
-                              <button type='button' onClick={() => onGiveUpVote(thread.id)} disabled={thread.upVotesBy.includes(authUser.id)} data-testid='up-vote-button'>
-                                <TbMoodSmile className='icons' />
-                              </button>
-                              <span data-testid='up-vote-total'>{thread.upVotesBy.length}</span>
-                              <button type='button' onClick={() => onGiveDownVote(thread.id)} disabled={thread.downVotesBy.includes(authUser.id)} data-testid='down-vote-button'>
-                                <TbMoodSad className='icons' />
-                              </button>
-                              <span data-testid='down-vote-total'>{thread.downVotesBy.length}</span>
-                            </div>
-                        }
-            {
-                            showCommentSection &&
-                            <div className='comment-section'>
-                              <form className='form-section'>
-                                <TextInput
-                                        props={{
-                                          value: comment,
-                                          type: 'text',
-                                          id: 'comment',
-                                          placeholder: 'Your thought',
-                                          label: 'Comment',
-                                          setValue: setComment
-                                        }}
-                                    />
-                                <button type='button' onClick={() => addCommentHandler(comment, thread.id)} disabled={!comment}>Send</button>
-                              </form>
-                            </div>
-                        }
-          </div>
+              thread.downVotesBy.includes(authUser.id)
+                ? <AiFillDislike className='w-6 h-6 text-slate-700'/>
+                : <AiOutlineDislike className='w-6 h-6 text-slate-700'/>
+            }
+            <span className='text-slate-700'>{thread.downVotesBy.length}</span>
+          </button>
+          <button
+            type='button'
+            onClick={() => setShowCommentSection(!showCommentSection)}
+          >
+            <AiOutlineMessage className={`w-6 h-6 ${showCommentSection ? 'text-blue-600' : 'text-slate-700'}`}/>
+          </button>
+          <Link to={`/threads/${thread.id}`} className='ml-auto'>
+            <AiOutlineMore className='w-6 h-6 text-slate-700'/>
+          </Link>
         </div>
+        <form onSubmit={(event) => { addCommentHandler(event, comment, thread.id) }} className={`${showCommentSection ? 'h-fit pt-5 border-t-2' : 'h-0'} w-full flex items-center gap-x-3 overflow-hidden`}>
+          <img
+            src={authUser.avatar}
+            alt={authUser.name}
+            title={authUser.name}
+            className='w-10 h-10 rounded-full'
+          />
+          <input
+            type='text'
+            value={comment}
+            onChange={setComment}
+            placeholder='Your thought'
+            className='border rounded-xl py-2 px-3 bg-white w-full'
+            required
+          />
+          <button
+            type='submit'
+            disabled={!comment}
+            className='w-8 h-8'
+          >
+            <AiOutlineSend className='w-7 h-7 text-slate-700'/>
+          </button>
+        </form>
       </div>
     </div>
   )

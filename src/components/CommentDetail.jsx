@@ -6,14 +6,17 @@ import { getFormattedDateString } from '../utils'
 const CommentDetail = ({ comment }) => {
   return (
     <>
-      <div className='comment-header'>
-        <UserAvatar avatar={comment.owner.avatar} name={comment.owner.name} />
-        <div className='comment-info'>
-          <h3 className='thread-owner'>{comment.owner.name}</h3>
-          <p className='thread-created'>{getFormattedDateString(comment.createdAt)}</p>
+      <div className='flex gap-x-4 items-center pb-1'>
+        <UserAvatar
+          avatar={comment.owner.avatar}
+          name={comment.owner.name}
+        />
+        <div>
+          <h3>{comment.owner.name}</h3>
+          <p>{getFormattedDateString(comment.createdAt)}</p>
         </div>
       </div>
-      <div className='comment-content'>{parse(comment.content)}</div>
+      <div className='pt-2'>{parse(comment.content)}</div>
     </>
   )
 }

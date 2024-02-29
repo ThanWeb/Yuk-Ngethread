@@ -1,16 +1,14 @@
 import api from '../../utils/api'
-import { showLoading, hideLoading } from '../../utils'
+import { setMessageActionCreator } from '../message/action'
 
 const ActionType = {
   RECEIVE_THREAD_DETAIL: 'RECEIVE_THREAD_DETAIL',
   CLEAR_THREAD_DETAIL: 'CLEAR_THREAD_DETAIL',
   GIVE_UP_VOTE_THREAD_DETAIL: 'GIVE_UP_VOTE_THREAD_DETAIL',
   GIVE_DOWN_VOTE_THREAD_DETAIL: 'GIVE_DOWN_VOTE_THREAD_DETAIL',
-  // GIVE_NEUTRAL_VOTE_THREAD_DETAIL: 'GIVE_NEUTRAL_VOTE_THREAD_DETAIL',
   CREATE_COMMENT_THREAD_DETAIL: 'CREATE_COMMENT_THREAD_DETAIL',
   GIVE_UP_VOTE_COMMENT_THREAD_DETAIL: 'GIVE_UP_VOTE_COMMENT_THREAD_DETAIL',
   GIVE_DOWN_VOTE_COMMENT_THREAD_DETAIL: 'GIVE_DOWN_VOTE_COMMENT_THREAD_DETAIL'
-  // GIVE_NEUTRAL_VOTE_COMMENT_THREAD_DETAIL: 'GIVE_NEUTRAL_VOTE_COMMENT_THREAD_DETAIL'
 }
 
 const clearThreadDetailActionCreator = () => {
@@ -77,80 +75,96 @@ const giveDownVoteCommentActionCreator = ({ commentId, vote }) => {
 
 const asyncReceiveThreadDetail = (threadId) => {
   return async (dispatch) => {
-    showLoading()
     dispatch(clearThreadDetailActionCreator())
     try {
-      const threadDetail = await api.getDetailThread(threadId)
-      dispatch(receiveThreadDetailActionCreator(threadDetail))
+      const response = await api.getDetailThread(threadId)
+      return response
     } catch (error) {
-      alert(error.message)
+      return api.handleError(error)
     }
-    hideLoading()
   }
 }
 
 const asyncCreateComment = ({ content, id }) => {
   return async (dispatch) => {
-    showLoading()
     try {
-      const comment = await api.createCommentThread({ content, id })
-      dispatch(createCommentActionCreator(comment))
+      const { status = 'fail', message = '', data = null } = await api.createCommentThread({ content, id })
+
+      if (status !== 'fail') {
+        dispatch(createCommentActionCreator(data.comment, id))
+        return status
+      } else if (status === 'fail') {
+        dispatch(setMessageActionCreator({ show: true, error: status === 'fail', text: message }))
+      }
+
+      dispatch(setMessageActionCreator({ show: true, error: status === 'fail', text: message }))
     } catch (error) {
-      alert(error.message)
+      return api.handleError(error)
     }
-    hideLoading()
   }
 }
 
 const asyncGiveUpVoteDetail = (id) => {
   return async (dispatch) => {
-    showLoading()
     try {
-      const vote = await api.giveUpVoteThread(id)
-      dispatch(giveUpVoteDetailActionCreator(vote))
+      const { status = 'fail', message = '', data = null } = await api.giveUpVoteThread(id)
+
+      if (status !== 'fail') {
+        dispatch(giveUpVoteDetailActionCreator(data.vote))
+      }
+
+      dispatch(setMessageActionCreator({ show: true, error: status === 'fail', text: message }))
     } catch (error) {
-      alert(error.message)
+      return api.handleError(error)
     }
-    hideLoading()
   }
 }
 
 const asyncGiveDownVoteDetail = (id) => {
   return async (dispatch) => {
-    showLoading()
     try {
-      const vote = await api.giveDownVoteThread(id)
-      dispatch(giveDownVoteDetailActionCreator(vote))
+      const { status = 'fail', message = '', data = null } = await api.giveDownVoteThread(id)
+
+      if (status !== 'fail') {
+        dispatch(giveDownVoteDetailActionCreator(data.vote))
+      }
+
+      dispatch(setMessageActionCreator({ show: true, error: status === 'fail', text: message }))
     } catch (error) {
-      alert(error.message)
+      return api.handleError(error)
     }
-    hideLoading()
   }
 }
 
 const asyncGiveUpVoteComment = ({ threadId, commentId }) => {
   return async (dispatch) => {
-    showLoading()
     try {
-      const vote = await api.giveUpVoteComment({ threadId, commentId })
-      dispatch(giveUpVoteCommentActionCreator({ commentId, vote }))
+      const { status = 'fail', message = '', data = null } = await api.giveUpVoteComment({ threadId, commentId })
+
+      if (status !== 'fail') {
+        dispatch(giveUpVoteCommentActionCreator({ commentId, vote: data.vote }))
+      }
+
+      dispatch(setMessageActionCreator({ show: true, error: status === 'fail', text: message }))
     } catch (error) {
-      alert(error.message)
+      return api.handleError(error)
     }
-    hideLoading()
   }
 }
 
 const asyncGiveDownVoteComment = ({ threadId, commentId }) => {
   return async (dispatch) => {
-    showLoading()
     try {
-      const vote = await api.giveDownVoteComment({ threadId, commentId })
-      dispatch(giveDownVoteCommentActionCreator({ commentId, vote }))
+      const { status = 'fail', message = '', data = null } = await api.giveDownVoteComment({ threadId, commentId })
+
+      if (status !== 'fail') {
+        dispatch(giveDownVoteCommentActionCreator({ commentId, vote: data.vote }))
+      }
+
+      dispatch(setMessageActionCreator({ show: true, error: status === 'fail', text: message }))
     } catch (error) {
-      alert(error.message)
+      return api.handleError(error)
     }
-    hideLoading()
   }
 }
 

@@ -1,20 +1,20 @@
 import api from '../../utils/api'
 import { receiveThreadsActionCreator } from '../threads/action'
 import { receiveUsersActionCreator } from '../users/action'
-import { showLoading, hideLoading } from '../../utils'
+import { setLoadingTrueActionCreator, setLoadingFalseActionCreator } from '../isLoading/action'
 
 const asyncPopulateUsersAndThreads = () => {
   return async (dispatch) => {
-    showLoading()
     try {
+      dispatch(setLoadingTrueActionCreator())
       const users = await api.getAllUsers()
       const threads = await api.getAllThreads()
       dispatch(receiveUsersActionCreator(users))
       dispatch(receiveThreadsActionCreator(threads))
+      dispatch(setLoadingFalseActionCreator())
     } catch (error) {
-      alert(error.message)
+      return api.handleError(error)
     }
-    hideLoading()
   }
 }
 

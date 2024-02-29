@@ -1,4 +1,4 @@
-const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
+const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
 const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
 
 const checkEmailIsValid = (text) => {
@@ -13,9 +13,8 @@ const getFormattedDateString = (isoDate) => {
   const date = new Date(isoDate)
   const hours = date.getHours() < 10 ? `0${date.getHours()}` : date.getHours()
   const minutes = date.getMinutes() < 10 ? `0${date.getMinutes()}` : date.getMinutes()
-  const seconds = date.getSeconds() < 10 ? `0${date.getSeconds()}` : date.getSeconds()
 
-  return `${days[date.getDay()]}, ${date.getDate()} ${months[date.getMonth()]} ${date.getFullYear()} at ${hours}:${minutes}:${seconds}`
+  return `${days[date.getDay()]}, ${hours}:${minutes} | ${months[date.getMonth()]} ${date.getDate()}, ${date.getFullYear()}`
 }
 
 const findWhoGiveVote = (users, id) => {
@@ -27,16 +26,4 @@ const findWhoGiveVote = (users, id) => {
   }
 }
 
-const showLoading = () => {
-  if (document.querySelector('.loading')) {
-    document.querySelector('.loading').classList.remove('hide')
-  }
-}
-
-const hideLoading = () => {
-  if (document.querySelector('.loading')) {
-    document.querySelector('.loading').classList.add('hide')
-  }
-}
-
-export { checkEmailIsValid, getFormattedDateString, findWhoGiveVote, showLoading, hideLoading }
+export { checkEmailIsValid, getFormattedDateString, findWhoGiveVote }

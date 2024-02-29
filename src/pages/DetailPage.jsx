@@ -1,115 +1,224 @@
 import { useEffect } from 'react'
-import { useParams } from 'react-router-dom'
+import { useParams, useNavigate } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
-import { asyncReceiveThreadDetail, asyncCreateComment, asyncGiveUpVoteDetail, asyncGiveDownVoteDetail, asyncGiveUpVoteComment, asyncGiveDownVoteComment } from '../states/threadDetail/action'
+import {
+  asyncReceiveThreadDetail,
+  asyncCreateComment,
+  asyncGiveUpVoteDetail,
+  asyncGiveDownVoteDetail,
+  asyncGiveUpVoteComment,
+  asyncGiveDownVoteComment,
+  receiveThreadDetailActionCreator
+} from '../states/threadDetail/action'
 import { asyncPopulateUsersAndThreads } from '../states/shared/action'
-import { TbMoodSmile, TbMoodSad } from 'react-icons/tb'
+import { AiOutlineLike, AiOutlineDislike, AiFillLike, AiFillDislike, AiOutlineSend, AiOutlineMessage } from 'react-icons/ai'
 import useInput from '../hooks/useInput'
 import UserAvatar from '../components/UserAvatar'
 import ThreadInfo from '../components/ThreadInfo'
 import ThreadContent from '../components/ThreadContent'
 import VoteInfo from '../components/VoteInfo'
 import CommentDetail from '../components/CommentDetail'
-import TextInput from '../components/TextInput'
+import PreloadLoading from '../components/PreloadLoading'
+import { setMessageActionCreator } from '../states/message/action'
+import { setLoadingTrueActionCreator, setLoadingFalseActionCreator } from '../states/isLoading/action'
+import { getFormattedDateString } from '../utils'
 
 const DetailPage = () => {
-  const { id } = useParams()
-  const { threadDetail = null, users = [], authUser } = useSelector((states) => states)
   const dispatch = useDispatch()
+  const navigate = useNavigate()
+  const { id } = useParams()
+
   const [comment, setComment] = useInput()
+  const { threadDetail = null, users = [], authUser } = useSelector((states) => states)
 
   useEffect(() => {
-    dispatch(asyncReceiveThreadDetail(id))
-    dispatch(asyncPopulateUsersAndThreads())
+    init()
   }, [id, dispatch])
 
-  const onAddComment = (comment, id) => {
-    dispatch(asyncCreateComment({ content: comment, id }))
-    setComment('')
+  const init = async () => {
+    await dispatch(asyncPopulateUsersAndThreads())
+    const { status = 'fail', message = '', data = null } = await dispatch(asyncReceiveThreadDetail(id))
+
+    if (status !== 'fail') {
+      dispatch(receiveThreadDetailActionCreator(data.detailThread))
+    } else {
+      dispatch(setMessageActionCreator({ show: true, error: true, text: message }))
+      setTimeout(() => { navigate('/') }, 2000)
+    }
   }
 
-  const onGiveUpVoteThread = (id) => {
-    dispatch(asyncGiveUpVoteDetail(id))
+  const onAddComment = async (event, comment, id) => {
+    event.preventDefault()
+    dispatch(setLoadingTrueActionCreator())
+
+    const status = await dispatch(asyncCreateComment({ content: comment, id }))
+
+    if (status === 'success') {
+      setComment('')
+    }
+
+    dispatch(setLoadingFalseActionCreator())
   }
 
-  const onGiveDownVoteThread = (id) => {
-    dispatch(asyncGiveDownVoteDetail(id))
+  const onGiveUpVoteThread = async (id) => {
+    await dispatch(asyncGiveUpVoteDetail(id))
   }
 
-  const onGiveUpVoteComment = ({ threadId, commentId }) => {
-    dispatch(asyncGiveUpVoteComment({ threadId, commentId }))
+  const onGiveDownVoteThread = async (id) => {
+    await dispatch(asyncGiveDownVoteDetail(id))
   }
 
-  const onGiveDownVoteComment = ({ threadId, commentId }) => {
-    dispatch(asyncGiveDownVoteComment({ threadId, commentId }))
+  const onGiveUpVoteComment = async ({ threadId, commentId }) => {
+    await dispatch(asyncGiveUpVoteComment({ threadId, commentId }))
   }
 
-  if (threadDetail === null) {
-    return (
-      <p>Loading</p>
-    )
+  const onGiveDownVoteComment = async ({ threadId, commentId }) => {
+    await dispatch(asyncGiveDownVoteComment({ threadId, commentId }))
+  }
+
+  if (threadDetail === null || threadDetail.id !== id) {
+    return <PreloadLoading />
   }
 
   return (
-    <div className='detail-page'>
-      <div className='header-section'>
-        <UserAvatar avatar={threadDetail.owner.avatar} name={threadDetail.owner.name} />
-        <ThreadInfo category={threadDetail.category} name={threadDetail.owner.name} createdAt={threadDetail.createdAt} />
-      </div>
-      <ThreadContent title={threadDetail.title} body={threadDetail.body} />
-      <div className='vote-section'>
-        <VoteInfo users={users} detail={threadDetail} />
-        <div className='vote-buttons'>
-          <button type='button' onClick={() => onGiveUpVoteThread(threadDetail.id)} disabled={threadDetail.upVotesBy.includes(authUser.id)}>
-            <TbMoodSmile className='icons' />
-          </button>
-          <span>{threadDetail.upVotesBy.length}</span>
-          {/* <button type='button'>Neutral</button> */}
-          <button type='button' onClick={() => onGiveDownVoteThread(threadDetail.id)} disabled={threadDetail.downVotesBy.includes(authUser.id)}>
-            <TbMoodSad className='icons' />
-          </button>
-          <span>{threadDetail.downVotesBy.length}</span>
+    <div className='container mx-auto'>
+      <div className='px-6 pt-6'>
+        <div className='bg-white p-5 rounded-xl shadow-md'>
+          <div className='flex flex-col gap-y-2'>
+            <div className='flex gap-x-4 items-center pb-1'>
+              <UserAvatar
+                avatar={threadDetail.owner.avatar}
+                name={threadDetail.owner.name}
+              />
+              <ThreadInfo
+                category={threadDetail.category}
+                name={threadDetail.owner.name}
+                createdAt={threadDetail.createdAt}
+              />
+            </div>
+            <div className='border-b-2'/>
+            <ThreadContent
+              title={threadDetail.title}
+              body={threadDetail.body}
+            />
+            <p className='text-sm text-gray-500 italic'>{getFormattedDateString(threadDetail.createdAt)}</p>
+            <div className='mt-3 text-sm text-gray-600'>
+              <VoteInfo
+                users={users}
+                detail={threadDetail}
+              />
+            </div>
+            <div className='pt-5 flex justify-start gap-x-6'>
+              <button
+                type='button'
+                onClick={() => onGiveUpVoteThread(threadDetail.id)}
+                disabled={threadDetail.upVotesBy.includes(authUser.id)}
+                data-testid='up-vote-button'
+                className='flex gap-x-1 items-center'
+              >
+                {
+                  threadDetail.upVotesBy.includes(authUser.id)
+                    ? <AiFillLike className='w-6 h-6 text-slate-700'/>
+                    : <AiOutlineLike className='w-6 h-6 text-slate-700'/>
+                }
+                <span className='text-slate-700'>{threadDetail.upVotesBy.length}</span>
+              </button>
+              <button
+                type='button'
+                onClick={() => onGiveDownVoteThread(threadDetail.id)}
+                disabled={threadDetail.downVotesBy.includes(authUser.id)}
+                data-testid='down-vote-button'
+                className='flex gap-x-1 items-center'
+              >
+                {
+                  threadDetail.downVotesBy.includes(authUser.id)
+                    ? <AiFillDislike className='w-6 h-6 text-slate-700'/>
+                    : <AiOutlineDislike className='w-6 h-6 text-slate-700'/>
+                }
+                <span className='text-slate-700'>{threadDetail.downVotesBy.length}</span>
+              </button>
+              <div className='flex gap-x-1 items-center'>
+                <AiOutlineMessage className='w-6 h-6 text-slate-700'/>
+                <span className='text-slate-700'>{threadDetail.comments.length}</span>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
-      <div className='comment-section'>
-        <div className='form-container'>
-          <form className='form-section'>
-            <TextInput
-                            props={{
-                              value: comment,
-                              type: 'text',
-                              id: 'comment',
-                              placeholder: 'Your thought',
-                              label: 'Comment',
-                              setValue: setComment
-                            }}
-                        />
-            <div>
-              <button type='button' onClick={() => onAddComment(comment, threadDetail.id)} disabled={!comment}>Post Comment</button>
-            </div>
+      <div>
+        <div className='p-6'>
+          <form onSubmit={(event) => { onAddComment(event, comment, threadDetail.id) }} className='bg-white h-fit p-5 w-full flex items-center gap-x-3 overflow-hidden rounded-xl shadow-md'>
+            <img
+              src={authUser.avatar}
+              alt={authUser.name}
+              title={authUser.name}
+              className='w-10 h-10 rounded-full'
+            />
+            <input
+              type='text'
+              value={comment}
+              onChange={setComment}
+              placeholder='Comment here'
+              className='border rounded-xl py-2 px-3 bg-white w-full'
+              required
+            />
+            <button
+              type='submit'
+              onClick={(event) => onAddComment(event, comment, threadDetail.id)}
+              disabled={!comment}
+              className='w-8 h-8'
+            >
+              <AiOutlineSend className='w-7 h-7 text-slate-700'/>
+            </button>
           </form>
         </div>
-        {
-                    threadDetail.comments.map((comment, index) =>
-                      <div className='comment-detail' key={index} >
-                        <CommentDetail comment={comment} />
-                        <div className='comment-vote-section'>
-                          <VoteInfo users={users} detail={comment} />
-                          <div className='vote-buttons'>
-                            <button type='button' onClick={() => onGiveUpVoteComment({ threadId: threadDetail.id, commentId: comment.id })} disabled={comment.upVotesBy.includes(authUser.id)}>
-                              <TbMoodSmile className='icons' />
-                            </button>
-                            <span>{comment.upVotesBy.length}</span>
-                            {/* <button type='button'>Neutral</button> */}
-                            <button type='button' onClick={() => onGiveDownVoteComment({ threadId: threadDetail.id, commentId: comment.id })} disabled={comment.downVotesBy.includes(authUser.id)}>
-                              <TbMoodSad className='icons' />
-                            </button>
-                            <span>{comment.downVotesBy.length}</span>
-                          </div>
-                        </div>
-                      </div>
-                    )
-                }
+        <div className='h-fit flex flex-col gap-y-6 px-6 pb-6'>
+          {
+            threadDetail.comments.map((comment, index) =>
+              <div key={index} className='p-5 bg-white rounded-xl shadow-md'>
+                <CommentDetail comment={comment} />
+                <div>
+                  <div className='mt-1 text-sm text-gray-600'>
+                    <VoteInfo
+                      users={users}
+                      detail={comment}
+                    />
+                  </div>
+                  <div className='pt-5 flex justify-start gap-x-6'>
+                    <button
+                      type='button'
+                      onClick={() => onGiveUpVoteComment({ threadId: threadDetail.id, commentId: comment.id })}
+                      disabled={comment.upVotesBy.includes(authUser.id)}
+                      data-testid='up-vote-button'
+                      className='flex gap-x-1 items-center'
+                    >
+                      {
+                        comment.upVotesBy.includes(authUser.id)
+                          ? <AiFillLike className='w-6 h-6 text-slate-700'/>
+                          : <AiOutlineLike className='w-6 h-6 text-slate-700'/>
+                      }
+                      <span className='text-slate-700'>{comment.upVotesBy.length}</span>
+                    </button>
+                    <button
+                      type='button'
+                      onClick={() => onGiveDownVoteComment({ threadId: threadDetail.id, commentId: comment.id })}
+                      disabled={comment.downVotesBy.includes(authUser.id)}
+                      data-testid='down-vote-button'
+                      className='flex gap-x-1 items-center'
+                    >
+                      {
+                        comment.downVotesBy.includes(authUser.id)
+                          ? <AiFillDislike className='w-6 h-6 text-slate-700'/>
+                          : <AiOutlineDislike className='w-6 h-6 text-slate-700'/>
+                      }
+                      <span className='text-slate-700'>{comment.downVotesBy.length}</span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            )
+          }
+        </div>
       </div>
     </div>
   )
