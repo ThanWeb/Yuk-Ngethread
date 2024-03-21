@@ -47,10 +47,6 @@ const App = () => {
   }, [dispatch])
 
   useEffect(() => {
-    console.log(authUser)
-  }, [authUser])
-
-  useEffect(() => {
     window.scrollTo(0, 0)
   }, [location])
 
